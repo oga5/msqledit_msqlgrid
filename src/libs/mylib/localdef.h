@@ -69,7 +69,7 @@ typedef struct {
 # ifdef _stprintf
 #  undef _stprintf
 # endif
-# define _stprintf(buf, ...) _sntprintf((buf), 4096, __VA_ARGS__)
+# define _stprintf(buf, ...) _sntprintf((buf), _countof(buf), __VA_ARGS__)
 #endif
 
 extern unsigned int g_oci_code_page;

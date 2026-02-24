@@ -28,7 +28,7 @@ static HINSTANCE my_dll = NULL;
 
 /* The DLL name can be overridden at compile time via -DLIBMYSQL_DLL_NAME=... */
 #ifndef LIBMYSQL_DLL_NAME
-#define LIBMYSQL_DLL_NAME   _T("LIBMYSQL.DLL")
+#define LIBMYSQL_DLL_NAME   _T("libmysql.dll")
 #endif
 
 /* Convenience macro: resolve one symbol; jump to ERR1 on failure. */

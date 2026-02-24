@@ -1,47 +1,47 @@
 ========================================================================
-       MICROSOFT FOUNDATION CLASS ライブラリ : psqledit
+       MICROSOFT FOUNDATION CLASS ライブラリ : msqledit
 ========================================================================
 
 
-AppWizard が生成した psqledit には、Microsoft Foundation Class の基本的な
+AppWizard が生成した msqledit には、Microsoft Foundation Class の基本的な
 使い方が示されています。アプリケーション作成のひな型としてお使いください。
 
-このファイルには psqledit を構成している各ファイルの概要説明が含まれています。
+このファイルには msqledit を構成している各ファイルの概要説明が含まれています。
 
-psqledit.dsp
+msqledit.dsp
     このファイル (プロジェクト ファイル) はプロジェクト レベルの情報を含み、
     シングル プロジェクトまたはサブ プロジェクトのビルドに使用されます。他の
     ユーザーとプロジェクト ファイル (.dsp) を共有できますが、メイク ファイル
     はローカルにエクスポートしてください。
 
-psqledit.h
+msqledit.h
     このファイルはアプリケーションの中心となるインクルードファイルです。この
     ファイルは他のプロジェクトの固有のインクルードファイル（Resource.h  も含
-    みます） をインクルードし、また CPsqleditApp アプリケーションクラスを宣
+    みます） をインクルードし、また CMsqleditApp アプリケーションクラスを宣
     言します。
 
-psqledit.cpp
-    このファイルは CPsqleditApp アプリケーションクラスを含むアプリケーション
+msqledit.cpp
+    このファイルは CMsqleditApp アプリケーションクラスを含むアプリケーション
     の中心となるソースファイルです。
 
-psqledit.rc
+msqledit.rc
     このファイルはプログラムが使用する Microsoft Windows のリソースを列挙しま
     す。このファイルは RES サブディレクトリに保存されているアイコン、ビットマ
     ップ、カーソルを含みます。このファイルは Microsoft Visual C++ で直接
     編集可能です。
 
-psqledit.clw
+msqledit.clw
     このファイルは ClassWizard  が既存のクラスの編集やクラスを新規作成すると
     きに使う情報を持っています。またこのファイルは、ClassWizard によるメッセ
     ージ マップやダイアログ データ マップの編集や生成、プロトタイプ メンバ関
     数の生成に必要な情報も持っています。
 
-res\psqledit.ico
+res\msqledit.ico
     このファイルは、アプリケーションのアイコンとして使用されるアイコンファイ
-    ルです。このアイコンはリソース ファイル psqledit.rc によってインクルード
+    ルです。このアイコンはリソース ファイル msqledit.rc によってインクルード
     されます。
 
-res\psqledit.rc2
+res\msqledit.rc2
     このファイルは Microsoft Visual C++ によって編集されないリソースを含んでいま
     す。このファイルにリソース エディタで編集されないすべてのリソースを記述
     してください。
@@ -61,7 +61,7 @@ res\Toolbar.bmp
     このビットマップ ファイルはツールバーのイメージとして使います。 ツールバ
     ーやステータスバーの初期設定は CMainFrame クラスによって構築されま
     す。ツールバーのボタンコントロールを追加したい時にはツールバーのビットマップを
-    リソースエディタで編集し、psqledit.rc ファイル内の IDR_MAINFRAME TOOLBAR 配列を
+    リソースエディタで編集し、msqledit.rc ファイル内の IDR_MAINFRAME TOOLBAR 配列を
     変更してください。
 /////////////////////////////////////////////////////////////////////////////
 
@@ -75,18 +75,18 @@ ChildFrm.h, ChildFrm.cpp
 
 AppWizard は 1 つのドキュメントタイプと 1 つのビューを作成します。
 
-psqleditDoc.h, psqleditDoc.cpp - ドキュメント
-    これらのファイルは CPsqleditDoc クラスを含みます。特別なドキュメント デ
-    ータを付け加えたり、CPsqleditDoc::Serialize を使ったファイルのセーブや
+msqleditDoc.h, msqleditDoc.cpp - ドキュメント
+    これらのファイルは CMsqleditDoc クラスを含みます。特別なドキュメント デ
+    ータを付け加えたり、CMsqleditDoc::Serialize を使ったファイルのセーブや
     ロード機能をインプリメントしたいときはこのファイルを編集してください。
 
-psqleditView.h, psqleditView.cpp - ビュー
-    これらのファイルは CPsqleditView クラスを含みます。
-    CPsqleditView オブジェクトは CPsqleditDoc オブジェクトを表示するために
+msqleditView.h, msqleditView.cpp - ビュー
+    これらのファイルは CMsqleditView クラスを含みます。
+    CMsqleditView オブジェクトは CMsqleditDoc オブジェクトを表示するために
     使います。
-res\psqleditDoc.ico
-    このファイルは CPsqleditDoc クラスの MDI 子ウィンドウ用アイコンとして使
-    われるアイコンファイルです。このアイコンはリソースファイル psqledit.rc
+res\msqleditDoc.ico
+    このファイルは CMsqleditDoc クラスの MDI 子ウィンドウ用アイコンとして使
+    われるアイコンファイルです。このアイコンはリソースファイル msqledit.rc
     によってインクルードされます。
 
 
@@ -94,7 +94,7 @@ res\psqleditDoc.ico
 その他の標準ファイル:
 
 StdAfx.h, StdAfx.cpp
-    これらのファイルはプリコンパイル済ヘッダー ファイル (PCH) psqledit.pch 
+    これらのファイルはプリコンパイル済ヘッダー ファイル (PCH) msqledit.pch 
     やプリコンパイル済型ファイル StdAfx.obj を構築するために使われるファイルです。
 
 Resource.h

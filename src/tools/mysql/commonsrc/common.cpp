@@ -103,7 +103,10 @@ void ListCtrlSortEx(CListCtrl* list_ctrl, int iSubItem, int sort_order)
 void make_object_name(CString *str, const TCHAR *object_name, BOOL lower)
 {
 	if(ostr_is_contain_upper(object_name)) {
-		str->Format(_T("`%s`"), object_name);
+		// Escape internal backticks by doubling them before wrapping in backticks
+		CString escaped_object_name(object_name);
+		escaped_object_name.Replace(_T("`"), _T("``"));
+		str->Format(_T("`%s`"), (LPCTSTR)escaped_object_name);
 	} else {
 		str->Format(_T("%s"), object_name);
 		if(lower != FALSE) str->MakeLower();
