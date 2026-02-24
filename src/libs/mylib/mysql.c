@@ -37,6 +37,7 @@ void my_kill_query(HMySession ss)
 {
     MYSQL        *kill_conn;
     char          kill_sql[64];
+    int           kill_sql_len;
     char          host_buf[256]   = "localhost";
     char          user_buf[256]   = "";
     char          passwd_buf[512] = "";
@@ -63,7 +64,17 @@ void my_kill_query(HMySession ss)
         return;
     }
 
-    sprintf(kill_sql, "KILL QUERY %lu", ss->thread_id);
+    /* Validate thread_id before constructing KILL QUERY */
+    if (ss->thread_id == 0 || ss->thread_id > 0xFFFFFFFFUL) {
+        fp_mysql_close(kill_conn);
+        return;
+    }
+
+    kill_sql_len = snprintf(kill_sql, sizeof(kill_sql), "KILL QUERY %lu", (unsigned long)ss->thread_id);
+    if (kill_sql_len < 0 || kill_sql_len >= (int)sizeof(kill_sql)) {
+        fp_mysql_close(kill_conn);
+        return;
+    }
     fp_mysql_query(kill_conn, kill_sql);
     fp_mysql_close(kill_conn);
 }
