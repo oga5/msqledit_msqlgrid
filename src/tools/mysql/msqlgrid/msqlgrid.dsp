@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="psqlgrid" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="msqlgrid" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** 編集しないでください **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=psqlgrid - Win32 Debug
+CFG=msqlgrid - Win32 Debug
 !MESSAGE これは有効なﾒｲｸﾌｧｲﾙではありません。 このﾌﾟﾛｼﾞｪｸﾄをﾋﾞﾙﾄﾞするためには NMAKE を使用してください。
 !MESSAGE [ﾒｲｸﾌｧｲﾙのｴｸｽﾎﾟｰﾄ] ｺﾏﾝﾄﾞを使用して実行してください
 !MESSAGE 
-!MESSAGE NMAKE /f "psqlgrid.mak".
+!MESSAGE NMAKE /f "msqlgrid.mak".
 !MESSAGE 
 !MESSAGE NMAKE の実行時に構成を指定できます
 !MESSAGE ｺﾏﾝﾄﾞ ﾗｲﾝ上でﾏｸﾛの設定を定義します。例:
 !MESSAGE 
-!MESSAGE NMAKE /f "psqlgrid.mak" CFG="psqlgrid - Win32 Debug"
+!MESSAGE NMAKE /f "msqlgrid.mak" CFG="msqlgrid - Win32 Debug"
 !MESSAGE 
 !MESSAGE 選択可能なﾋﾞﾙﾄﾞ ﾓｰﾄﾞ:
 !MESSAGE 
-!MESSAGE "psqlgrid - Win32 Release" ("Win32 (x86) Application" 用)
-!MESSAGE "psqlgrid - Win32 Debug" ("Win32 (x86) Application" 用)
+!MESSAGE "msqlgrid - Win32 Release" ("Win32 (x86) Application" 用)
+!MESSAGE "msqlgrid - Win32 Debug" ("Win32 (x86) Application" 用)
 !MESSAGE 
 
 # Begin Project
@@ -29,7 +29,7 @@ CPP=xicl6.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "psqlgrid - Win32 Release"
+!IF  "$(CFG)" == "msqlgrid - Win32 Release"
 
 # PROP BASE Use_MFC 6
 # PROP BASE Use_Debug_Libraries 0
@@ -39,7 +39,7 @@ RSC=rc.exe
 # PROP Use_MFC 5
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "../../../../exe/Release/psqledit"
-# PROP Intermediate_Dir "../../../../obj/Release/psqlgrid"
+# PROP Intermediate_Dir "../../../../obj/Release/msqlgrid"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /c
@@ -55,7 +55,7 @@ LINK32=xilink6.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /machine:I386
 # ADD LINK32 version.lib imm32.lib ostrutil.lib octrllib.lib pglib.lib ws2_32.lib ofileutil.lib /nologo /base:"0x500000" /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /libpath:"../../../../lib/release"
 
-!ELSEIF  "$(CFG)" == "psqlgrid - Win32 Debug"
+!ELSEIF  "$(CFG)" == "msqlgrid - Win32 Debug"
 
 # PROP BASE Use_MFC 6
 # PROP BASE Use_Debug_Libraries 1
@@ -65,7 +65,7 @@ LINK32=xilink6.exe
 # PROP Use_MFC 5
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "../../../../exe/Debug/psqledit"
-# PROP Intermediate_Dir "../../../../obj/Debug/psqlgrid"
+# PROP Intermediate_Dir "../../../../obj/Debug/msqlgrid"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /GZ /c
@@ -85,8 +85,8 @@ LINK32=xilink6.exe
 
 # Begin Target
 
-# Name "psqlgrid - Win32 Release"
-# Name "psqlgrid - Win32 Debug"
+# Name "msqlgrid - Win32 Release"
+# Name "msqlgrid - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -152,19 +152,19 @@ SOURCE=.\OptionSheet.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgrid.cpp
+SOURCE=.\msqlgrid.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgrid.rc
+SOURCE=.\msqlgrid.rc
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgridDoc.cpp
+SOURCE=.\msqlgridDoc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgridView.cpp
+SOURCE=.\msqlgridView.cpp
 # End Source File
 # Begin Source File
 
@@ -281,15 +281,15 @@ SOURCE=.\ProfNameFolder.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgrid.h
+SOURCE=.\msqlgrid.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgridDoc.h
+SOURCE=.\msqlgridDoc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqlgridView.h
+SOURCE=.\msqlgridView.h
 # End Source File
 # Begin Source File
 
@@ -345,15 +345,15 @@ SOURCE=.\res\ogrid.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqlgrid.ico
+SOURCE=.\res\msqlgrid.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqlgrid.rc2
+SOURCE=.\res\msqlgrid.rc2
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqlgridDoc.ico
+SOURCE=.\res\msqlgridDoc.ico
 # End Source File
 # Begin Source File
 

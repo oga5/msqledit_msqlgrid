@@ -5,7 +5,7 @@ Version=1
 LastClass=CPsqlgridDoc
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
-NewFileInclude2=#include "psqlgrid.h"
+NewFileInclude2=#include "msqlgrid.h"
 LastPage=0
 
 ClassCount=20
@@ -127,14 +127,14 @@ ImplementationFile=OptionSheet.cpp
 [CLS:CPsqlgridApp]
 Type=0
 BaseClass=CWinApp
-HeaderFile=psqlgrid.h
-ImplementationFile=psqlgrid.cpp
+HeaderFile=msqlgrid.h
+ImplementationFile=msqlgrid.cpp
 
 [CLS:CPsqlgridDoc]
 Type=0
 BaseClass=CDocument
-HeaderFile=psqlgridDoc.h
-ImplementationFile=psqlgridDoc.cpp
+HeaderFile=msqlgridDoc.h
+ImplementationFile=msqlgridDoc.cpp
 Filter=N
 VirtualFilter=DC
 LastObject=ID_GRID_SWAP_ROW_COL
@@ -142,8 +142,8 @@ LastObject=ID_GRID_SWAP_ROW_COL
 [CLS:CPsqlgridView]
 Type=0
 BaseClass=CScrollView
-HeaderFile=psqlgridView.h
-ImplementationFile=psqlgridView.cpp
+HeaderFile=msqlgridView.h
+ImplementationFile=msqlgridView.cpp
 
 [CLS:CReplaceDlg]
 Type=0

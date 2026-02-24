@@ -114,7 +114,7 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Debug/psqledit\psqlgrid.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Debug/psqledit\msqlgrid.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -169,7 +169,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Debug/psqledit\psqlgrid.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Debug/psqledit\msqlgrid.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -225,7 +225,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Release/psqledit\psqlgrid.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Release/psqledit\msqlgrid.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -282,7 +282,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Release/psqledit\psqlgrid.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Release/psqledit\msqlgrid.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -333,9 +333,9 @@ copy doc\*.txt $(OutDir)doc
     <ClCompile Include="InsertRowsDlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OptionSheet.cpp" />
-    <ClCompile Include="psqlgrid.cpp" />
-    <ClCompile Include="psqlgridDoc.cpp" />
-    <ClCompile Include="psqlgridView.cpp" />
+    <ClCompile Include="msqlgrid.cpp" />
+    <ClCompile Include="msqlgridDoc.cpp" />
+    <ClCompile Include="msqlgridView.cpp" />
     <ClCompile Include="scr_pass.cpp" />
     <ClCompile Include="SetupPage.cpp" />
     <ClCompile Include="ShortCutKeyDlg.cpp" />
@@ -353,7 +353,7 @@ copy doc\*.txt $(OutDir)doc
     <ClCompile Include="TableListDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="psqlgrid.rc" />
+    <ResourceCompile Include="msqlgrid.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\DataEditDlg.h" />
@@ -381,9 +381,9 @@ copy doc\*.txt $(OutDir)doc
     <ClInclude Include="InsertRowsDlg.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OptionSheet.h" />
-    <ClInclude Include="psqlgrid.h" />
-    <ClInclude Include="psqlgridDoc.h" />
-    <ClInclude Include="psqlgridView.h" />
+    <ClInclude Include="msqlgrid.h" />
+    <ClInclude Include="msqlgridDoc.h" />
+    <ClInclude Include="msqlgridView.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="scr_pass.h" />
     <ClInclude Include="SetupPage.h" />
@@ -395,12 +395,12 @@ copy doc\*.txt $(OutDir)doc
   <ItemGroup>
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\ogrid.ico" />
-    <Image Include="res\psqlgrid.ico" />
-    <Image Include="res\psqlgridDoc.ico" />
+    <Image Include="res\msqlgrid.ico" />
+    <Image Include="res\msqlgridDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\psqlgrid.rc2" />
+    <CustomBuild Include="res\msqlgrid.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Changelog.txt" />

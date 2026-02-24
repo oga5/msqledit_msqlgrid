@@ -99,13 +99,13 @@
     <ClCompile Include="psql_util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="psqledit.cpp">
+    <ClCompile Include="msqledit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PSqlEditCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="psqleditDoc.cpp">
+    <ClCompile Include="msqleditDoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QueryCloseDlg.cpp">
@@ -218,7 +218,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="psqledit.rc">
+    <ResourceCompile Include="msqledit.rc">
       <Filter>Source Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -307,13 +307,13 @@
     <ClInclude Include="psql_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="psqledit.h">
+    <ClInclude Include="msqledit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PSqlEditCtrl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="psqleditDoc.h">
+    <ClInclude Include="msqleditDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QueryCloseDlg.h">
@@ -438,10 +438,10 @@
     <Image Include="res\icon1.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\psqledit.ico">
+    <Image Include="res\msqledit.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\psqleditDoc.ico">
+    <Image Include="res\msqleditDoc.ico">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\sqltune.ico">
@@ -477,7 +477,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\psqledit.rc2">
+    <CustomBuild Include="res\msqledit.rc2">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>

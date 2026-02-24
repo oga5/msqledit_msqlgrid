@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="psqledit" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="msqledit" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=psqledit - Win32 Debug
+CFG=msqledit - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "psqledit.mak".
+!MESSAGE NMAKE /f "msqledit.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "psqledit.mak" CFG="psqledit - Win32 Debug"
+!MESSAGE NMAKE /f "msqledit.mak" CFG="msqledit - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "psqledit - Win32 Release" (based on "Win32 (x86) Application")
-!MESSAGE "psqledit - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "msqledit - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "msqledit - Win32 Debug" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -29,7 +29,7 @@ CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "psqledit - Win32 Release"
+!IF  "$(CFG)" == "msqledit - Win32 Release"
 
 # PROP BASE Use_MFC 5
 # PROP BASE Use_Debug_Libraries 0
@@ -38,12 +38,12 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 5
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "../../../../exe/Release/psqledit"
-# PROP Intermediate_Dir "../../../../obj/Release/psqledit"
+# PROP Output_Dir "../../../../exe/Release/msqledit"
+# PROP Intermediate_Dir "../../../../obj/Release/msqledit"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /O2 /I "../../../libs/ostrutil" /I "../../../libs/pglib" /I "../../../libs/octrllib" /I "../../../libs/ofileutil" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /O2 /I "../../../libs/ostrutil" /I "../../../libs/mylib" /I "../../../libs/octrllib" /I "../../../libs/ofileutil" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x411 /d "NDEBUG"
@@ -53,13 +53,13 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /machine:I386
-# ADD LINK32 imm32.lib version.lib ostrutil.lib octrllib.lib ofileutil.lib pglib.lib ws2_32.lib /nologo /base:"0x500000" /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /libpath:"../../../../lib/release"
+# ADD LINK32 imm32.lib version.lib ostrutil.lib octrllib.lib ofileutil.lib mylib.lib ws2_32.lib /nologo /base:"0x500000" /entry:"wWinMainCRTStartup" /subsystem:windows /machine:I386 /libpath:"../../../../lib/release"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\..\exe\Release\psqledit\data	copy data\*.txt          ..\..\..\..\exe\Release\psqledit\data	mkdir   ..\..\..\..\exe\Release\psqledit\doc	copy doc\*.txt ..\..\..\..\exe\Release\psqledit\doc
+PostBuild_Cmds=mkdir ..\..\..\..\exe\Release\msqledit\data	copy data\*.txt          ..\..\..\..\exe\Release\msqledit\data	mkdir   ..\..\..\..\exe\Release\msqledit\doc	copy doc\*.txt ..\..\..\..\exe\Release\msqledit\doc
 # End Special Build Tool
 
-!ELSEIF  "$(CFG)" == "psqledit - Win32 Debug"
+!ELSEIF  "$(CFG)" == "msqledit - Win32 Debug"
 
 # PROP BASE Use_MFC 5
 # PROP BASE Use_Debug_Libraries 1
@@ -68,12 +68,12 @@ PostBuild_Cmds=mkdir ..\..\..\..\exe\Release\psqledit\data	copy data\*.txt      
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 5
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "../../../../exe/Debug/psqledit"
-# PROP Intermediate_Dir "../../../../obj/Debug/psqledit"
+# PROP Output_Dir "../../../../exe/Debug/msqledit"
+# PROP Intermediate_Dir "../../../../obj/Debug/msqledit"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I "../../../libs/ostrutil" /I "../../../libs/pglib" /I "../../../libs/octrllib" /I "../../../libs/ofileutil" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I "../../../libs/ostrutil" /I "../../../libs/mylib" /I "../../../libs/octrllib" /I "../../../libs/ofileutil" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x411 /d "_DEBUG"
@@ -83,18 +83,18 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 imm32.lib version.lib ostrutil.lib octrllib.lib ofileutil.lib pglib.lib ws2_32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"../../../../lib/debug"
+# ADD LINK32 imm32.lib version.lib ostrutil.lib octrllib.lib ofileutil.lib mylib.lib ws2_32.lib /nologo /entry:"wWinMainCRTStartup" /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"../../../../lib/debug"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\..\exe\Debug\psqledit\data	copy data\*.txt          ..\..\..\..\exe\Debug\psqledit\data	mkdir   ..\..\..\..\exe\Debug\psqledit\doc	copy doc\*.txt ..\..\..\..\exe\Debug\psqledit\doc
+PostBuild_Cmds=mkdir ..\..\..\..\exe\Debug\msqledit\data	copy data\*.txt          ..\..\..\..\exe\Debug\msqledit\data	mkdir   ..\..\..\..\exe\Debug\msqledit\doc	copy doc\*.txt ..\..\..\..\exe\Debug\msqledit\doc
 # End Special Build Tool
 
 !ENDIF 
 
 # Begin Target
 
-# Name "psqledit - Win32 Release"
-# Name "psqledit - Win32 Debug"
+# Name "msqledit - Win32 Release"
+# Name "msqledit - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -228,11 +228,11 @@ SOURCE=.\psql_util.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqledit.cpp
+SOURCE=.\msqledit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqledit.rc
+SOURCE=.\msqledit.rc
 # End Source File
 # Begin Source File
 
@@ -240,7 +240,7 @@ SOURCE=.\PSqlEditCtrl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqleditDoc.cpp
+SOURCE=.\msqleditDoc.cpp
 # End Source File
 # Begin Source File
 
@@ -473,7 +473,7 @@ SOURCE=.\psql_util.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqledit.h
+SOURCE=.\msqledit.h
 # End Source File
 # Begin Source File
 
@@ -481,7 +481,7 @@ SOURCE=.\PSqlEditCtrl.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\psqleditDoc.h
+SOURCE=.\msqleditDoc.h
 # End Source File
 # Begin Source File
 
@@ -593,15 +593,15 @@ SOURCE=.\res\icon1.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqledit.ico
+SOURCE=.\res\msqledit.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqledit.rc2
+SOURCE=.\res\msqledit.rc2
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\psqleditDoc.ico
+SOURCE=.\res\msqleditDoc.ico
 # End Source File
 # Begin Source File
 
