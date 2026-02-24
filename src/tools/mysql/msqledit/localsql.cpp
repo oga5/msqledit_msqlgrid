@@ -79,9 +79,9 @@ return exp_plan;
 
 static int pg_save_dataset_main_ar(CUnicodeArchive *ar, HMyDataset dataset, int put_colname, TCHAR *msg_buf)
 {
-intr, c;
-intcol_cnt = my_dataset_col_cnt(dataset);
-introw_cnt = my_dataset_row_cnt(dataset);
+int r, c;
+int col_cnt = my_dataset_col_cnt(dataset);
+int row_cnt = my_dataset_row_cnt(dataset);
 const TCHAR*sepa = _T(",");
 
 if(put_colname == 1) {
@@ -114,7 +114,7 @@ int download(HMySession ss, CUnicodeArchive *ar, const TCHAR *sql, TCHAR *msg_bu
 BOOL put_column_name, void *hWnd, volatile int *cancel_flg)
 {
 HMyDataset dataset = NULL;
-intret_v;
+int ret_v;
 
 ret_v = my_create_dataset_ex(ss, sql, msg_buf, cancel_flg, hWnd, &dataset);
 if(ret_v != 0) return ret_v;

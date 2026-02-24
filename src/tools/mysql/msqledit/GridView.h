@@ -43,7 +43,7 @@ public:
 // オペレーション
 public:
 	CGridView();           // 動的生成に使用されるプロテクト コンストラクタ
-	CPsqleditDoc* GetDocument() { return (CPsqleditDoc*)m_pDocument; };
+	CMsqleditDoc* GetDocument() { return (CMsqleditDoc*)m_pDocument; };
 
 	void AdjustAllColWidth();
 	void EqualAllColWidth();

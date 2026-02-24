@@ -23,16 +23,16 @@
 #include "resource.h"       // メイン シンボル
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditApp:
+// CMsqleditApp:
 // このクラスの動作の定義に関しては msqledit.cpp ファイルを参照してください。
 //
 
 #include "global.h"
 
-class CPsqleditApp : public CWinApp
+class CMsqleditApp : public CWinApp
 {
 public:
-	CPsqleditApp();
+	CMsqleditApp();
 
 	virtual BOOL DoPromptFileName(CString& fileName, UINT nIDSTitle,
 			DWORD lFlags, BOOL bOpenFileDialog, CDocTemplate* pTemplate,
@@ -40,14 +40,14 @@ public:
 
 // オーバーライド
 	// ClassWizard は仮想関数のオーバーライドを生成します。
-	//{{AFX_VIRTUAL(CPsqleditApp)
+	//{{AFX_VIRTUAL(CMsqleditApp)
 	public:
 	virtual BOOL InitInstance();
 	virtual int ExitInstance();
 	//}}AFX_VIRTUAL
 
 // インプリメンテーション
-	//{{AFX_MSG(CPsqleditApp)
+	//{{AFX_MSG(CMsqleditApp)
 	afx_msg void OnAppAbout();
 	afx_msg void OnOption();
 	afx_msg void OnLineModeLen();

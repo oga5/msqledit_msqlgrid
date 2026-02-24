@@ -11,7 +11,7 @@
 
 #include "stdafx.h"
 #include "msqledit.h"
-#include "MSqlEditCtrl.h"
+#include "PSqlEditCtrl.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

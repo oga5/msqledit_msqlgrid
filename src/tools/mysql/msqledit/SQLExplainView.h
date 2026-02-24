@@ -15,7 +15,7 @@
 // SQLExplainView.h : ヘッダー ファイル
 //
 
-#include "PSQLEditDoc.h"
+#include "msqleditDoc.h"
 #include "editctrl.h"
 
 #include "searchDlg.h"
@@ -31,7 +31,7 @@ protected:
 // アトリビュート
 public:
 	CSQLExplainView();           // 動的生成に使用されるプロテクト コンストラクタ
-	CPsqleditDoc* GetDocument();
+	CMsqleditDoc* GetDocument();
 
 private:
 	CEditCtrl	m_edit_ctrl;
@@ -120,8 +120,8 @@ public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
-inline CPsqleditDoc* CSQLExplainView::GetDocument()
-   { return (CPsqleditDoc*)m_pDocument; }
+inline CMsqleditDoc* CSQLExplainView::GetDocument()
+   { return (CMsqleditDoc*)m_pDocument; }
 
 /////////////////////////////////////////////////////////////////////////////
 

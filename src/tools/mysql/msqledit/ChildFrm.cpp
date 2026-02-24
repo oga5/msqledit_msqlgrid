@@ -14,7 +14,7 @@
 
 #include "ChildFrm.h"
 
-#include "PSQLEditDoc.h"
+#include "msqleditDoc.h"
 #include "SQLEditView.h"
 #include "SQLExplainView.h"
 #include "GridView.h"
@@ -289,7 +289,7 @@ void CChildFrame::SetTabBar()
 	CView *pview = GetActiveView();
 	if(pview != NULL) {
 		g_tab_bar.ActiveTab(GetActiveView()->GetDocument());
-		CPsqleditDoc *pdoc = (CPsqleditDoc *)pview->GetDocument();
+		CMsqleditDoc *pdoc = (CMsqleditDoc *)pview->GetDocument();
 		pdoc->OnActiveDocument();
 	}
 }

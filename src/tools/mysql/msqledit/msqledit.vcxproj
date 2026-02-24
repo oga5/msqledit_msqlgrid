@@ -386,7 +386,7 @@ copy doc\*.txt $(OutDir)doc
     <ClCompile Include="pggriddata.cpp" />
     <ClCompile Include="PrintDlg.cpp" />
     <ClCompile Include="msqledit.cpp" />
-    <ClCompile Include="MSqlEditCtrl.cpp" />
+    <ClCompile Include="PSqlEditCtrl.cpp" />
     <ClCompile Include="msqleditDoc.cpp" />
     <ClCompile Include="psql_util.cpp" />
     <ClCompile Include="QueryCloseDlg.cpp" />
@@ -468,7 +468,7 @@ copy doc\*.txt $(OutDir)doc
     <ClInclude Include="pggriddata.h" />
     <ClInclude Include="PrintDlg.h" />
     <ClInclude Include="msqledit.h" />
-    <ClInclude Include="MSqlEditCtrl.h" />
+    <ClInclude Include="PSqlEditCtrl.h" />
     <ClInclude Include="msqleditDoc.h" />
     <ClInclude Include="psql_util.h" />
     <ClInclude Include="QueryCloseDlg.h" />

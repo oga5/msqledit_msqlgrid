@@ -15,7 +15,7 @@
 // SQLEditView.h : ヘッダー ファイル
 //
 
-#include "PsqleditDoc.h"
+#include "msqleditDoc.h"
 #include "PsqlEditCtrl.h"
 
 #include "searchDlg.h"
@@ -39,7 +39,7 @@ protected:
 
 // アトリビュート
 public:
-	CPsqleditDoc* GetDocument() { return (CPsqleditDoc*)m_pDocument; };
+	CMsqleditDoc* GetDocument() { return (CMsqleditDoc*)m_pDocument; };
 
 private:
 	void PasteObjectName(TCHAR *object_name);

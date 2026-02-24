@@ -13,7 +13,7 @@
 #include "msqledit.h"
 
 #include "MainFrm.h"
-#include "PsqleditDoc.h"
+#include "msqleditDoc.h"
 #include "AcceleratorDlg.h"
 #include "ShortCutSqlListDlg.h"
 #include "common.h"
@@ -578,7 +578,7 @@ void CMainFrame::OnSetupShortcutSql()
 	m_accel_list.save_accel_list();
 
 	CreateAccelerator();
-	CPsqleditDoc::LoadShortCutSqlList();
+	CMsqleditDoc::LoadShortCutSqlList();
 }
 
 void CMainFrame::OnViewObjectBar() 

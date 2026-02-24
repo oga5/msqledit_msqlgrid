@@ -7,7 +7,7 @@
  */
 
 /*
- * myutil.c — session management, charset conversion, and miscellaneous
+ * myutil.c  Esession management, charset conversion, and miscellaneous
  *            utilities.  MySQL equivalent of pgutil.c.
  */
 
@@ -26,7 +26,7 @@
 #endif
 
 /* =========================================================================
-   msleep — portable millisecond sleep
+   msleep  Eportable millisecond sleep
    ========================================================================= */
 void msleep(int msec)
 {
@@ -42,7 +42,7 @@ void msleep(int msec)
 
 /* =========================================================================
    Character encoding helpers
-   (same logic as pgutil.c — UTF-8 ↔ Windows wide char)
+   (same logic as pgutil.c  EUTF-8 ↁEWindows wide char)
    ========================================================================= */
 static int _oci_replace_wave_dash = 1;
 unsigned int g_oci_code_page = CP_UTF8;
@@ -57,7 +57,7 @@ static int oci_str_to_win_str_replace_wave_dash(const ocichar *src,
 {
     int r = MultiByteToWideChar(g_oci_code_page, 0, (LPCCH)src, -1, dst, sz);
 
-    /* Convert Unicode wave-dash (U+301C) → fullwidth tilde (U+FF5E) */
+    /* Convert Unicode wave-dash (U+301C) ↁEfullwidth tilde (U+FF5E) */
     if (dst) {
         TCHAR *p = dst;
         for (; *p; p++) {
@@ -152,7 +152,7 @@ static void my_free_session(HMySession ss)
 }
 
 /* =========================================================================
-   my_login — connect to MySQL using individual parameters
+   my_login  Econnect to MySQL using individual parameters
    ========================================================================= */
 HMySession my_login(const TCHAR *host, const TCHAR *user, const TCHAR *passwd,
     const TCHAR *dbname, const TCHAR *port, const TCHAR *charset,
@@ -296,6 +296,16 @@ int my_rollback(HMySession ss, TCHAR *msg_buf)
 }
 
 /* =========================================================================
+   my_trans_is_idle - MySQL has no explicit transaction-idle check.
+   With autocommit=0, MySQL manages transactions implicitly; no explicit
+   BEGIN is required, so this always returns 0 (not idle).
+   ========================================================================= */
+int my_trans_is_idle(HMySession ss)
+{
+    return 0;
+}
+
+/* =========================================================================
    my_set_notice_processor
    ========================================================================= */
 my_notice_processor my_set_notice_processor(HMySession ss,
@@ -308,7 +318,7 @@ my_notice_processor my_set_notice_processor(HMySession ss,
 }
 
 /* =========================================================================
-   my_explain_plan — execute "EXPLAIN <sql>" and return formatted text.
+   my_explain_plan  Eexecute "EXPLAIN <sql>" and return formatted text.
    Caller must free() the returned buffer when done.
    ========================================================================= */
 const TCHAR *my_explain_plan(HMySession ss, const TCHAR *sql, TCHAR *msg_buf)
@@ -369,7 +379,7 @@ const TCHAR *my_explain_plan(HMySession ss, const TCHAR *sql, TCHAR *msg_buf)
 }
 
 /* =========================================================================
-   my_parameter_status — SHOW VARIABLES LIKE 'paramName'
+   my_parameter_status  ESHOW VARIABLES LIKE 'paramName'
    ========================================================================= */
 int my_parameter_status(HMySession ss, const TCHAR *paramName,
     TCHAR *buf, int buf_size, TCHAR *msg_buf)

@@ -62,8 +62,8 @@ static int grid_diff(HMySession ss, const TCHAR* p,
 	int		tab_idx1 = _ttoi(data1) - 1;
 	int		tab_idx2 = _ttoi(data2) - 1;
 
-	CPsqleditDoc* doc1 = (CPsqleditDoc*)g_tab_bar.GetDoc(tab_idx1);
-	CPsqleditDoc* doc2 = (CPsqleditDoc*)g_tab_bar.GetDoc(tab_idx2);
+	CMsqleditDoc* doc1 = (CMsqleditDoc*)g_tab_bar.GetDoc(tab_idx1);
+	CMsqleditDoc* doc2 = (CMsqleditDoc*)g_tab_bar.GetDoc(tab_idx2);
 
 	if(doc1 == NULL) {
 		_stprintf(msg_buf, _T("Tabのindexが無効です(%d)"), tab_idx1);
@@ -224,7 +224,7 @@ static int set_command(CMapStringToString* bind_data,
 	return ret_v;
 }
 
-int do_command(HMySession ss, CPsqleditDoc* doc, const TCHAR* command, CSQLStrToken* str_token,
+int do_command(HMySession ss, CMsqleditDoc* doc, const TCHAR* command, CSQLStrToken* str_token,
 	TCHAR* msg_buf, HWND hWnd, struct _thr_sql_run_st* sql_run_st)
 {
 	ASSERT(hWnd != NULL);

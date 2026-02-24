@@ -10,7 +10,7 @@
 
 struct _thr_sql_run_st
 {
-	CPsqleditDoc* pdoc;
+	CMsqleditDoc* pdoc;
 	CEditData* edit_data;
 	int			start_row;
 	int			end_row;
@@ -24,6 +24,6 @@ struct _thr_sql_run_st
 
 void PutResultString(HWND hwnd, const TCHAR* str);
 
-int do_command(HMySession ss, CPsqleditDoc* doc, const TCHAR* command, CSQLStrToken* str_token,
+int do_command(HMySession ss, CMsqleditDoc* doc, const TCHAR* command, CSQLStrToken* str_token,
 	TCHAR* msg_buf, HWND hWnd, struct _thr_sql_run_st* sql_run_st);
 

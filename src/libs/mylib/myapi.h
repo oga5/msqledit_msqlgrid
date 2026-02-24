@@ -37,6 +37,7 @@ my_notice_processor my_set_notice_processor(HMySession ss,
 int my_auto_commit_off(HMySession ss, TCHAR *msg_buf);
 int my_rollback(HMySession ss, TCHAR *msg_buf);
 int my_commit(HMySession ss, TCHAR *msg_buf);
+int my_trans_is_idle(HMySession ss);
 
 int my_parameter_status(HMySession ss, const TCHAR *paramName,
     TCHAR *buf, int buf_size, TCHAR *msg_buf);

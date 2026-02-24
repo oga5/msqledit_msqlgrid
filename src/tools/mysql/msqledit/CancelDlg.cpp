@@ -116,7 +116,7 @@ int CCancelDlg::BindParams()
 		m_disp_timer = 0;
 	}
 
-	int		ret_v = ((CPsqleditDoc*)m_pdoc)->BindParamEdit();
+	int		ret_v = ((CMsqleditDoc*)m_pdoc)->BindParamEdit();
 
 	if(m_disp_timer_flg) {
 		m_tick_count_total += (GetTickCount() - tick_count);

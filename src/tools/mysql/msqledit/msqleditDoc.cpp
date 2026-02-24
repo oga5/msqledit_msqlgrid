@@ -6,7 +6,7 @@
  * See the LICENSE_BSD file for details.
  */
  
- // msqleditDoc.cpp : CPsqleditDoc クラスの動作の定義を行います。
+ // msqleditDoc.cpp : CMsqleditDoc クラスの動作の定義を行います。
 //
 
 #include "stdafx.h"
@@ -50,11 +50,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditDoc
+// CMsqleditDoc
 
-IMPLEMENT_DYNCREATE(CPsqleditDoc, CDocument)
+IMPLEMENT_DYNCREATE(CMsqleditDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CPsqleditDoc, CDocument)
+BEGIN_MESSAGE_MAP(CMsqleditDoc, CDocument)
 	//{{AFX_MSG_MAP(CPsqleditDoc)
 	ON_COMMAND(ID_SQL_RUN, OnSqlRun)
 	ON_COMMAND(ID_SWITCH_VIEW, OnSwitchView)
@@ -80,20 +80,20 @@ BEGIN_MESSAGE_MAP(CPsqleditDoc, CDocument)
 	//}}AFX_MSG_MAP
 	ON_UPDATE_COMMAND_UI_RANGE(ID_MAKE_SELECT_SQL, ID_MAKE_UPDATE_SQL, OnUpdateMakeSql)
 	ON_COMMAND_RANGE(ID_SHORT_CUT_SQL1, ID_SHORT_CUT_SQL1 + MAX_SHORT_CUT_SQL, OnShortCutSql)
-	ON_COMMAND(ID_PSQLGRID_SELECTED, &CPsqleditDoc::OnPsqlgrselected)
-	ON_UPDATE_COMMAND_UI(ID_PSQLGRID_SELECTED, &CPsqleditDoc::OnUpdatePsqlgrselected)
-	ON_COMMAND(ID_TAB_NAME, &CPsqleditDoc::OnTabName)
-	ON_UPDATE_COMMAND_UI(ID_TAB_NAME, &CPsqleditDoc::OnUpdateTabName)
-	ON_COMMAND(ID_GRID_FILTER_OFF, &CPsqleditDoc::OnGrfilterOff)
-	ON_UPDATE_COMMAND_UI(ID_GRID_FILTER_OFF, &CPsqleditDoc::OnUpdateGrfilterOff)
-	ON_COMMAND(ID_GRID_FILTER_ON, &CPsqleditDoc::OnGrfilterOn)
-	ON_UPDATE_COMMAND_UI(ID_GRID_FILTER_ON, &CPsqleditDoc::OnUpdateGrfilterOn)
+	ON_COMMAND(ID_PSQLGRID_SELECTED, &CMsqleditDoc::OnPsqlgrselected)
+	ON_UPDATE_COMMAND_UI(ID_PSQLGRID_SELECTED, &CMsqleditDoc::OnUpdatePsqlgrselected)
+	ON_COMMAND(ID_TAB_NAME, &CMsqleditDoc::OnTabName)
+	ON_UPDATE_COMMAND_UI(ID_TAB_NAME, &CMsqleditDoc::OnUpdateTabName)
+	ON_COMMAND(ID_GRID_FILTER_OFF, &CMsqleditDoc::OnGrfilterOff)
+	ON_UPDATE_COMMAND_UI(ID_GRID_FILTER_OFF, &CMsqleditDoc::OnUpdateGrfilterOff)
+	ON_COMMAND(ID_GRID_FILTER_ON, &CMsqleditDoc::OnGrfilterOn)
+	ON_UPDATE_COMMAND_UI(ID_GRID_FILTER_ON, &CMsqleditDoc::OnUpdateGrfilterOn)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditDoc クラスの構築/消滅
+// CMsqleditDoc クラスの構築/消滅
 
-CPsqleditDoc::CPsqleditDoc()
+CMsqleditDoc::CMsqleditDoc()
 {
 	m_sql_data.set_str_token(&g_sql_str_token);
 	m_sql_data.set_undo_cnt(INT_MAX);
@@ -118,14 +118,14 @@ CPsqleditDoc::CPsqleditDoc()
 	m_bind_param_editor_grid_cell_width[1] = 200;
 }
 
-CPsqleditDoc::~CPsqleditDoc()
+CMsqleditDoc::~CMsqleditDoc()
 {
 	my_free_dataset(m_dataset);
 
 	FreeSqlBuf();
 }
 
-BOOL CPsqleditDoc::OnNewDocument()
+BOOL CMsqleditDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
@@ -140,9 +140,9 @@ BOOL CPsqleditDoc::OnNewDocument()
 
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditDoc シリアライゼーション
+// CMsqleditDoc シリアライゼーション
 
-void CPsqleditDoc::Serialize(CArchive& ar)
+void CMsqleditDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -155,28 +155,28 @@ void CPsqleditDoc::Serialize(CArchive& ar)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditDoc クラスの診断
+// CMsqleditDoc クラスの診断
 
 #ifdef _DEBUG
-void CPsqleditDoc::AssertValid() const
+void CMsqleditDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CPsqleditDoc::Dump(CDumpContext& dc) const
+void CMsqleditDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditDoc コマンド
+// CMsqleditDoc コマンド
 
 static int sql_run(_thr_sql_run_st *sql_run_st);
 
 static int file_sql_run(_thr_sql_run_st *sql_run_st, const TCHAR *file_name)
 {
-	CPsqleditDoc *pdoc = sql_run_st->pdoc;
+	CMsqleditDoc *pdoc = sql_run_st->pdoc;
 	HWND hWnd = sql_run_st->hWnd;
 
 	CEditData edit_data;
@@ -210,7 +210,7 @@ static int file_sql_run(_thr_sql_run_st *sql_run_st, const TCHAR *file_name)
 
 static int command_run(_thr_sql_run_st *sql_run_st, const TCHAR *command)
 {
-	CPsqleditDoc* pdoc = sql_run_st->pdoc;
+	CMsqleditDoc* pdoc = sql_run_st->pdoc;
 	HWND hWnd = sql_run_st->hWnd;
 	int ret_v = 0;
 
@@ -231,7 +231,7 @@ static int command_run(_thr_sql_run_st *sql_run_st, const TCHAR *command)
 return ret_v;
 }
 
-static void ShowError(CPsqleditDoc* pdoc, HWND hWnd, int row_offset, int ret_v)
+static void ShowError(CMsqleditDoc* pdoc, HWND hWnd, int row_offset, int ret_v)
 {
 	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_SET_ERROR_INFO, row_offset);
 
@@ -243,12 +243,9 @@ static void ShowError(CPsqleditDoc* pdoc, HWND hWnd, int row_offset, int ret_v)
 	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_REDRAW, 0);
 }
 
-static void sql_run_notice_processor(void* arg, const char* message)
+static void sql_run_notice_processor(void* arg, const TCHAR* message)
 {
-	TCHAR buf[1024 * 32];
-	oci_str_to_win_str((const unsigned char*)message, buf, ARRAY_SIZEOF(buf));
-
-	TRACE(buf);
+	TRACE(message);
 
 	if(arg == NULL) return;
 
@@ -256,7 +253,7 @@ static void sql_run_notice_processor(void* arg, const char* message)
 
 	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_SWITCH_VIEW, MSG_VIEW);
 	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_SET_RESULT_CARET, 0);
-	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_PUT_RESULT, (LPARAM)buf);
+	SendMessage(hWnd, WM_UPDATE_ALL_VIEWS, UPD_PUT_RESULT, (LPARAM)message);
 }
 
 static void make_bind_err_msg(const TCHAR* sql, const TCHAR* err_p, const TCHAR* bind_param, TCHAR* msg_buf)
@@ -362,7 +359,7 @@ static void SaveBindParamEditorGridCellWidth(CBindParamEditorDlg& dlg, int* m_bi
 	m_bind_param_editor_grid_cell_width[1] = dlg.m_bind_param_editor_grid_cell_width[1];
 }
 
-int CPsqleditDoc::BindParamEdit()
+int CMsqleditDoc::BindParamEdit()
 {
 	CBindParamEditorDlg	dlg;
 
@@ -382,7 +379,7 @@ int CPsqleditDoc::BindParamEdit()
 	return 0;
 }
 
-static int sql_run_main(CPsqleditDoc* pdoc, _thr_sql_run_st* sql_run_st, HWND hWnd)
+static int sql_run_main(CMsqleditDoc* pdoc, _thr_sql_run_st* sql_run_st, HWND hWnd)
 {
 	int ret_v;
 	CMapStringToString* bind_data = pdoc->GetBindData();
@@ -456,7 +453,7 @@ static int sql_run_main(CPsqleditDoc* pdoc, _thr_sql_run_st* sql_run_st, HWND hW
 
 static int sql_run(_thr_sql_run_st *sql_run_st)
 {
-	CPsqleditDoc *pdoc = sql_run_st->pdoc;
+	CMsqleditDoc *pdoc = sql_run_st->pdoc;
 	int start_row = sql_run_st->start_row;
 	int end_row = sql_run_st->end_row;
 	HWND hWnd = sql_run_st->hWnd;
@@ -609,7 +606,7 @@ static unsigned int _stdcall sql_run_thr(void *lpvThreadParam)
 	return sql_run_st->ret_v;
 }
 
-void CPsqleditDoc::CheckModified()
+void CMsqleditDoc::CheckModified()
 {
 	if(IsModified()) {
 		if(m_sql_data.is_edit_data() == FALSE) {
@@ -624,7 +621,7 @@ void CPsqleditDoc::CheckModified()
 	}
 }
 
-int CPsqleditDoc::CopyClipboard(TCHAR * str)
+int CMsqleditDoc::CopyClipboard(TCHAR * str)
 {
 	HGLOBAL hData = GlobalAlloc(GHND, (_tcslen(str) + 1) * sizeof(TCHAR));
 	TCHAR *pstr = (TCHAR *)GlobalLock(hData);
@@ -657,7 +654,7 @@ int CPsqleditDoc::CopyClipboard(TCHAR * str)
 	return 0;
 }
 
-BOOL CPsqleditDoc::OnOpenDocument(LPCTSTR lpszPathName) 
+BOOL CMsqleditDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
 	if (!CDocument::OnOpenDocument(lpszPathName))
 		return FALSE;
@@ -669,21 +666,21 @@ BOOL CPsqleditDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	return TRUE;
 }
 
-void CPsqleditDoc::SetTitle(LPCTSTR lpszTitle) 
+void CMsqleditDoc::SetTitle(LPCTSTR lpszTitle)
 {
 	CDocument::SetTitle(lpszTitle);
 
 	g_tab_bar.SetTabName(this);
 }
 
-void CPsqleditDoc::OnCloseDocument() 
+void CMsqleditDoc::OnCloseDocument()
 {
 	g_tab_bar.DeleteDoc(this);
 	
 	CDocument::OnCloseDocument();
 }
 
-BOOL CPsqleditDoc::AllocSqlBuf(int buf_size)
+BOOL CMsqleditDoc::AllocSqlBuf(int buf_size)
 {
 	if(buf_size < m_sql_buf_size) return TRUE;
 
@@ -703,7 +700,7 @@ BOOL CPsqleditDoc::AllocSqlBuf(int buf_size)
 	return TRUE;
 }
 
-void CPsqleditDoc::FreeSqlBuf()
+void CMsqleditDoc::FreeSqlBuf()
 {
 	if(m_sql != NULL) {
 		free(m_sql);
@@ -712,7 +709,7 @@ void CPsqleditDoc::FreeSqlBuf()
 	}
 }
 
-int CPsqleditDoc::SkipNullRow(int start_row, CEditData *edit_data)
+int CMsqleditDoc::SkipNullRow(int start_row, CEditData *edit_data)
 {
 	int		i;
 	int		loop_cnt;
@@ -729,12 +726,12 @@ int CPsqleditDoc::SkipNullRow(int start_row, CEditData *edit_data)
 	return row;
 }
 
-void CPsqleditDoc::DispFileType()
+void CMsqleditDoc::DispFileType()
 {
 	g_file_type = CUnicodeArchive::MakeFileType(m_kanji_code, m_line_type);
 }
 
-int CPsqleditDoc::LoadFile(CArchive &ar, int kanji_code)
+int CMsqleditDoc::LoadFile(CArchive &ar, int kanji_code)
 {
 	m_kanji_code = kanji_code;
 	m_sql_data.load_file(ar, m_kanji_code, m_line_type);
@@ -744,14 +741,14 @@ int CPsqleditDoc::LoadFile(CArchive &ar, int kanji_code)
 	return 0;
 }
 
-int CPsqleditDoc::SaveFile(CArchive &ar)
+int CMsqleditDoc::SaveFile(CArchive &ar)
 {
 	m_sql_data.save_file(ar, m_kanji_code, m_line_type);
 
 	return 0;
 }
 
-BOOL CPsqleditDoc::DoSave(LPCTSTR lpszPathName, BOOL bReplace)
+BOOL CMsqleditDoc::DoSave(LPCTSTR lpszPathName, BOOL bReplace)
 {
 	CString newName = lpszPathName;
 	if (newName.IsEmpty()) {
@@ -781,7 +778,7 @@ BOOL CPsqleditDoc::DoSave(LPCTSTR lpszPathName, BOOL bReplace)
 #endif
 		}
 
-		if (!((CPsqleditApp *)AfxGetApp())->DoPromptFileName(newName,
+		if (!((CMsqleditApp *)AfxGetApp())->DoPromptFileName(newName,
 		  bReplace ? AFX_IDS_SAVEFILE : AFX_IDS_SAVEFILECOPY,
 		  OFN_NOREADONLYRETURN | OFN_HIDEREADONLY | OFN_PATHMUSTEXIST, FALSE, pTemplate))
 			return FALSE;       // don't even attempt to save
@@ -807,7 +804,7 @@ BOOL CPsqleditDoc::DoSave(LPCTSTR lpszPathName, BOOL bReplace)
 	return TRUE;        // success
 }
 
-int CPsqleditDoc::GetSQL(int start_row, CEditData *edit_data)
+int CMsqleditDoc::GetSQL(int start_row, CEditData *edit_data)
 {
 	POINT sql_start_pt;
 	POINT sql_end_pt;
@@ -956,7 +953,7 @@ NOTE: この処理は今後以下のようにしたい
 	メモリ確保
 	SQLの開始位置から終了位置までバッファにコピー
 #pragma intrinsic(strcpy, strcmp, strlen)
-int CPsqleditDoc::GetSQL(int start_row, CEditData *edit_data)
+int CMsqleditDoc::GetSQL(int start_row, CEditData *edit_data)
 {
 
 
@@ -1135,12 +1132,12 @@ int CPsqleditDoc::GetSQL(int start_row, CEditData *edit_data)
 #pragma function(strcpy, strcmp, strlen)
 */
 
-void CPsqleditDoc::SqlRun(int start_row, int end_row, CUnicodeArchive *ar)
+void CMsqleditDoc::SqlRun(int start_row, int end_row, CUnicodeArchive *ar)
 {
 	SqlRun(&m_sql_data, start_row, end_row, ar);
 }
 
-void CPsqleditDoc::SqlRun(CEditData *edit_data, int start_row, int end_row, CUnicodeArchive *ar)
+void CMsqleditDoc::SqlRun(CEditData *edit_data, int start_row, int end_row, CUnicodeArchive *ar)
 {
 	if(g_login_flg == FALSE) {
 		DispNotConnectedMsg();
@@ -1182,7 +1179,7 @@ void CPsqleditDoc::SqlRun(CEditData *edit_data, int start_row, int end_row, CUni
 
 	if(g_login_flg == TRUE && obj_update_flg == TRUE &&
 		g_option.sql.refresh_table_list_after_ddl == TRUE) {
-		((CPsqleditApp*)AfxGetApp())->OnRefreshTableList();
+		((CMsqleditApp*)AfxGetApp())->OnRefreshTableList();
 		CSqlListMaker::ClearCache();
 	}
 	if(g_option.sql.adjust_col_width_after_select == TRUE) {
@@ -1197,7 +1194,7 @@ void CPsqleditDoc::SqlRun(CEditData *edit_data, int start_row, int end_row, CUni
 	return;
 }
 
-void CPsqleditDoc::OnSqlRun() 
+void CMsqleditDoc::OnSqlRun()
 {
 	if(m_no_sql_run) {
 		AfxGetMainWnd()->MessageBox(_T("ログファイルは実行できません"), 
@@ -1212,17 +1209,17 @@ void CPsqleditDoc::OnSqlRun()
 	}
 }
 
-void CPsqleditDoc::OnSwitchView() 
+void CMsqleditDoc::OnSwitchView()
 {
 	UpdateAllViews(NULL, UPD_SWITCH_VIEW, (CObject *)SWITCH_VIEW);
 }
 
-void CPsqleditDoc::OnClearResult() 
+void CMsqleditDoc::OnClearResult()
 {
 	UpdateAllViews(NULL, UPD_CLEAR_RESULT);
 }
 
-void CPsqleditDoc::SetDataset(HMyDataset dataset, HWND hWnd)
+void CMsqleditDoc::SetDataset(HMyDataset dataset, HWND hWnd)
 {
 	if(m_dataset != NULL) {
 		my_free_dataset(m_dataset);
@@ -1245,7 +1242,7 @@ void CPsqleditDoc::SetDataset(HMyDataset dataset, HWND hWnd)
 	}
 }
 
-CGridData *CPsqleditDoc::GetGridData()
+CGridData *CMsqleditDoc::GetGridData()
 {
 	if(m_grid_swap_row_col_mode) {
 		return &m_grid_data_swap_row_col;
@@ -1259,12 +1256,12 @@ CGridData *CPsqleditDoc::GetGridData()
 	return &m_grid_data;
 }
 
-void CPsqleditDoc::ActiveDoc()
+void CMsqleditDoc::ActiveDoc()
 {
 	GetFirstView()->GetParentFrame()->ActivateFrame();
 }
 
-BOOL CPsqleditDoc::SaveModified() 
+BOOL CMsqleditDoc::SaveModified()
 {
 /*
 	// ドキュメントを閉じる前に，変更を保存するか確認する
@@ -1314,7 +1311,7 @@ BOOL CPsqleditDoc::SaveModified()
 	return TRUE;
 }
 
-void CPsqleditDoc::OnSqlLog() 
+void CMsqleditDoc::OnSqlLog()
 {
 	if(g_option.sql_logging) {
 		CSqlLogFileDlg dlg;
@@ -1348,7 +1345,7 @@ void CPsqleditDoc::OnSqlLog()
 	}
 }
 
-void CPsqleditDoc::OnFileSaveGridAs() 
+void CMsqleditDoc::OnFileSaveGridAs()
 {
 	TCHAR file_name[_MAX_PATH];
 
@@ -1372,22 +1369,22 @@ void CPsqleditDoc::OnFileSaveGridAs()
 	}	
 }
 
-void CPsqleditDoc::OnSqlRunSelected() 
+void CMsqleditDoc::OnSqlRunSelected()
 {
 	SqlRunSelected();
 }
 
-void CPsqleditDoc::OnUpdateSqlRunSelected(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdateSqlRunSelected(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(m_sql_data.get_disp_data()->HaveSelected());
 }
 
-void CPsqleditDoc::OnUpdateSqlRun(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdateSqlRun(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(!m_no_sql_run);
 }
 
-void CPsqleditDoc::OnExplainRun() 
+void CMsqleditDoc::OnExplainRun()
 {
 	if(g_login_flg == FALSE) {
 		DispNotConnectedMsg();
@@ -1447,17 +1444,17 @@ ERR1:
 	return;
 }
 
-void CPsqleditDoc::OnUpdateExplainRun(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdateExplainRun(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(!m_no_sql_run);
 }
 
-void CPsqleditDoc::DispNotConnectedMsg()
+void CMsqleditDoc::DispNotConnectedMsg()
 {
 	AfxGetMainWnd()->MessageBox(_T("データベースに接続していません"), _T("Error"), MB_ICONEXCLAMATION | MB_OK);
 }
 
-void CPsqleditDoc::OnDownload() 
+void CMsqleditDoc::OnDownload()
 {
 	if(g_login_flg == FALSE) {
 		DispNotConnectedMsg();
@@ -1489,7 +1486,7 @@ void CPsqleditDoc::OnDownload()
 	}
 }
 
-void CPsqleditDoc::OnUpdateMakeSql(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdateMakeSql(CCmdUI* pCmdUI)
 {
 	if(pCmdUI->m_pSubMenu != NULL) {
         // ポップアップ メニュー [SQL作成支援] 全体を選択可能にする
@@ -1504,34 +1501,34 @@ void CPsqleditDoc::OnUpdateMakeSql(CCmdUI* pCmdUI)
 	pCmdUI->Enable(g_object_detail_bar.CanMakeSql());
 }
 
-void CPsqleditDoc::OnMakeSelectSql() 
+void CMsqleditDoc::OnMakeSelectSql()
 {
 	CString paste_str = g_object_detail_bar.MakeSelectSql(FALSE, g_option.make_sql.select_sql_use_semicolon);
 	UpdateAllViews(NULL, UPD_PASTE_SQL, (CObject *)paste_str.GetBuffer(0));
 }
 
-void CPsqleditDoc::OnMakeInsertSql() 
+void CMsqleditDoc::OnMakeInsertSql()
 {
 	g_object_detail_bar.MakeInsertSql();
 }
 
-void CPsqleditDoc::OnMakeUpdateSql() 
+void CMsqleditDoc::OnMakeUpdateSql()
 {
 	g_object_detail_bar.MakeUpdateSql();
 }
 
-void CPsqleditDoc::OnMakeInsertSqlAll() 
+void CMsqleditDoc::OnMakeInsertSqlAll()
 {
 	g_object_detail_bar.MakeInsertSql(TRUE);
 }
 
-void CPsqleditDoc::OnMakeSelectSqlAll() 
+void CMsqleditDoc::OnMakeSelectSqlAll()
 {
 	CString paste_str = g_object_detail_bar.MakeSelectSql(TRUE, g_option.make_sql.select_sql_use_semicolon);
 	UpdateAllViews(NULL, UPD_PASTE_SQL, (CObject *)paste_str.GetBuffer(0));
 }
 
-void CPsqleditDoc::OnShortCutSql(UINT nID)
+void CMsqleditDoc::OnShortCutSql(UINT nID)
 {
 	int		idx = nID - ID_SHORT_CUT_SQL1;
 	CShortCutSql *sql_data = m_short_cut_sql_list.GetShortCutSql(idx);
@@ -1562,14 +1559,14 @@ void CPsqleditDoc::OnShortCutSql(UINT nID)
 }
 
 // static data & function
-CShortCutSqlList CPsqleditDoc::m_short_cut_sql_list;
+CShortCutSqlList CMsqleditDoc::m_short_cut_sql_list;
 
-BOOL CPsqleditDoc::LoadShortCutSqlList()
+BOOL CMsqleditDoc::LoadShortCutSqlList()
 {
 	return m_short_cut_sql_list.Load();
 }
 
-void CPsqleditDoc::SqlRunSelected()
+void CMsqleditDoc::SqlRunSelected()
 {
 	if(!m_sql_data.get_disp_data()->HaveSelected()) return;
 	if(m_sql_data.get_disp_data()->GetSelectArea()->box_select) {
@@ -1599,7 +1596,7 @@ void CPsqleditDoc::SqlRunSelected()
 	SqlRun(&edit_data);
 }
 
-void CPsqleditDoc::OnPsqlgrid() 
+void CMsqleditDoc::OnPsqlgrid()
 {
 	if(g_login_flg == FALSE) {
 		DispNotConnectedMsg();
@@ -1628,12 +1625,12 @@ void CPsqleditDoc::OnPsqlgrid()
 	RunPsqlGrid(GetSqlBuf());
 }
 
-void CPsqleditDoc::OnUpdatePsqlgrid(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdatePsqlgrid(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(g_login_flg);
 }
 
-BOOL CPsqleditDoc::RunPsqlGrid(TCHAR *sql)
+BOOL CMsqleditDoc::RunPsqlGrid(TCHAR *sql)
 {
 	if(!g_sql_str_token.isSelectSQL(sql)) {
 		AfxGetMainWnd()->MessageBox(_T("このSQLでは，PSqlGridを利用できません"), _T("Error"),
@@ -1688,7 +1685,7 @@ static CString MakeLower1Byte(const TCHAR *str)
 	return buf;
 }
 
-BOOL CPsqleditDoc::ParseSelectSQL(const TCHAR *sql, TCHAR *msg_buf,
+BOOL CMsqleditDoc::ParseSelectSQL(const TCHAR *sql, TCHAR *msg_buf,
 	CString &schema_name, CString &table_name1, CString &table_name2, 
 	CString &alias_name, CString &where_clause)
 {
@@ -1782,7 +1779,7 @@ BOOL CPsqleditDoc::ParseSelectSQL(const TCHAR *sql, TCHAR *msg_buf,
 	return TRUE;
 }
 
-BOOL CPsqleditDoc::CreatePsqlGridFile(TCHAR *sql, const TCHAR *file_name)
+BOOL CMsqleditDoc::CreatePsqlGridFile(TCHAR *sql, const TCHAR *file_name)
 {
 	TCHAR			msg_buf[1024] = _T("");
 	CString			table_name1;
@@ -1916,7 +1913,7 @@ ERR1:
 }
 
 
-void CPsqleditDoc::CalcGridSelectedData()
+void CMsqleditDoc::CalcGridSelectedData()
 {
 	g_grid_calc = _T("");
 
@@ -1941,18 +1938,18 @@ void CPsqleditDoc::CalcGridSelectedData()
 	g_grid_calc = grid_data->CalcSelectedData(g_option.grid_calc_type, pt1, pt2);
 }
 
-void CPsqleditDoc::OnActiveDocument()
+void CMsqleditDoc::OnActiveDocument()
 {
 	DispFileType();
 	UpdateAllViews(NULL, UPD_ACTIVE_DOC);
 }
 
-int CPsqleditDoc::GetViewKind()
+int CMsqleditDoc::GetViewKind()
 {
 	return ((CChildFrame *)GetFirstView()->GetParentFrame())->GetViewKind();
 }
 
-CView *CPsqleditDoc::GetFirstView()
+CView *CMsqleditDoc::GetFirstView()
 {
 	POSITION pos = GetFirstViewPosition();
 	ASSERT(pos != NULL);
@@ -1962,13 +1959,13 @@ CView *CPsqleditDoc::GetFirstView()
 	return pview;
 }
 
-void CPsqleditDoc::OnPsqlgridObjectbar() 
+void CMsqleditDoc::OnPsqlgridObjectbar()
 {
 	CString paste_str = g_object_detail_bar.MakeSelectSql(TRUE, FALSE);
 	RunPsqlGrid(paste_str.GetBuffer(0));
 }
 
-void CPsqleditDoc::ToggleGridSwapRowColMode()
+void CMsqleditDoc::ToggleGridSwapRowColMode()
 {
 	if(m_grid_swap_row_col_mode) {
 		m_grid_swap_row_col_mode = FALSE;
@@ -1982,7 +1979,7 @@ void CPsqleditDoc::ToggleGridSwapRowColMode()
 	}
 }
 
-void CPsqleditDoc::PostGridFilterOnOff()
+void CMsqleditDoc::PostGridFilterOnOff()
 {
 	if(m_grid_data.GetGridFilterMode()) {
 		m_grid_data_swap_row_col.SetGridData(m_grid_data.GetFilterGridData());
@@ -1991,18 +1988,18 @@ void CPsqleditDoc::PostGridFilterOnOff()
 	}
 }
 
-void CPsqleditDoc::OnGridSwapRowCol() 
+void CMsqleditDoc::OnGridSwapRowCol()
 {
 	UpdateAllViews(NULL, UPD_GRID_SWAP_ROW_COL, (CObject *)GRID_VIEW);
 }
 
-void CPsqleditDoc::OnUpdateGridSwapRowCol(CCmdUI* pCmdUI) 
+void CMsqleditDoc::OnUpdateGridSwapRowCol(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(m_grid_swap_row_col_mode);
 	pCmdUI->Enable((GetViewKind() == GRID_VIEW));
 }
 
-void CPsqleditDoc::OnPsqlgrselected()
+void CMsqleditDoc::OnPsqlgrselected()
 {
 	if(g_login_flg == FALSE) {
 		DispNotConnectedMsg();
@@ -2024,13 +2021,13 @@ void CPsqleditDoc::OnPsqlgrselected()
 	RunPsqlGrid(sql.GetBuffer());
 }
 
-void CPsqleditDoc::OnUpdatePsqlgrselected(CCmdUI *pCmdUI)
+void CMsqleditDoc::OnUpdatePsqlgrselected(CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable(g_login_flg && m_sql_data.get_disp_data()->HaveSelected());
 }
 
 
-void CPsqleditDoc::SetTabName(CString title)
+void CMsqleditDoc::SetTabName(CString title)
 {
 	if(IsModified()) title += " *";
 
@@ -2038,7 +2035,7 @@ void CPsqleditDoc::SetTabName(CString title)
 	g_tab_bar.SetTabName(this);
 }
 
-void CPsqleditDoc::OnTabName()
+void CMsqleditDoc::OnTabName()
 {
 	CNameInputDlg	dlg;
 
@@ -2051,17 +2048,17 @@ void CPsqleditDoc::OnTabName()
 }
 
 
-BOOL CPsqleditDoc::IsShowDataDialogVisible()
+BOOL CMsqleditDoc::IsShowDataDialogVisible()
 {
 	return g_show_clob_dlg.IsVisible();
 }
 
-void CPsqleditDoc::OnUpdateTabName(CCmdUI* pCmdUI)
+void CMsqleditDoc::OnUpdateTabName(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(!g_option.tab_title_is_path_name || GetPathName().IsEmpty());
 }
 
-void CPsqleditDoc::ShowGridData(POINT cell_pt)
+void CMsqleditDoc::ShowGridData(POINT cell_pt)
 {
 	/*
 		// モーダル表示
@@ -2093,12 +2090,12 @@ void CPsqleditDoc::ShowGridData(POINT cell_pt)
 }
 
 
-void CPsqleditDoc::OnGrfilterOn()
+void CMsqleditDoc::OnGrfilterOn()
 {
 	UpdateAllViews(NULL, UPD_GRID_FILTER_DATA_ON, (CObject*)GRID_VIEW);
 }
 
-void CPsqleditDoc::OnUpdateGrfilterOn(CCmdUI* pCmdUI)
+void CMsqleditDoc::OnUpdateGrfilterOn(CCmdUI* pCmdUI)
 {
 	if(GetViewKind() != GRID_VIEW) {
 		pCmdUI->Enable(FALSE);
@@ -2112,14 +2109,14 @@ void CPsqleditDoc::OnUpdateGrfilterOn(CCmdUI* pCmdUI)
 	pCmdUI->Enable(TRUE);
 }
 
-void CPsqleditDoc::OnGrfilterOff()
+void CMsqleditDoc::OnGrfilterOff()
 {
 	if(!m_grid_data.GetGridFilterMode()) return;
 
 	UpdateAllViews(NULL, UPD_GRID_FILTER_DATA_OFF, (CObject*)GRID_VIEW);
 }
 
-void CPsqleditDoc::OnUpdateGrfilterOff(CCmdUI* pCmdUI)
+void CMsqleditDoc::OnUpdateGrfilterOff(CCmdUI* pCmdUI)
 {
 	if(!m_grid_data.GetGridFilterMode()) {
 		pCmdUI->Enable(FALSE);
@@ -2128,7 +2125,7 @@ void CPsqleditDoc::OnUpdateGrfilterOff(CCmdUI* pCmdUI)
 	pCmdUI->Enable(TRUE);
 }
 
-void CPsqleditDoc::HideSearchDlgs()
+void CMsqleditDoc::HideSearchDlgs()
 {
 	if(CReplaceDlgSingleton::IsVisible()) {
 		CReplaceDlgSingleton::GetDlg().ShowWindow(SW_HIDE);

@@ -6,12 +6,12 @@
  * See the LICENSE_BSD file for details.
  */
  
- // msqleditDoc.h : CPsqleditDoc クラスの宣言およびインターフェイスの定義をします。
+ // msqleditDoc.h : CMsqleditDoc クラスの宣言およびインターフェイスの定義をします。
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_PSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_)
-#define AFX_PSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_
+#if !defined(AFX_MSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_)
+#define AFX_MSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -35,7 +35,7 @@ typedef enum {
 
 #include "shortcutsql.h"
 
-class CPsqleditDoc : public CDocument
+class CMsqleditDoc : public CDocument
 {
 public:
 	static BOOL LoadShortCutSqlList();
@@ -43,8 +43,8 @@ private:
 	static CShortCutSqlList m_short_cut_sql_list;
 
 protected: // シリアライズ機能のみから作成します。
-	CPsqleditDoc();
-	DECLARE_DYNCREATE(CPsqleditDoc)
+	CMsqleditDoc();
+	DECLARE_DYNCREATE(CMsqleditDoc)
 
 // アトリビュート
 public:
@@ -54,7 +54,7 @@ public:
 
 //オーバーライド
 	// ClassWizard は仮想関数のオーバーライドを生成します。
-	//{{AFX_VIRTUAL(CPsqleditDoc)
+	//{{AFX_VIRTUAL(CMsqleditDoc)
 	public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
@@ -67,7 +67,7 @@ public:
 
 // インプリメンテーション
 public:
-	virtual ~CPsqleditDoc();
+	virtual ~CMsqleditDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -77,7 +77,7 @@ protected:
 
 // 生成されたメッセージ マップ関数
 protected:
-	//{{AFX_MSG(CPsqleditDoc)
+	//{{AFX_MSG(CMsqleditDoc)
 	afx_msg void OnSqlRun();
 	afx_msg void OnSwitchView();
 	afx_msg void OnClearResult();
@@ -175,7 +175,7 @@ public:
 	BOOL GetGridSwapRowColMode() { return m_grid_swap_row_col_mode; }
 	void ToggleGridSwapRowColMode();
 
-	BOOL CPsqleditDoc::ParseSelectSQL(const TCHAR *sql, TCHAR *msg_buf,
+	BOOL CMsqleditDoc::ParseSelectSQL(const TCHAR *sql, TCHAR *msg_buf,
 		CString &schema_name, CString &table_name1, CString &table_name2,
 		CString &alias_name, CString &where_clause);
 
@@ -224,4 +224,4 @@ public:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ は前行の直前に追加の宣言を挿入します。
 
-#endif // !defined(AFX_PSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_)
+#endif // !defined(AFX_MSQLEDITDOC_H__E320F3EE_EE38_4F8E_B5AA_1722D9C94831__INCLUDED_)

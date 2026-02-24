@@ -65,7 +65,7 @@ unsigned int _stdcall pre_login_thr(void *lpvThreadParam)
 	p_st->pMainFrame->InitAccelerator();
 
 	// ショートカットSQLをロード
-	CPsqleditDoc::LoadShortCutSqlList();
+	CMsqleditDoc::LoadShortCutSqlList();
 
 	return 0;
 }
@@ -101,7 +101,7 @@ ERR1:
 /////////////////////////////////////////////////////////////////////////////
 // CPsqleditApp
 
-BEGIN_MESSAGE_MAP(CPsqleditApp, CWinApp)
+BEGIN_MESSAGE_MAP(CMsqleditApp, CWinApp)
 	//{{AFX_MSG_MAP(CPsqleditApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 	ON_COMMAND(ID_OPTION, OnOption)
@@ -127,16 +127,16 @@ BEGIN_MESSAGE_MAP(CPsqleditApp, CWinApp)
 	// 標準のファイル基本ドキュメント コマンド
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
-	ON_COMMAND(ID_NEW_WINDOW, &CPsqleditApp::OnNewWindow)
-	ON_COMMAND(ID_GET_OBJECT_SOURCE_DETAIL_BAR, &CPsqleditApp::OnGetObjectSourceDetailBar)
-	ON_UPDATE_COMMAND_UI(ID_GET_OBJECT_SOURCE_DETAIL_BAR, &CPsqleditApp::OnUpdateGetObjectSourceDetailBar)
-	ON_COMMAND(ID_SHOW_CREDITS, &CPsqleditApp::OnShowCredits)
+	ON_COMMAND(ID_NEW_WINDOW, &CMsqleditApp::OnNewWindow)
+	ON_COMMAND(ID_GET_OBJECT_SOURCE_DETAIL_BAR, &CMsqleditApp::OnGetObjectSourceDetailBar)
+	ON_UPDATE_COMMAND_UI(ID_GET_OBJECT_SOURCE_DETAIL_BAR, &CMsqleditApp::OnUpdateGetObjectSourceDetailBar)
+	ON_COMMAND(ID_SHOW_CREDITS, &CMsqleditApp::OnShowCredits)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditApp クラスの構築
+// CMsqleditApp クラスの構築
 
-CPsqleditApp::CPsqleditApp()
+CMsqleditApp::CMsqleditApp()
 {
 	g_sql_log_array = NULL;
 	g_sql_logger = NULL;
@@ -148,14 +148,14 @@ CPsqleditApp::CPsqleditApp()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// 唯一の CPsqleditApp オブジェクト
+// 唯一の CMsqleditApp オブジェクト
 
-CPsqleditApp theApp;
+CMsqleditApp theApp;
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditApp クラスの初期化
+// CMsqleditApp クラスの初期化
 
-BOOL CPsqleditApp::InitInstance()
+BOOL CMsqleditApp::InitInstance()
 {
 	// 標準的な初期化処理
 	// もしこれらの機能を使用せず、実行ファイルのサイズを小さく
@@ -198,7 +198,7 @@ BOOL CPsqleditApp::InitInstance()
 	CMultiDocTemplate* pDocTemplate;
 	pDocTemplate = new CMultiDocTemplate(
 		IDR_PSQLEDTYPE,
-		RUNTIME_CLASS(CPsqleditDoc),
+		RUNTIME_CLASS(CMsqleditDoc),
 		RUNTIME_CLASS(CChildFrame), // カスタム MDI 子フレーム
 		RUNTIME_CLASS(CSQLEditView));
 	AddDocTemplate(pDocTemplate);
@@ -275,22 +275,22 @@ BOOL CPsqleditApp::InitInstance()
 }
 
 // ダイアログを実行するためのアプリケーション コマンド
-void CPsqleditApp::OnAppAbout()
+void CMsqleditApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CPsqleditApp メッセージ ハンドラ
+// CMsqleditApp メッセージ ハンドラ
 
 
-void CPsqleditApp::SetRegistry()
+void CMsqleditApp::SetRegistry()
 {
 	SetRegistryKey(_T("OGAWA\\POSTGRESQL"));
 }
 
-void CPsqleditApp::LoadFontOption()
+void CMsqleditApp::LoadFontOption()
 {
 	g_option.font.face_name = GetProfileString(_T("FONT"), _T("FACENAME"), _T("Terminal"));
 	g_option.font.point = GetProfileInt(_T("FONT"), _T("POINT"), 100);
@@ -298,7 +298,7 @@ void CPsqleditApp::LoadFontOption()
 	g_option.font.italic = GetProfileInt(_T("FONT"), _T("ITALIC"), 0);
 }
 
-void CPsqleditApp::LoadDlgBarFontOption()
+void CMsqleditApp::LoadDlgBarFontOption()
 {
 	g_option.dlg_bar_font.face_name = GetProfileString(_T("FONT"), _T("DLG_BAR_FACENAME"), g_option.font.face_name);
 	g_option.dlg_bar_font.point = GetProfileInt(_T("FONT"), _T("DLG_BAR_POINT"), g_option.font.point);
@@ -306,7 +306,7 @@ void CPsqleditApp::LoadDlgBarFontOption()
 	g_option.dlg_bar_font.italic = GetProfileInt(_T("FONT"), _T("DLG_BAR_ITALIC"), 0);
 }
 
-BOOL CPsqleditApp::CreateFont()
+BOOL CMsqleditApp::CreateFont()
 {
 	LOGFONT lf;
 	memset(&lf, 0, sizeof(lf));
@@ -319,7 +319,7 @@ BOOL CPsqleditApp::CreateFont()
 	return g_font.CreatePointFontIndirect(&lf);
 }
 
-BOOL CPsqleditApp::CreateDlgBarFont()
+BOOL CMsqleditApp::CreateDlgBarFont()
 {
 	LOGFONT lf;
 	memset(&lf, 0, sizeof(lf));
@@ -332,7 +332,7 @@ BOOL CPsqleditApp::CreateDlgBarFont()
 	return g_dlg_bar_font.CreatePointFontIndirect(&lf);
 }
 
-void CPsqleditApp::LoadOption()
+void CMsqleditApp::LoadOption()
 {
 	g_option.text_editor.tabstop = GetProfileInt(_T("TEXT_EDITOR"), _T("TABSTOP"), 4);
 	g_option.text_editor.row_space = GetProfileInt(_T("TEXT_EDITOR"), _T("ROW_SPACE"), 0);
@@ -464,7 +464,7 @@ void CPsqleditApp::LoadOption()
 	g_object_detail_bar.LoadColumnWidth();
 }
 
-void CPsqleditApp::Logout()
+void CMsqleditApp::Logout()
 {
 	WaitPostLoginThr();
 
@@ -482,12 +482,9 @@ void CPsqleditApp::Logout()
 	SetSessionInfo(_T("未接続"));
 }
 
-static void my_notice_processor(void *arg, const char *message)
+static void app_notice_processor(void *arg, const TCHAR *message)
 {
-	TCHAR buf[1024];
-	oci_str_to_win_str((const unsigned char *)message, buf, ARRAY_SIZEOF(buf));
-
-	TRACE(buf);
+	TRACE(message);
 
 	CMainFrame	*pMainFrame = (CMainFrame *)AfxGetApp()->m_pMainWnd;
 	if(pMainFrame == NULL || pMainFrame->GetActiveFrame() == NULL) return;
@@ -496,10 +493,10 @@ static void my_notice_processor(void *arg, const char *message)
 	if(pdoc == NULL) return;
 
 	pdoc->UpdateAllViews(NULL, UPD_SET_RESULT_CARET, 0);
-	pdoc->UpdateAllViews(NULL, UPD_PUT_RESULT, (CObject *)buf);
+	pdoc->UpdateAllViews(NULL, UPD_PUT_RESULT, (CObject *)message);
 }
 
-int CPsqleditApp::Login()
+int CMsqleditApp::Login()
 {
 	CLoginDlg	dlg;
 
@@ -535,20 +532,18 @@ int CPsqleditApp::Login()
 	// ステータスバーに，ログイン情報を表示
 	CString session_info;
 	session_info.Format(_T("%s@%s:%s.%s"), my_user(g_ss), my_host(g_ss), my_port(g_ss), my_db(g_ss));
-	if(my_is_ssl_mode(g_ss)) session_info += _T("(SSL)");
-
 	if(!dlg.m_connect_name.IsEmpty()) {
 		session_info = dlg.m_connect_name + _T(" (") + session_info + _T(")");
 	}
 
 	SetSessionInfo(session_info.GetBuffer(0));
 
-	my_set_notice_processor(g_ss, my_notice_processor, NULL);
+	my_set_notice_processor(g_ss, app_notice_processor, NULL);
 
 	return 0;
 }
 
-int CPsqleditApp::PostLogin()
+int CMsqleditApp::PostLogin()
 {
 	if(g_login_flg == FALSE) return 0;
 
@@ -573,7 +568,7 @@ int CPsqleditApp::PostLogin()
 	return 0;
 }
 
-int CPsqleditApp::ExitInstance() 
+int CMsqleditApp::ExitInstance()
 {
 	g_show_clob_dlg.Clear();
 
@@ -595,7 +590,7 @@ int CPsqleditApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
-void CPsqleditApp::SaveOption()
+void CMsqleditApp::SaveOption()
 {
 	WriteProfileInt(_T("TEXT_EDITOR"), _T("TABSTOP"), g_option.text_editor.tabstop);
 	WriteProfileInt(_T("TEXT_EDITOR"), _T("ROW_SPACE"), g_option.text_editor.row_space);
@@ -710,7 +705,7 @@ void CPsqleditApp::SaveOption()
 	g_object_detail_bar.SaveColumnWidth();
 }
 
-void CPsqleditApp::SaveFontOption()
+void CMsqleditApp::SaveFontOption()
 {
 	WriteProfileString(_T("FONT"), _T("FACENAME"), g_option.font.face_name);
 	WriteProfileInt(_T("FONT"), _T("POINT"), g_option.font.point);
@@ -718,7 +713,7 @@ void CPsqleditApp::SaveFontOption()
 	WriteProfileInt(_T("FONT"), _T("ITALIC"), g_option.font.italic);
 }
 
-void CPsqleditApp::SaveDlgBarFontOption()
+void CMsqleditApp::SaveDlgBarFontOption()
 {
 	WriteProfileString(_T("FONT"), _T("DLG_BAR_FACENAME"), g_option.dlg_bar_font.face_name);
 	WriteProfileInt(_T("FONT"), _T("DLG_BAR_POINT"), g_option.dlg_bar_font.point);
@@ -726,7 +721,7 @@ void CPsqleditApp::SaveDlgBarFontOption()
 	WriteProfileInt(_T("FONT"), _T("DLG_BAR_ITALIC"), g_option.dlg_bar_font.italic);
 }
 
-void CPsqleditApp::OnOption() 
+void CMsqleditApp::OnOption()
 {
 	COptionSheet dlg(_T("オプション"), AfxGetMainWnd());
 	int		i;
@@ -954,7 +949,7 @@ void CPsqleditApp::OnOption()
 	SaveOption();
 }
 
-void CPsqleditApp::UnRegisterShellFileTypes()
+void CMsqleditApp::UnRegisterShellFileTypes()
 {
 	m_pDocManager->UnregisterShellFileTypes();
 
@@ -971,7 +966,7 @@ void CPsqleditApp::UnRegisterShellFileTypes()
 	}
 }
 
-BOOL CPsqleditApp::CheckRegisterShellFileTypes()
+BOOL CMsqleditApp::CheckRegisterShellFileTypes()
 {
 	CString strFilterExt, strFileTypeId, strTemp;
 	long	lSize = MAX_PATH * 2;
@@ -998,7 +993,7 @@ BOOL CPsqleditApp::CheckRegisterShellFileTypes()
 	return FALSE;
 }
 
-void CPsqleditApp::UpdateAllDocViews(CView* pSender, LPARAM lHint, CObject* pHint)
+void CMsqleditApp::UpdateAllDocViews(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	POSITION	doc_tmpl_pos = GetFirstDocTemplatePosition();
 	for(; doc_tmpl_pos != NULL;) {
@@ -1010,28 +1005,28 @@ void CPsqleditApp::UpdateAllDocViews(CView* pSender, LPARAM lHint, CObject* pHin
 	}
 }
 
-void CPsqleditApp::SetLineMode(int line_mode)
+void CMsqleditApp::SetLineMode(int line_mode)
 {
 	g_option.text_editor.line_mode = line_mode;
 	UpdateAllDocViews(NULL, UPD_CHANGE_LINE_MODE, 0);
 }
 
-void CPsqleditApp::OnLineModeLen() 
+void CMsqleditApp::OnLineModeLen()
 {
 	SetLineMode(EC_LINE_MODE_LEN);
 }
 
-void CPsqleditApp::OnLineModeNormal() 
+void CMsqleditApp::OnLineModeNormal()
 {
 	SetLineMode(EC_LINE_MODE_NORMAL);
 }
 
-void CPsqleditApp::OnLineModeRight() 
+void CMsqleditApp::OnLineModeRight()
 {
 	SetLineMode(EC_LINE_MODE_RIGHT);
 }
 
-void CPsqleditApp::CheckLineMode(CCmdUI *pCmdUI, int line_mode)
+void CMsqleditApp::CheckLineMode(CCmdUI *pCmdUI, int line_mode)
 {
 	if(g_option.text_editor.line_mode == line_mode) {
 		pCmdUI->SetCheck(1);
@@ -1040,22 +1035,22 @@ void CPsqleditApp::CheckLineMode(CCmdUI *pCmdUI, int line_mode)
 	}
 }
 
-void CPsqleditApp::OnUpdateLineModeLen(CCmdUI* pCmdUI) 
+void CMsqleditApp::OnUpdateLineModeLen(CCmdUI* pCmdUI)
 {
 	CheckLineMode(pCmdUI, EC_LINE_MODE_LEN);
 }
 
-void CPsqleditApp::OnUpdateLineModeNormal(CCmdUI* pCmdUI) 
+void CMsqleditApp::OnUpdateLineModeNormal(CCmdUI* pCmdUI)
 {
 	CheckLineMode(pCmdUI, EC_LINE_MODE_NORMAL);
 }
 
-void CPsqleditApp::OnUpdateLineModeRight(CCmdUI* pCmdUI) 
+void CMsqleditApp::OnUpdateLineModeRight(CCmdUI* pCmdUI)
 {
 	CheckLineMode(pCmdUI, EC_LINE_MODE_RIGHT);
 }
 
-void CPsqleditApp::OnLogfileOpen() 
+void CMsqleditApp::OnLogfileOpen()
 {
 	TCHAR	cur_dir[_MAX_PATH];
 	GetCurrentDirectory(sizeof(cur_dir)/sizeof(cur_dir[0]), cur_dir);
@@ -1068,12 +1063,12 @@ void CPsqleditApp::OnLogfileOpen()
 	// 新しいドキュメントを作成
 //	OpenDocumentFile(newName);
 	// OpenDocumentFileでは，最近使ったファイルリストに入ってしまう
-   	CPsqleditDoc *pDoc = (CPsqleditDoc *)CreateNewDocument(_T(""));
+	CMsqleditDoc *pDoc = (CMsqleditDoc *)CreateNewDocument(_T(""));
 	pDoc->OnOpenDocument(newName);
 	pDoc->SetPathName(newName);
 
 	// ログファイルは実行不可にする
-	CPsqleditDoc *pdoc = (CPsqleditDoc *)::GetActiveDocument();	
+	CMsqleditDoc *pdoc = (CMsqleditDoc *)::GetActiveDocument();	
 	pdoc->SetNoSqlRun();
 
 	SetCurrentDirectory(cur_dir);
@@ -1112,7 +1107,7 @@ static void AppendFilterSuffix(CString& filter, OPENFILENAME& ofn,
 	}
 }
 
-BOOL CPsqleditApp::DoPromptFileName(CString& fileName, UINT nIDSTitle,
+BOOL CMsqleditApp::DoPromptFileName(CString& fileName, UINT nIDSTitle,
 			DWORD lFlags, BOOL bOpenFileDialog, CDocTemplate* pTemplate,
 			TCHAR *dir)
 {
@@ -1173,7 +1168,7 @@ BOOL CPsqleditApp::DoPromptFileName(CString& fileName, UINT nIDSTitle,
 	return bResult;
 }
 
-CDocument *CPsqleditApp::CreateNewDocument(TCHAR *title)
+CDocument *CMsqleditApp::CreateNewDocument(TCHAR *title)
 {
 	CWaitCursor			wait_cursor;
 	int			ret_v = 0;
@@ -1201,7 +1196,7 @@ CDocument *CPsqleditApp::CreateNewDocument(TCHAR *title)
 }
 
 
-void CPsqleditApp::OnSetFont() 
+void CMsqleditApp::OnSetFont()
 {
 	CFontDialog		fontdlg;
 
@@ -1225,7 +1220,7 @@ void CPsqleditApp::OnSetFont()
 	SaveFontOption();
 }
 
-void CPsqleditApp::OnSetFontDlgBar() 
+void CMsqleditApp::OnSetFontDlgBar()
 {
 	CFontDialog		fontdlg;
 
@@ -1252,7 +1247,7 @@ void CPsqleditApp::OnSetFontDlgBar()
 	SaveDlgBarFontOption();
 }
 
-void CPsqleditApp::WaitPostLoginThr()
+void CMsqleditApp::WaitPostLoginThr()
 {
 	if(m_h_thread != NULL) {
 		WaitForSingleObject((HANDLE)m_h_thread, INFINITE);
@@ -1261,7 +1256,7 @@ void CPsqleditApp::WaitPostLoginThr()
 	}
 }
 
-void CPsqleditApp::OnRefreshTableList() 
+void CMsqleditApp::OnRefreshTableList()
 {
 	if(g_login_flg == FALSE) {
 		AfxGetMainWnd()->MessageBox(_T("データベースに接続していません"), _T("Error"), MB_ICONEXCLAMATION | MB_OK);
@@ -1284,7 +1279,7 @@ void CPsqleditApp::OnRefreshTableList()
 	}
 }
 
-void CPsqleditApp::OnSqlLibrary() 
+void CMsqleditApp::OnSqlLibrary()
 {
 	CSqlLibraryDlg	dlg;
 
@@ -1307,19 +1302,19 @@ void CPsqleditApp::OnSqlLibrary()
 */	
 }
 
-void CPsqleditApp::OnSetLoginInfo() 
+void CMsqleditApp::OnSetLoginInfo()
 {
 	CConnectInfoDlg		dlg;
 
 	dlg.DoModal();	
 }
 
-void CPsqleditApp::OnReconnect() 
+void CMsqleditApp::OnReconnect()
 {
 	ReConnect();
 }
 
-int CPsqleditApp::ReConnect()
+int CMsqleditApp::ReConnect()
 {
 	// ログイン
 	if(Login() != 0) {
@@ -1335,17 +1330,17 @@ int CPsqleditApp::ReConnect()
 	return 0;
 }
 
-void CPsqleditApp::OnDisconnect() 
+void CMsqleditApp::OnDisconnect()
 {
 	Logout();
 }
 
-void CPsqleditApp::OnUpdateDisconnect(CCmdUI* pCmdUI) 
+void CMsqleditApp::OnUpdateDisconnect(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(g_login_flg);
 }
 
-void CPsqleditApp::SetSessionInfo(const TCHAR *session_info)
+void CMsqleditApp::SetSessionInfo(const TCHAR *session_info)
 {
 	g_session_info = session_info;
 	if(::IsWindow(m_pMainWnd->GetSafeHwnd())) {
@@ -1355,7 +1350,7 @@ void CPsqleditApp::SetSessionInfo(const TCHAR *session_info)
 	}
 }
 
-void CPsqleditApp::PrintConnectInfo()
+void CMsqleditApp::PrintConnectInfo()
 {
 	if(g_ss == NULL) return;
 
@@ -1383,12 +1378,12 @@ void CPsqleditApp::PrintConnectInfo()
 	my_free_dataset(dataset);
 }
 
-void CPsqleditApp::OnGetObjectSource() 
+void CMsqleditApp::OnGetObjectSource()
 {
 	GetObjectSource();
 }
 
-void CPsqleditApp::OnUpdateGetObjectSource(CCmdUI* pCmdUI) 
+void CMsqleditApp::OnUpdateGetObjectSource(CCmdUI* pCmdUI)
 {
 	if(g_login_flg == FALSE ||
 		g_object_bar.GetSelectedUser() == "" ||
@@ -1404,7 +1399,7 @@ void CPsqleditApp::OnUpdateGetObjectSource(CCmdUI* pCmdUI)
 	}
 }
 
-int CPsqleditApp::GetObjectSource(const TCHAR *owner, const TCHAR *object_type, const TCHAR *oid, const TCHAR *object_name, const TCHAR *schema)
+int CMsqleditApp::GetObjectSource(const TCHAR *owner, const TCHAR *object_type, const TCHAR *oid, const TCHAR *object_name, const TCHAR *schema)
 {
 	if(g_login_flg == FALSE) {
 		AfxGetMainWnd()->MessageBox(_T("データベースに接続していません"), _T("Error"), MB_ICONEXCLAMATION | MB_OK);
@@ -1426,7 +1421,7 @@ int CPsqleditApp::GetObjectSource(const TCHAR *owner, const TCHAR *object_type, 
 	if(title.GetLength() > 50) title = title.Left(50) + _T("...");
 
 	// 新しいドキュメントを作成
-	CPsqleditDoc *pDoc = (CPsqleditDoc *)CreateNewDocument(title.GetBuffer(0));
+	CMsqleditDoc *pDoc = (CMsqleditDoc *)CreateNewDocument(title.GetBuffer(0));
 
 	ret_v = create_object_source(g_ss, object_type, oid, object_name, schema, pDoc->GetSqlData(), g_msg_buf);
 	if(ret_v != 0) {
@@ -1440,7 +1435,7 @@ int CPsqleditApp::GetObjectSource(const TCHAR *owner, const TCHAR *object_type, 
 	return 0;
 }
 
-int CPsqleditApp::GetObjectSource(const TCHAR* owner, CStringArray* object_name_list, CStringArray* object_type_list,
+int CMsqleditApp::GetObjectSource(const TCHAR* owner, CStringArray* object_name_list, CStringArray* object_type_list,
 	CStringArray* oid_list, CStringArray* schema_list)
 {
 	if(g_login_flg == FALSE) {
@@ -1467,7 +1462,7 @@ int CPsqleditApp::GetObjectSource(const TCHAR* owner, CStringArray* object_name_
 	if(title.GetLength() > 50) title = title.Left(50) + _T("...");
 
 	// 新しいドキュメントを作成
-	CPsqleditDoc* pDoc = (CPsqleditDoc*)CreateNewDocument(title.GetBuffer(0));
+	CMsqleditDoc* pDoc = (CMsqleditDoc*)CreateNewDocument(title.GetBuffer(0));
 
 	CEditData* edit_data = pDoc->GetSqlData();
 	int	i;
@@ -1495,7 +1490,7 @@ int CPsqleditApp::GetObjectSource(const TCHAR* owner, CStringArray* object_name_
 	return 0;
 }
 
-int CPsqleditApp::GetObjectSource()
+int CMsqleditApp::GetObjectSource()
 {
 	CWaitCursor			wait_cursor;
 
@@ -1512,7 +1507,7 @@ int CPsqleditApp::GetObjectSource()
 		&object_name_list, &object_type_list, &oid_list, &schema_list);
 }
 
-void CPsqleditApp::OnFileOpen() 
+void CMsqleditApp::OnFileOpen()
 {
 	CString newName;
 	if (!DoPromptFileName(newName, AFX_IDS_OPENFILE,
@@ -1523,7 +1518,7 @@ void CPsqleditApp::OnFileOpen()
 }
 
 
-void CPsqleditApp::OnNewWindow()
+void CMsqleditApp::OnNewWindow()
 {
 	CString					cmd;
 	PROCESS_INFORMATION		pi;
@@ -1557,7 +1552,7 @@ void CPsqleditApp::OnNewWindow()
 	CloseHandle(pi.hProcess);
 }
 
-int CPsqleditApp::GetObjectSourceDetailBar()
+int CMsqleditApp::GetObjectSourceDetailBar()
 {
 	CWaitCursor			wait_cursor;
 
@@ -1574,12 +1569,12 @@ int CPsqleditApp::GetObjectSourceDetailBar()
 		&object_name_list, &object_type_list, &oid_list, &schema_list);
 }
 
-void CPsqleditApp::OnGetObjectSourceDetailBar()
+void CMsqleditApp::OnGetObjectSourceDetailBar()
 {
 	GetObjectSourceDetailBar();
 }
 
-void CPsqleditApp::OnUpdateGetObjectSourceDetailBar(CCmdUI* pCmdUI)
+void CMsqleditApp::OnUpdateGetObjectSourceDetailBar(CCmdUI* pCmdUI)
 {
 	if (g_login_flg == FALSE ||
 		g_object_bar.GetSelectedUser() == "" ||
@@ -1597,7 +1592,7 @@ void CPsqleditApp::OnUpdateGetObjectSourceDetailBar(CCmdUI* pCmdUI)
 	}
 }
 
-void CPsqleditApp::OnShowCredits()
+void CMsqleditApp::OnShowCredits()
 {
 	OpenHelpFile(_T("credits.txt"));
 }
