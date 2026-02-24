@@ -6,16 +6,16 @@
  * See the LICENSE_BSD file for details.
  */
  
-// psqlgrid.cpp : アプリケーション用クラスの機能定義を行います。
+// msqlgrid.cpp : アプリケーション用クラスの機能定義を行います。
 //
 
 #include "stdafx.h"
 #define _MAIN
-#include "psqlgrid.h"
+#include "msqlgrid.h"
 
 #include "MainFrm.h"
-#include "psqlgridDoc.h"
-#include "psqlgridView.h"
+#include "msqlgridDoc.h"
+#include "msqlgridView.h"
 
 #include "LoginDlg.h"
 

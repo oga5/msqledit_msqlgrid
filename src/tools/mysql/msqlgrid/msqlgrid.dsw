@@ -39,7 +39,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "psqlgrid"=.\psqlgrid.dsp - Package Owner=<4>
+Project: "msqlgrid"=.\msqlgrid.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

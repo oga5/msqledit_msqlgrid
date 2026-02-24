@@ -6,12 +6,12 @@
  * See the LICENSE_BSD file for details.
  */
  
-// psqlgridView.h : CPsqlgridView クラスの宣言およびインターフェイスの定義をします。
+// msqlgridView.h : CPsqlgridView クラスの宣言およびインターフェイスの定義をします。
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_PSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_)
-#define AFX_PSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_
+#if !defined(AFX_MSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_)
+#define AFX_MSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -161,7 +161,7 @@ public:
 };
 
 
-#ifndef _DEBUG  // psqlgridView.cpp ファイルがデバッグ環境の時使用されます。
+#ifndef _DEBUG  // msqlgridView.cpp ファイルがデバッグ環境の時使用されます。
 inline CPsqlgridDoc* CPsqlgridView::GetDocument()
    { return (CPsqlgridDoc*)m_pDocument; }
 #endif
@@ -171,4 +171,4 @@ inline CPsqlgridDoc* CPsqlgridView::GetDocument()
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ は前行の直前に追加の宣言を挿入します。
 
-#endif // !defined(AFX_PSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_)
+#endif // !defined(AFX_MSQLGRIDVIEW_H__EB7B91DC_0859_434F_86D4_92163D2C07C3__INCLUDED_)

@@ -5,7 +5,7 @@ Version=1
 LastClass=CMainFrame
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
-NewFileInclude2=#include "psqledit.h"
+NewFileInclude2=#include "msqledit.h"
 LastPage=0
 
 ClassCount=37
@@ -205,8 +205,8 @@ ImplementationFile=PrintDlg.cpp
 [CLS:CPsqleditApp]
 Type=0
 BaseClass=CWinApp
-HeaderFile=psqledit.h
-ImplementationFile=psqledit.cpp
+HeaderFile=msqledit.h
+ImplementationFile=msqledit.cpp
 LastObject=CPsqleditApp
 Filter=N
 VirtualFilter=AC
@@ -214,8 +214,8 @@ VirtualFilter=AC
 [CLS:CPsqleditDoc]
 Type=0
 BaseClass=CDocument
-HeaderFile=psqleditDoc.h
-ImplementationFile=psqleditDoc.cpp
+HeaderFile=msqleditDoc.h
+ImplementationFile=msqleditDoc.cpp
 LastObject=CPsqleditDoc
 Filter=N
 VirtualFilter=DC

@@ -27,7 +27,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "pglib"=..\..\..\libs\pglib\pglib.dsp - Package Owner=<4>
+Project: "mylib"=..\..\..\libs\mylib\mylib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -39,7 +39,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "psqledit"=.\psqledit.dsp - Package Owner=<4>
+Project: "msqledit"=.\msqledit.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -48,7 +48,7 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name pglib
+    Project_Dep_Name mylib
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name ostrutil

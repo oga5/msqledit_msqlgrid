@@ -10,7 +10,7 @@
 //
 
 #include "stdafx.h"
-#include "psqlgrid.h"
+#include "msqlgrid.h"
 #include "GridOptionPage.h"
 
 #ifdef _DEBUG

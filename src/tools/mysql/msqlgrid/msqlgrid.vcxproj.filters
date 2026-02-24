@@ -48,13 +48,13 @@
     <ClCompile Include="OptionSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="psqlgrid.cpp">
+    <ClCompile Include="msqlgrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="psqlgridDoc.cpp">
+    <ClCompile Include="msqlgridDoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="psqlgridView.cpp">
+    <ClCompile Include="msqlgridView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scr_pass.cpp">
@@ -107,7 +107,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="psqlgrid.rc">
+    <ResourceCompile Include="msqlgrid.rc">
       <Filter>Source Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -151,13 +151,13 @@
     <ClInclude Include="OptionSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="psqlgrid.h">
+    <ClInclude Include="msqlgrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="psqlgridDoc.h">
+    <ClInclude Include="msqlgridDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="psqlgridView.h">
+    <ClInclude Include="msqlgridView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -225,10 +225,10 @@
     <Image Include="res\ogrid.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\psqlgrid.ico">
+    <Image Include="res\msqlgrid.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\psqlgridDoc.ico">
+    <Image Include="res\msqlgridDoc.ico">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Toolbar.bmp">
@@ -258,7 +258,7 @@
     <Text Include="Changelog.txt" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\psqlgrid.rc2">
+    <CustomBuild Include="res\msqlgrid.rc2">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>

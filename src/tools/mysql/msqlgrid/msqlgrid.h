@@ -6,11 +6,11 @@
  * See the LICENSE_BSD file for details.
  */
  
-// psqlgrid.h : PSQLGRID アプリケーションのメイン ヘッダー ファイル
+// msqlgrid.h : MSQLGRID アプリケーションのメイン ヘッダー ファイル
 //
 
-#if !defined(AFX_PSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_)
-#define AFX_PSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_
+#if !defined(AFX_MSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_)
+#define AFX_MSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -26,7 +26,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPsqlgridApp:
-// このクラスの動作の定義に関しては psqlgrid.cpp ファイルを参照してください。
+// このクラスの動作の定義に関しては msqlgrid.cpp ファイルを参照してください。
 //
 
 class CPsqlgridApp : public CWinApp
@@ -86,4 +86,4 @@ public:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ は前行の直前に追加の宣言を挿入します。
 
-#endif // !defined(AFX_PSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_)
+#endif // !defined(AFX_MSQLGRID_H__48EEDD56_E420_41C4_A7AB_0AE6EB44287E__INCLUDED_)

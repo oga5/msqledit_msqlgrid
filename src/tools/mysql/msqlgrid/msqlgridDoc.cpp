@@ -5,13 +5,13 @@
  * This software is licensed under the BSD License.
  * See the LICENSE_BSD file for details.
  */
-// psqlgridDoc.cpp : CPsqlgridDoc クラスの動作の定義を行います。
+// msqlgridDoc.cpp : CPsqlgridDoc クラスの動作の定義を行います。
 //
 
 #include "stdafx.h"
-#include "psqlgrid.h"
+#include "msqlgrid.h"
 
-#include "psqlgridDoc.h"
+#include "msqlgridDoc.h"
 
 #include "CommonCancelDlg.h"
 #include "PlacesBarFileDlg.h"

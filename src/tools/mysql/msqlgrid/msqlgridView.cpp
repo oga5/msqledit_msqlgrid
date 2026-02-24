@@ -5,14 +5,14 @@
  * This software is licensed under the BSD License.
  * See the LICENSE_BSD file for details.
  */
-// psqlgridView.cpp : CPsqlgridView クラスの動作の定義を行います。
+// msqlgridView.cpp : CPsqlgridView クラスの動作の定義を行います。
 //
 
 #include "stdafx.h"
-#include "psqlgrid.h"
+#include "msqlgrid.h"
 
-#include "psqlgridDoc.h"
-#include "psqlgridView.h"
+#include "msqlgridDoc.h"
+#include "msqlgridView.h"
 
 #include "global.h"
 

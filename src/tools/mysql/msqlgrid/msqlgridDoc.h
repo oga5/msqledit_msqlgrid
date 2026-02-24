@@ -6,12 +6,12 @@
  * See the LICENSE_BSD file for details.
  */
 
-// psqlgridDoc.h : CPsqlgridDoc クラスの宣言およびインターフェイスの定義をします。
+// msqlgridDoc.h : CPsqlgridDoc クラスの宣言およびインターフェイスの定義をします。
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_PSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_)
-#define AFX_PSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_
+#if !defined(AFX_MSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_)
+#define AFX_MSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -114,4 +114,4 @@ public:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ は前行の直前に追加の宣言を挿入します。
 
-#endif // !defined(AFX_PSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_)
+#endif // !defined(AFX_MSQLGRIDDOC_H__8473B417_B891_4739_8761_CCEDF3B42F26__INCLUDED_)
