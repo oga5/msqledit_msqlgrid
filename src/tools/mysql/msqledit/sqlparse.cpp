@@ -21,23 +21,13 @@ BOOL is_sql_end(CEditData *edit_data, int row, int *semicolon_col, BOOL in_quote
 
 	ASSERT(token == &g_sql_str_token);
 
-	if(in_quote) {
-		for(; *p != '\0' && *p != '\'';) p++;
-		if(*p == '\'') p++;
-		p = token->skipCommentAndSpace(p);
-		if(p == NULL) return FALSE;
-
-		INT_PTR start;
-		if(oregexp_lwr(_T("language\\s+'.+?'\\s*;\\s*$"), 
-			p, &start, NULL, 1) != OREGEXP_FOUND) return FALSE;
-		p += start;
-	}
+	// MySQL does not use dollar-quoting, so in_quote mode is not needed
+	(void)in_quote;
 
 	for(; *p != '\0';) {
 		if(*p == ';') {
 			int char_type = edit_data->check_char_type(row, (int)(p - p_start));
-			if((!in_quote && char_type == CHAR_TYPE_NORMAL) ||
-				(in_quote && char_type == CHAR_TYPE_IN_QUOTE)) {
+			if(char_type == CHAR_TYPE_NORMAL) {
 				if(semicolon_col) *semicolon_col = (int)(p - p_start);
 				return TRUE;
 			}

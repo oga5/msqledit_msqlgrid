@@ -21,12 +21,20 @@
 
 EXTERN BOOL			g_license_ok;
 
-EXTERN HMySession	g_ss;				// oracle session handle
+EXTERN HMySession	g_ss;				// MySQL session handle
 EXTERN BOOL			g_login_flg;
 EXTERN TCHAR		g_msg_buf[1024];	// error message buffer
 
 EXTERN CString		g_connect_str;
 EXTERN CString		g_session_info;
+
+// MySQL connection parameters (for background reconnection)
+EXTERN CString		g_connect_host;
+EXTERN CString		g_connect_user;
+EXTERN CString		g_connect_passwd;
+EXTERN CString		g_connect_dbname;
+EXTERN CString		g_connect_port;
+EXTERN CString		g_connect_charset;
 
 EXTERN CFont		g_font;				// global font
 EXTERN CSQLStrToken g_sql_str_token;	// string toknizer

@@ -6,13 +6,13 @@
  * See the LICENSE_BSD file for details.
  */
  
- // psqleditDoc.cpp : CPsqleditDoc クラスの動作の定義を行います。
+ // msqleditDoc.cpp : CPsqleditDoc クラスの動作の定義を行います。
 //
 
 #include "stdafx.h"
-#include "psqledit.h"
+#include "msqledit.h"
 
-#include "psqleditDoc.h"
+#include "msqleditDoc.h"
 #include "mymsg.h"
 #include "localsql.h"
 #include "fileutil.h"
@@ -1647,7 +1647,7 @@ BOOL CPsqleditDoc::RunPsqlGrid(TCHAR *sql)
 		return FALSE;
 	}
 */
-	CString file_name = GetAppPath() + _T("tmp_psqlgrid.psg");
+	CString file_name = GetAppPath() + _T("tmp_msqlgrid.psg");
 
 	if(!CreatePsqlGridFile(sql, file_name)) {
 		return FALSE;
@@ -1658,7 +1658,7 @@ BOOL CPsqleditDoc::RunPsqlGrid(TCHAR *sql)
 		STARTUPINFO				si;
 
 		CString cmd;
-		cmd.Format(_T("%spsqlgrid.exe \"%s\" LOGON=%s"),
+		cmd.Format(_T("%smsqlgrid.exe \"%s\" LOGON=%s"),
 			GetAppPath(), file_name, g_connect_str);
 
 		ZeroMemory(&si, sizeof(si));

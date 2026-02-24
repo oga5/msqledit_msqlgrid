@@ -100,7 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -133,7 +133,7 @@
       <OutputFile>$(TargetPath)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>0x500000</BaseAddress>
-      <AdditionalDependencies>version.lib;imm32.lib;ofileutil.lib;ostrutil.lib;octrllib.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>version.lib;imm32.lib;ofileutil.lib;ostrutil.lib;octrllib.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
@@ -155,7 +155,7 @@ copy doc\*.txt $(OutDir)doc
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -188,7 +188,7 @@ copy doc\*.txt $(OutDir)doc
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>
       </BaseAddress>
-      <AdditionalDependencies>version.lib;imm32.lib;ofileutil.lib;ostrutil.lib;octrllib.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>version.lib;imm32.lib;ofileutil.lib;ostrutil.lib;octrllib.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <GenerateMapFile>true</GenerateMapFile>
@@ -210,7 +210,7 @@ copy doc\*.txt $(OutDir)doc
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -243,7 +243,7 @@ copy doc\*.txt $(OutDir)doc
       <OutputFile>$(TargetPath)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>0x500000</BaseAddress>
-      <AdditionalDependencies>version.lib;imm32.lib;ostrutil.lib;octrllib.lib;pglib.lib;ws2_32.lib;ofileutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>version.lib;imm32.lib;ostrutil.lib;octrllib.lib;mylib.lib;ws2_32.lib;ofileutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -266,7 +266,7 @@ copy doc\*.txt $(OutDir)doc
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../commonsrc;../../common;../../dbcommon;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -300,7 +300,7 @@ copy doc\*.txt $(OutDir)doc
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>
       </BaseAddress>
-      <AdditionalDependencies>version.lib;imm32.lib;ostrutil.lib;octrllib.lib;pglib.lib;ws2_32.lib;ofileutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>version.lib;imm32.lib;ostrutil.lib;octrllib.lib;mylib.lib;ws2_32.lib;ofileutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

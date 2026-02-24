@@ -43,7 +43,7 @@ public:
 
 private:
 	void PasteObjectName(TCHAR *object_name);
-	CPSqlEditCtrl		m_edit_ctrl;
+	CMSqlEditCtrl		m_edit_ctrl;
 
 	void SetErrorInfo(int row_offset);
 	void SetErrorPos(int row_offset);

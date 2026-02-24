@@ -9,7 +9,7 @@
 //
 
 #include "stdafx.h"
-#include "psqledit.h"
+#include "msqledit.h"
 #include "SqlLogDlg.h"
 
 #include "common.h"

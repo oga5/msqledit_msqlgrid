@@ -6,7 +6,7 @@
  * See the LICENSE_BSD file for details.
  */
  
- // psqleditDoc.h : CPsqleditDoc クラスの宣言およびインターフェイスの定義をします。
+ // msqleditDoc.h : CPsqleditDoc クラスの宣言およびインターフェイスの定義をします。
 //
 /////////////////////////////////////////////////////////////////////////////
 

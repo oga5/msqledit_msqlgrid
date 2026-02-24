@@ -6,7 +6,7 @@
  * See the LICENSE_BSD file for details.
  */
  
- // psqledit.h : PSQLEDIT アプリケーションのメイン ヘッダー ファイル
+ // msqledit.h : PSQLEDIT アプリケーションのメイン ヘッダー ファイル
 //
 
 #if !defined(AFX_PSQLEDIT_H__F8E50C1E_1E85_45C5_AE6D_1241D3E2F8FC__INCLUDED_)
@@ -24,7 +24,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPsqleditApp:
-// このクラスの動作の定義に関しては psqledit.cpp ファイルを参照してください。
+// このクラスの動作の定義に関しては msqledit.cpp ファイルを参照してください。
 //
 
 #include "global.h"

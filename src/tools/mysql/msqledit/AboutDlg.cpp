@@ -54,7 +54,7 @@ BOOL CAboutDlg::OnInitDialog()
 	GetModuleFileName(AfxGetInstanceHandle(), filename, sizeof(filename)/sizeof(filename[0]));
 	GetFileVersion(filename, &file_version);
 	
-	m_static0.Format(_T("%s Version %s"), _T("PSqlEdit"), file_version);
+	m_static0.Format(_T("%s Version %s"), _T("MSqlEdit"), file_version);
 
 	UpdateData(FALSE);
 

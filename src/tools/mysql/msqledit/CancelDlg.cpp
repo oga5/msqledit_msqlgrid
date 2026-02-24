@@ -12,7 +12,7 @@
 #include "stdafx.h"
 #include "global.h"
 #include "CancelDlg.h"
-#include "psqleditDoc.h"
+#include "msqleditDoc.h"
 #include "mymsg.h"
 
 #ifdef _DEBUG

@@ -11,7 +11,7 @@
 
 
 #include "stdafx.h"
-#include "psqledit.h"
+#include "msqledit.h"
 
 #include "SQLEditView.h"
 #include "ChildFrm.h"

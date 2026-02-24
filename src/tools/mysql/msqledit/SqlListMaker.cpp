@@ -34,23 +34,29 @@ BOOL						CSqlListMaker::m_sort_column_name = TRUE;
 static HMyDataset get_object_list_in_schema_for_list_maker(HMySession ss, const TCHAR* schema, TCHAR* msg_buf)
 {
 	TCHAR	sql_buf[4096];
-	CString tmp_schema;
 
-	if(my_get_remote_version(ss) < 70300) return NULL;
-
-	_stprintf(sql_buf,
-		_T("select t.tablename attname, 'TABLE' typename from pg_tables t \n")
-		_T("where t.schemaname = '%s' \n")
-		_T("union all \n")
-		_T("select v.viewname attname, 'VIEW' typename from pg_views v \n")
-		_T("where v.schemaname = '%s' \n")
-		_T("union all \n")
-		_T("select p.proname attname, 'FUNCTION' typename \n")
-		_T("from pg_proc p, pg_namespace n \n")
-		_T("where p.pronamespace = n.oid \n")
-		_T("and n.nspname = '%s' \n")
-		_T("order by 1  \n"),
-		schema, schema, schema);
+	if(schema == NULL || schema[0] == '\0') {
+		_stprintf(sql_buf,
+			_T("SELECT table_name AS attname, table_type AS typename \n")
+			_T("FROM information_schema.tables \n")
+			_T("WHERE table_schema = DATABASE() \n")
+			_T("UNION ALL \n")
+			_T("SELECT routine_name AS attname, routine_type AS typename \n")
+			_T("FROM information_schema.routines \n")
+			_T("WHERE routine_schema = DATABASE() \n")
+			_T("ORDER BY 1 \n"));
+	} else {
+		_stprintf(sql_buf,
+			_T("SELECT table_name AS attname, table_type AS typename \n")
+			_T("FROM information_schema.tables \n")
+			_T("WHERE table_schema = '%s' \n")
+			_T("UNION ALL \n")
+			_T("SELECT routine_name AS attname, routine_type AS typename \n")
+			_T("FROM information_schema.routines \n")
+			_T("WHERE routine_schema = '%s' \n")
+			_T("ORDER BY 1 \n"),
+			schema, schema);
+	}
 
 	return my_create_dataset(ss, sql_buf, msg_buf);
 }
@@ -61,62 +67,31 @@ static HMyDataset get_object_list_in_schema_for_list_maker(HMySession ss, const 
 static HMyDataset get_column_list_for_list_maker(HMySession ss, const TCHAR *schema, const TCHAR *table_name, BOOL sort_column_name, TCHAR *msg_buf)
 {
 	TCHAR	sql_buf[4096];
-	TCHAR	sort_col[100];
-	CString tmp_schema;
+	const TCHAR *sort_col;
 
 	if(_tcslen(table_name) == 0) {
 		return NULL;
 	}
 
-	if(my_get_remote_version(ss) >= 70300 && (schema == NULL || schema[0] == '\0')) {
-		tmp_schema = get_table_schema_name(ss, table_name, msg_buf);
-		if(!tmp_schema.IsEmpty()) {
-			schema = tmp_schema.GetBuffer(0);
-		}
-	}
+	sort_col = sort_column_name ? _T("column_name") : _T("ordinal_position");
 
-	if(sort_column_name) {
-		_tcscpy(sort_col, _T("attname"));
-	} else {
-		_tcscpy(sort_col, _T("attnum"));
-	}
-
-	if(my_get_remote_version(ss) >= 70300 && schema != NULL && schema[0] != '\0') {
+	if(schema != NULL && schema[0] != '\0') {
 		_stprintf(sql_buf,
-			_T("select a.attname, \n")
-			_T("	t.typname || '(' || \n")
-			_T("		(case \n")
-			_T("			when t.typname = 'numeric' and (atttypmod - 4) %% 65536 = 0 then to_char((atttypmod - 4) / 65536, 'FM999999') \n")
-			_T("			when t.typname = 'numeric' then to_char((atttypmod - 4) / 65536, 'FM999999') || ',' || to_char((atttypmod - 4) %% 65536, 'FM999999') \n")
-			_T("			when a.atttypmod > 4 then to_char(a.atttypmod - 4, 'FM999999') \n")
-			_T("			else to_char(a.attlen, 'FM999999') \n")
-			_T("		 end) || \n")
-			_T("		')' as typename \n")
-			_T("from pg_attribute a, pg_class c, pg_type t \n")
-			_T("where c.oid = a.attrelid \n")
-			_T("and t.oid = a.atttypid \n")
-			_T("and a.attnum > 0 \n")
-			_T("and c.relnamespace = (select oid from pg_namespace where nspname = '%s') \n")
-			_T("and c.relname = '%s' \n")
-			_T("order by %s \n"),
+			_T("SELECT column_name AS attname, \n")
+			_T("	CONCAT(data_type, '(', IFNULL(character_maximum_length, IFNULL(numeric_precision, 0)), ')') AS typename \n")
+			_T("FROM information_schema.columns \n")
+			_T("WHERE table_schema = '%s' \n")
+			_T("AND table_name = '%s' \n")
+			_T("ORDER BY %s \n"),
 			schema, table_name, sort_col);
 	} else {
 		_stprintf(sql_buf,
-			_T("select a.attname, \n")
-			_T("	t.typname || '(' || \n")
-			_T("		(case \n")
-			_T("			when t.typname = 'numeric' and (atttypmod - 4) %% 65536 = 0 then to_char((atttypmod - 4) / 65536, 'FM999999') \n")
-			_T("			when t.typname = 'numeric' then to_char((atttypmod - 4) / 65536, 'FM999999') || ',' || to_char((atttypmod - 4) %% 65536, 'FM999999') \n")
-			_T("			when a.atttypmod > 4 then to_char(a.atttypmod - 4, 'FM999999') \n")
-			_T("			else to_char(a.attlen, 'FM999999') \n")
-			_T("		 end) || \n")
-			_T("		')' as typename \n")
-			_T("from pg_attribute a, pg_class c, pg_type t \n")
-			_T("where c.oid = a.attrelid \n")
-			_T("and t.oid = a.atttypid \n")
-			_T("and a.attnum > 0 \n")
-			_T("and c.relname = '%s' \n")
-			_T("order by %s \n"),
+			_T("SELECT column_name AS attname, \n")
+			_T("	CONCAT(data_type, '(', IFNULL(character_maximum_length, IFNULL(numeric_precision, 0)), ')') AS typename \n")
+			_T("FROM information_schema.columns \n")
+			_T("WHERE table_schema = DATABASE() \n")
+			_T("AND table_name = '%s' \n")
+			_T("ORDER BY %s \n"),
 			table_name, sort_col);
 	}
 

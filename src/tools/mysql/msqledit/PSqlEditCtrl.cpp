@@ -6,12 +6,12 @@
  * See the LICENSE_BSD file for details.
  */
  
- // PSqlEditCtrl.cpp : インプリメンテーション ファイル
+ // MSqlEditCtrl.cpp : インプリメンテーション ファイル
 //
 
 #include "stdafx.h"
-#include "psqledit.h"
-#include "PSqlEditCtrl.h"
+#include "msqledit.h"
+#include "MSqlEditCtrl.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,30 +20,30 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CPSqlEditCtrl
+// CMSqlEditCtrl
 
-CPSqlEditCtrl::CPSqlEditCtrl()
+CMSqlEditCtrl::CMSqlEditCtrl()
 {
 	m_paste_lower = FALSE;
 	SetCodeAssistListMaker(&m_sql_list_maker);
 	m_no_quote_color_char = '"';
 }
 
-CPSqlEditCtrl::~CPSqlEditCtrl()
+CMSqlEditCtrl::~CMSqlEditCtrl()
 {
 }
 
 
-BEGIN_MESSAGE_MAP(CPSqlEditCtrl, CCodeAssistEditCtrl)
-	//{{AFX_MSG_MAP(CPSqlEditCtrl)
+BEGIN_MESSAGE_MAP(CMSqlEditCtrl, CCodeAssistEditCtrl)
+	//{{AFX_MSG_MAP(CMSqlEditCtrl)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
-// CPSqlEditCtrl メッセージ ハンドラ
+// CMSqlEditCtrl メッセージ ハンドラ
 
-void CPSqlEditCtrl::DoCodePaste(TCHAR *paste_str, TCHAR *type)
+void CMSqlEditCtrl::DoCodePaste(TCHAR *paste_str, TCHAR *type)
 {
 	CString paste_word;
 /*

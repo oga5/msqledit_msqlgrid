@@ -15,7 +15,7 @@
 // GridView.h : ヘッダー ファイル
 //
 
-#include "PSqlEditDoc.h"
+#include "MSqlEditDoc.h"
 #include "searchDlg.h"
 
 #define WM_SEARCH_COLUMN	WM_USER + 201

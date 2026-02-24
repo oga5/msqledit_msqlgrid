@@ -124,7 +124,7 @@
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -147,7 +147,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Debug/psqledit\psqledit.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Debug/msqledit\msqledit.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -165,7 +165,7 @@ copy doc\*.txt $(OutDir)doc
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(TargetPath)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
@@ -180,7 +180,7 @@ copy doc\*.txt $(OutDir)doc
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -203,7 +203,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Debug/psqledit\psqledit.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Debug/msqledit\msqledit.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -220,7 +220,7 @@ copy doc\*.txt $(OutDir)doc
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(TargetPath)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
@@ -234,7 +234,7 @@ copy doc\*.txt $(OutDir)doc
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -257,7 +257,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Release/psqledit\psqledit.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Release/msqledit\msqledit.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -276,7 +276,7 @@ copy doc\*.txt $(OutDir)doc
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>
       </BaseAddress>
-      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
@@ -293,7 +293,7 @@ copy doc\*.txt $(OutDir)doc
       <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/pglib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../common;../../dbcommon;../commonsrc;../../../libs/ostrutil;../../../libs/mylib;../../../libs/octrllib;../../../libs/ofileutil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;UNICODE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -316,7 +316,7 @@ copy doc\*.txt $(OutDir)doc
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\../../../../exe/Release/psqledit\psqledit.tlb</TypeLibraryName>
+      <TypeLibraryName>.\../../../../exe/Release/msqledit\msqledit.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
     </Midl>
     <ResourceCompile>
@@ -334,7 +334,7 @@ copy doc\*.txt $(OutDir)doc
       <AdditionalLibraryDirectories>..\..\..\..\lib\$(Configuration)\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <BaseAddress>
       </BaseAddress>
-      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;pglib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;version.lib;ostrutil.lib;octrllib.lib;ofileutil.lib;mylib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
@@ -385,9 +385,9 @@ copy doc\*.txt $(OutDir)doc
     <ClCompile Include="OptionSheet.cpp" />
     <ClCompile Include="pggriddata.cpp" />
     <ClCompile Include="PrintDlg.cpp" />
-    <ClCompile Include="psqledit.cpp" />
-    <ClCompile Include="PSqlEditCtrl.cpp" />
-    <ClCompile Include="psqleditDoc.cpp" />
+    <ClCompile Include="msqledit.cpp" />
+    <ClCompile Include="MSqlEditCtrl.cpp" />
+    <ClCompile Include="msqleditDoc.cpp" />
     <ClCompile Include="psql_util.cpp" />
     <ClCompile Include="QueryCloseDlg.cpp" />
     <ClCompile Include="scr_pass.cpp" />
@@ -420,7 +420,7 @@ copy doc\*.txt $(OutDir)doc
     <ClCompile Include="TabBar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="psqledit.rc" />
+    <ResourceCompile Include="msqledit.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\AccelList.h" />
@@ -467,9 +467,9 @@ copy doc\*.txt $(OutDir)doc
     <ClInclude Include="OptionSheet.h" />
     <ClInclude Include="pggriddata.h" />
     <ClInclude Include="PrintDlg.h" />
-    <ClInclude Include="psqledit.h" />
-    <ClInclude Include="PSqlEditCtrl.h" />
-    <ClInclude Include="psqleditDoc.h" />
+    <ClInclude Include="msqledit.h" />
+    <ClInclude Include="MSqlEditCtrl.h" />
+    <ClInclude Include="msqleditDoc.h" />
     <ClInclude Include="psql_util.h" />
     <ClInclude Include="QueryCloseDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -496,14 +496,14 @@ copy doc\*.txt $(OutDir)doc
   <ItemGroup>
     <Image Include="res\folder1.ico" />
     <Image Include="res\icon1.ico" />
-    <Image Include="res\psqledit.ico" />
-    <Image Include="res\psqleditDoc.ico" />
+    <Image Include="res\msqledit.ico" />
+    <Image Include="res\msqleditDoc.ico" />
     <Image Include="res\sqltune.ico" />
     <Image Include="res\sqltuneDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\psqledit.rc2" />
+    <CustomBuild Include="res\msqledit.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="changelog.txt" />
@@ -516,8 +516,8 @@ copy doc\*.txt $(OutDir)doc
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\libs\pglib\pglib.vcxproj">
-      <Project>{83cb025b-f6b8-4f91-8424-622071b88ee1}</Project>
+    <ProjectReference Include="..\..\..\libs\mylib\mylib.vcxproj">
+      <Project>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

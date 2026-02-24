@@ -7,8 +7,8 @@
  */
 
 #include "stdafx.h"
-#include "psqledit.h"
-#include "psqleditDoc.h"
+#include "msqledit.h"
+#include "msqleditDoc.h"
 #include "CancelDlg.h"
 #include "diff_util.h"
 #include "ostrutil.h"

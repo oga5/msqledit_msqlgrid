@@ -10,7 +10,7 @@
 //
 
 #include "stdafx.h"
-#include "psqledit.h"
+#include "msqledit.h"
 #include "ShortCutSqlListDlg.h"
 
 #include "ShortCutSqlDlg.h"

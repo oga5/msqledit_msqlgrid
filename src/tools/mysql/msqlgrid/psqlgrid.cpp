@@ -79,13 +79,15 @@ unsigned int _stdcall post_login_thr(void *lpvThreadParam)
 	int			ret_v;
 	HMySession	ss;
 
-	ss = my_login(g_connect_str.GetBuffer(0), g_msg_buf);
+	ss = my_login(g_connect_host.GetBuffer(0), g_connect_user.GetBuffer(0),
+		g_connect_passwd.GetBuffer(0), g_connect_dbname.GetBuffer(0),
+		g_connect_port.GetBuffer(0), g_connect_charset.GetBuffer(0), g_msg_buf);
 	if(ss == NULL) return 1;
 
 	// キーワード補完用のデータを初期化
 	ret_v = g_sql_str_token.initCompletionWord(ss, 
-		my_user(ss), g_msg_buf, TRUE, TRUE,
-		_T("'r', 'v'"));
+		my_db(ss), g_msg_buf, TRUE, TRUE,
+		_T("'BASE TABLE', 'VIEW'"));
 	if(ret_v != 0) goto ERR1;
 
 	my_logout(ss);
@@ -212,15 +214,8 @@ BOOL CPsqlgridApp::InitInstance()
 		TCHAR *p = _tcsstr(m_lpCmdLine, _T("LOGON="));
 		if(p != NULL) {
 			p += 6;
-			CString cmd_buf = p;
-
-			if(my_library_is_ok()) {
-				g_ss = my_login(cmd_buf.GetBuffer(0), g_msg_buf);
-				if(g_ss != NULL) {
-					g_login_flg = TRUE;
-				}
-			}
-
+			// For MySQL, command line login is not supported in this simplified version
+			// LOGON= parameter is ignored; user must use the login dialog
 			if(cmdInfo.m_strFileName.Find(_T("LOGON=")) == 0) {
 				cmdInfo.m_strFileName = _T("");
 				cmdInfo.m_nShellCommand = CCommandLineInfo::FileNew;
@@ -488,7 +483,7 @@ int CPsqlgridApp::Login()
 {
 	CLoginDlg	dlg;
 
-	dlg.m_title = "PSqlGrid";
+	dlg.m_title = "MSqlGrid";
 
 	dlg.m_user = GetProfileString(_T("CONNECT_INFO"), _T("USER-CUR"), _T(""));
 	dlg.m_host = GetProfileString(_T("CONNECT_INFO"), _T("HOST-CUR"), _T(""));
@@ -516,6 +511,14 @@ int CPsqlgridApp::Login()
 
 	g_ss = dlg.m_ss;
 	g_connect_str = dlg.m_connect_str;
+
+	// Save MySQL connection params for background reconnection
+	g_connect_host = dlg.m_host;
+	g_connect_user = dlg.m_user;
+	g_connect_passwd = dlg.m_passwd;
+	g_connect_dbname = dlg.m_dbname;
+	g_connect_port = dlg.m_port;
+	g_connect_charset = dlg.m_charset;
 
 //	my_set_notice_processor(g_ss, my_notice_processor, NULL);
 

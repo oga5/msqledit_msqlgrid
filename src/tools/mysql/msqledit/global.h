@@ -30,11 +30,19 @@ EXTERN HACCEL		g_bind_dlg_accel;
 EXTERN CSearchDlgData	g_search_data;
 
 EXTERN BOOL			g_login_flg;
-EXTERN HMySession	g_ss;				// oracle session handle
+EXTERN HMySession	g_ss;				// MySQL session handle
 EXTERN TCHAR		g_msg_buf[4096];	// error message buffer
 
 EXTERN CString		g_connect_str;
 EXTERN CString		g_session_info;
+
+// MySQL connection parameters (for background reconnection)
+EXTERN CString		g_connect_host;
+EXTERN CString		g_connect_user;
+EXTERN CString		g_connect_passwd;
+EXTERN CString		g_connect_dbname;
+EXTERN CString		g_connect_port;
+EXTERN CString		g_connect_charset;
 
 EXTERN CShowCLobDlgHandler g_show_clob_dlg;
 

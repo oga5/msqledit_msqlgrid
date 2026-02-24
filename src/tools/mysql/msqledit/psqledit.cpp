@@ -6,7 +6,7 @@
  * See the LICENSE_BSD file for details.
  */
  
- // psqledit.cpp : アプリケーション用クラスの機能定義を行います。
+ // msqledit.cpp : アプリケーション用クラスの機能定義を行います。
 //
 
 #include "stdafx.h"
@@ -14,11 +14,11 @@
 #include <process.h>
 
 #define MAIN_PROG
-#include "psqledit.h"
+#include "msqledit.h"
 
 #include "MainFrm.h"
 #include "ChildFrm.h"
-#include "psqleditDoc.h"
+#include "msqleditDoc.h"
 #include "SQLEditView.h"
 
 #include "AboutDlg.h"
@@ -75,12 +75,14 @@ unsigned int _stdcall post_login_thr(void *lpvThreadParam)
 	int			ret_v;
 	HMySession	ss;
 
-	ss = my_login(g_connect_str.GetBuffer(0), g_msg_buf);
+	ss = my_login(g_connect_host.GetBuffer(0), g_connect_user.GetBuffer(0),
+		g_connect_passwd.GetBuffer(0), g_connect_dbname.GetBuffer(0),
+		g_connect_port.GetBuffer(0), g_connect_charset.GetBuffer(0), g_msg_buf);
 	if(ss == NULL) return 1;
 
 	// キーワード補完用のデータを初期化
 	ret_v = g_sql_str_token.initCompletionWord(ss, 
-		my_user(ss), g_msg_buf, 
+		my_db(ss), g_msg_buf, 
 		g_option.text_editor.table_name_completion, 
 		g_option.text_editor.column_name_completion,
 		make_completion_object_type());
@@ -501,7 +503,7 @@ int CPsqleditApp::Login()
 {
 	CLoginDlg	dlg;
 
-	dlg.m_title = _T("PSqlEdit");
+	dlg.m_title = _T("MSqlEdit");
 
 	dlg.m_user = GetProfileString(_T("CONNECT_INFO"), _T("USER-CUR"), _T(""));
 	dlg.m_host = GetProfileString(_T("CONNECT_INFO"), _T("HOST-CUR"), _T(""));
@@ -521,6 +523,14 @@ int CPsqleditApp::Login()
 
 	g_ss = dlg.m_ss;
 	g_connect_str = dlg.m_connect_str;
+
+	// Save MySQL connection params for background reconnection
+	g_connect_host = dlg.m_host;
+	g_connect_user = dlg.m_user;
+	g_connect_passwd = dlg.m_passwd;
+	g_connect_dbname = dlg.m_dbname;
+	g_connect_port = dlg.m_port;
+	g_connect_charset = dlg.m_charset;
 
 	// ステータスバーに，ログイン情報を表示
 	CString session_info;

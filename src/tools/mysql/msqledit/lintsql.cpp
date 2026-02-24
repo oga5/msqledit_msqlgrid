@@ -7,7 +7,7 @@
  */
 
 #include "stdafx.h"
-#include "psqledit.h"
+#include "msqledit.h"
 
 #include "lintsql.h"
 #include "sqlparser.h"

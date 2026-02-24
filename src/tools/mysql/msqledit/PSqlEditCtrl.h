@@ -12,22 +12,22 @@
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-// PSqlEditCtrl.h : ヘッダー ファイル
+// MSqlEditCtrl.h : ヘッダー ファイル
 //
 
 /////////////////////////////////////////////////////////////////////////////
-// CPSqlEditCtrl ウィンドウ
+// CMSqlEditCtrl ウィンドウ
 
 #include "CodeAssistEditCtrl.h"
 #include "CodeAssistWnd.h"
 #include "StrGridData.h"
 #include "SqlListMaker.h"
 
-class CPSqlEditCtrl : public CCodeAssistEditCtrl
+class CMSqlEditCtrl : public CCodeAssistEditCtrl
 {
 // コンストラクション
 public:
-	CPSqlEditCtrl();
+	CMSqlEditCtrl();
 
 // アトリビュート
 public:
@@ -39,16 +39,16 @@ public:
 // オーバーライド
 	// ClassWizard は仮想関数のオーバーライドを生成します。
 
-	//{{AFX_VIRTUAL(CPSqlEditCtrl)
+	//{{AFX_VIRTUAL(CMSqlEditCtrl)
 	//}}AFX_VIRTUAL
 
 // インプリメンテーション
 public:
-	virtual ~CPSqlEditCtrl();
+	virtual ~CMSqlEditCtrl();
 
 	// 生成されたメッセージ マップ関数
 protected:
-	//{{AFX_MSG(CPSqlEditCtrl)
+	//{{AFX_MSG(CMSqlEditCtrl)
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

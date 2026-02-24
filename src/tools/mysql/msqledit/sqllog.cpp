@@ -66,7 +66,7 @@ int CSqlLogger::CreateNewLogFile(const TCHAR *log_file_name, TCHAR *msg_buf)
 	}
 
 	CString date_str = GetDate();
-	_ftprintf(fp, _T("-- psqledit log file\n"));
+	_ftprintf(fp, _T("-- msqledit log file\n"));
 	_ftprintf(fp, _T("-- date: %s\n"), date_str.GetBuffer(0));
 	_ftprintf(fp, _T("\n"));
 
@@ -182,7 +182,7 @@ ERR:
 
 CSqlLogger::CSqlLogger(const TCHAR *log_dir_name)
 {
-	m_mutex = CreateMutex(NULL, FALSE, _T("PSqlEdit_CSqlLogger_Mutex"));
+	m_mutex = CreateMutex(NULL, FALSE, _T("MSqlEdit_CSqlLogger_Mutex"));
 
 	SetLogDir(log_dir_name);
 }
