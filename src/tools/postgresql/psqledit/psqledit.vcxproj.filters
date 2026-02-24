@@ -481,4 +481,7 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MySQL_PLAN.md" />
+  </ItemGroup>
 </Project>
