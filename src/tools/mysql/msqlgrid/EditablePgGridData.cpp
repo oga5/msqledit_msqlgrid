@@ -11,6 +11,8 @@
 
 #include "EditablePgGridData.h"
 
+#define MYERR_FATAL 199
+
 #include "get_char.h"
 #include "octrl_msg.h"
 #include "ostrutil.h"
@@ -20,9 +22,9 @@
 // ソースコード全体でユニークな文字列にする
 // ""にするとコンパイラの共有プールオプションによって、他のソースコードの
 // ポインタと共有してしまう
-TCHAR *CEditablePgGridData::blank_str = _T("\b_blank_str");
+TCHAR *CEditableMyGridData::blank_str = _T("\b_blank_str");
 
-CEditablePgGridData::CEditablePgGridData()
+CEditableMyGridData::CEditableMyGridData()
 {
 	m_null_dataset = NULL;
 	m_dataset = m_null_dataset;
@@ -32,7 +34,7 @@ CEditablePgGridData::CEditablePgGridData()
 	SetCellDataSize(sizeof(BYTE));
 }
 
-CEditablePgGridData::~CEditablePgGridData()
+CEditableMyGridData::~CEditableMyGridData()
 {
 }
 
@@ -40,7 +42,6 @@ unsigned int _stdcall save_grid_data_thr(void *lpvThreadParam)
 {
 	struct _thr_save_grid_data_st *p_st = (struct _thr_save_grid_data_st *)lpvThreadParam;
 
-	// 保存を実行
 	p_st->ret_v = p_st->grid_data->SaveData(p_st->ss, p_st->err_pt, 
 		p_st->msg_buf, (HWND)p_st->hWnd, p_st->cancel_flg);
 
@@ -61,7 +62,7 @@ static int query_cancel(HWND hWnd, TCHAR *msg_buf)
 	return 0;
 }
 
-int CEditablePgGridData::SetDataset(HMySession ss, HMyDataset dataset, HMyDataset pkey_dataset, const TCHAR *owner, 
+int CEditableMyGridData::SetDataset(HMySession ss, HMyDataset dataset, HMyDataset pkey_dataset, const TCHAR *owner, 
 	const TCHAR *table_name, const TCHAR *sql, BOOL b_data_lock)
 {
 	m_ss = ss;
@@ -95,7 +96,7 @@ int CEditablePgGridData::SetDataset(HMySession ss, HMyDataset dataset, HMyDatase
 	return 0;
 }
 
-const TCHAR *CEditablePgGridData::GetOriginalText(int row, int col)
+const TCHAR *CEditableMyGridData::GetOriginalText(int row, int col)
 {
 	if(m_dataset == NULL) return _T("");
 	if(IsInsertRow(row)) return _T("");
@@ -103,7 +104,7 @@ const TCHAR *CEditablePgGridData::GetOriginalText(int row, int col)
 	return my_dataset_data(m_dataset, GetRowIdx(row), col);
 }
 
-int CEditablePgGridData::SaveData(HMySession ss, POINT *err_pt, TCHAR *msg_buf, 
+int CEditableMyGridData::SaveData(HMySession ss, POINT *err_pt, TCHAR *msg_buf, 
 	HWND hWnd, volatile int *cancel_flg)
 {
 	int		ret_v;
@@ -158,7 +159,7 @@ ERR1:
 	if(ret_v2 != 0) {
 		// 致命的なエラー
 		_stprintf(msg_buf, _T("fatal error: rollback error"));
-		ret_v = PG_ERR_FATAL;
+		ret_v = MYERR_FATAL;
 	}
 
 	if(m_b_data_lock) {
@@ -167,7 +168,7 @@ ERR1:
 		if(dset_dummy == 0) {
 			// 致命的なエラー
 			_stprintf(msg_buf, _T("fatal error: lock data error"));
-			ret_v = PG_ERR_FATAL;
+			ret_v = MYERR_FATAL;
 		} else {
 			my_free_dataset(dset_dummy);
 		}
@@ -177,7 +178,7 @@ ERR1:
 }
 
 #pragma intrinsic(memcpy)
-CString CEditablePgGridData::GetSqlColData(int row, int col)
+CString CEditableMyGridData::GetSqlColData(int row, int col)
 {
 	if(IsBlank(row, col)) return _T("''");
 	if(IsColDataNull(row, col)) return _T("null");
@@ -232,7 +233,7 @@ CString CEditablePgGridData::GetSqlColData(int row, int col)
 }
 #pragma function(memcpy)
 
-CString CEditablePgGridData::GetUpdateWhereClause(int row)
+CString CEditableMyGridData::GetUpdateWhereClause(int row)
 {
 	CString where_clause;
 	CString tmp;
@@ -244,8 +245,8 @@ CString CEditablePgGridData::GetUpdateWhereClause(int row)
 
 	for(i = 0; i < my_dataset_row_cnt(m_pkey_dataset); i++) {
 		if(i > 0) where_clause += _T(" and ");
-		tmp.Format(_T(" \"%s\" = '%s' "),
-			my_dataset_data(m_pkey_dataset, i, 0),
+		tmp.Format(_T(" `%s` = '%s' "),
+			my_dataset_data2(m_pkey_dataset, i, _T("COLUMN_NAME")),
 			Get_ColData(row, col_offset));
 
 		where_clause += tmp;
@@ -255,7 +256,7 @@ CString CEditablePgGridData::GetUpdateWhereClause(int row)
 	return where_clause;
 }
 
-int CEditablePgGridData::DeleteData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
+int CEditableMyGridData::DeleteData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
 	HWND hWnd, volatile int *cancel_flg)
 {
 	int			ret_v;
@@ -288,7 +289,7 @@ ERR1:
 	return ret_v;
 }
 
-int CEditablePgGridData::InsertData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
+int CEditableMyGridData::InsertData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
 	HWND hWnd, volatile int *cancel_flg)
 {
 	int			ret_v;
@@ -300,9 +301,9 @@ int CEditablePgGridData::InsertData(HMySession ss, POINT *err_pt, int *row_cnt, 
 
 	for(col = 0; col < Get_ColCnt(); col++) {
 		if(col != 0) insert_sql += ",";
-		insert_sql += "\"";
+		insert_sql += "`";
 		insert_sql += Get_ColName(col);
-		insert_sql += "\"";
+		insert_sql += "`";
 	}
 	insert_sql += ") values (\n";
 
@@ -336,7 +337,7 @@ ERR1:
 	return ret_v;
 }
 
-int CEditablePgGridData::UpdateData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
+int CEditableMyGridData::UpdateData(HMySession ss, POINT *err_pt, int *row_cnt, TCHAR *msg_buf, 
 	HWND hWnd, volatile int *cancel_flg)
 {
 	int			ret_v;
@@ -360,9 +361,9 @@ int CEditablePgGridData::UpdateData(HMySession ss, POINT *err_pt, int *row_cnt, 
 					} else {
 						comma_flg = TRUE;
 					}
-					sql += _T("\"");
+					sql += _T("`");
 					sql += Get_ColName(col);
-					sql += _T("\"");
+					sql += _T("`");
 					sql += _T(" = ");
 					sql += GetSqlColData(row, col);
 				}
@@ -384,19 +385,19 @@ ERR1:
 	return ret_v;
 }
 
-void CEditablePgGridData::SetBlank(int row, int col)
+void CEditableMyGridData::SetBlank(int row, int col)
 {
 	BYTE flg = 1;
 	SetCellData(row, col, &flg);
 }
 
-void CEditablePgGridData::UnSetBlank(int row, int col)
+void CEditableMyGridData::UnSetBlank(int row, int col)
 {
 	BYTE flg = 0;
 	SetCellData(row, col, &flg);
 }
 
-BOOL CEditablePgGridData::IsBlank(int row, int col)
+BOOL CEditableMyGridData::IsBlank(int row, int col)
 {
 	if(IsUpdateCell(row, col) || IsInsertRow(row)) {
 		BYTE *flg = (BYTE *)GetCellData(row, col);
@@ -411,7 +412,7 @@ BOOL CEditablePgGridData::IsBlank(int row, int col)
 	return FALSE;
 }
 
-int CEditablePgGridData::UpdateCell(int row, int col, const TCHAR *data, int len)
+int CEditableMyGridData::UpdateCell(int row, int col, const TCHAR *data, int len)
 {
 	CUndoSetMode undo_set;
 

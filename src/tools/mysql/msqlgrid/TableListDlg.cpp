@@ -57,9 +57,9 @@ enum Selected_Column_list
 static HMyDataset get_user_list(HMySession ss, TCHAR *msg_buf)
 {
 	return my_create_dataset(ss,
-		_T("select usename \n")
-		_T("from my_user \n")
-		_T("order by usename"),
+		_T("SELECT schema_name AS usename \n")
+		_T("FROM information_schema.schemata \n")
+		_T("ORDER BY schema_name"),
 		msg_buf);
 }
 
@@ -68,43 +68,25 @@ static int get_object_name_list_for_table_list_dlg(HMySession ss, const TCHAR *o
 {
 	TCHAR	sql_buf[4096];
 
-	TCHAR	where_clause[4096] = _T("");
-
-	if(!g_option.edit_other_owner) {
-		_stprintf(where_clause,
-			_T("and pg_get_userbyid(c.relowner) = '%s' \n"),
-			owner);
-	}
-
-	if(my_get_remote_version(ss) >= 70300) {
+	if(!g_option.edit_other_owner && owner != NULL && _tcslen(owner) > 0) {
 		_stprintf(sql_buf,
-			_T("select distinct c.relname as object_name, c.nspname, \n")
-			_T("	pg_get_userbyid(c.relowner) as owner, \n")
-			_T("	case c.relkind \n")
-			_T("		when 'r' then 'table' \n")
-			_T("		when 'v' then 'view' \n")
-			_T("		else 'other' end as object_type \n")
-			_T("from (select n.nspname, c.relname, c.relowner, c.oid as objoid, c.relkind \n")
-			_T("	from pg_class c, pg_namespace n \n")
-			_T("	where c.relnamespace = n.oid ) c \n")
-			_T("where c.relkind in ('r', 'v') \n")
-			_T("and c.nspname not in ('pg_catalog', 'information_schema') \n")
-			_T(" %s \n")
-			_T("order by object_name \n"),
-			where_clause);
+			_T("SELECT table_name AS object_name, table_schema AS nspname, \n")
+			_T("       '' AS owner, \n")
+			_T("       CASE table_type WHEN 'BASE TABLE' THEN 'table' WHEN 'VIEW' THEN 'view' ELSE 'other' END AS object_type \n")
+			_T("FROM information_schema.tables \n")
+			_T("WHERE table_schema = '%s' \n")
+			_T("AND table_type IN ('BASE TABLE', 'VIEW') \n")
+			_T("ORDER BY table_name \n"),
+			owner);
 	} else {
 		_stprintf(sql_buf,
-			_T("select distinct c.relname::\"name\" as object_name, ''::\"name\" as nspname, \n")
-			_T("	pg_get_userbyid(c.relowner) as owner, \n")
-			_T("	case c.relkind \n")
-			_T("		when 'r' then 'table' \n")
-			_T("		when 'v' then 'view' \n")
-			_T("		else 'other' end as object_type \n")
-			_T("from pg_class c \n")
-			_T("where c.relkind in ('r', 'v') \n")
-			_T(" %s \n")
-			_T("order by object_name \n"),
-			where_clause);
+			_T("SELECT table_name AS object_name, table_schema AS nspname, \n")
+			_T("       '' AS owner, \n")
+			_T("       CASE table_type WHEN 'BASE TABLE' THEN 'table' WHEN 'VIEW' THEN 'view' ELSE 'other' END AS object_type \n")
+			_T("FROM information_schema.tables \n")
+			_T("WHERE table_schema = DATABASE() \n")
+			_T("AND table_type IN ('BASE TABLE', 'VIEW') \n")
+			_T("ORDER BY table_name \n"));
 	}
 
 	*dataset = my_create_dataset(ss, sql_buf, msg_buf);
@@ -118,183 +100,71 @@ static HMyDataset get_column_list(HMySession ss, const TCHAR *relname,
 {
 	TCHAR	sql_buf[4096];
 
-	if(my_get_remote_version(ss) >= 70300 && schema != NULL && _tcslen(schema) > 0) {
+	if(schema != NULL && _tcslen(schema) > 0) {
 		_stprintf(sql_buf,
-			_T("select att.attname, att.typname, att.attlen, \n")
-			_T("	att.attnotnull, d.description, att.objsubid \n")
-			_T("from (select a.attname, t.typname,  \n")
-			_T("	(case when a.atttypmod > 4 then a.atttypmod - 4 else a.attlen end) as attlen, \n")
-			_T("	a.attnotnull, a.attrelid as objoid, a.attnum as objsubid \n")
-			_T("	from pg_attribute a, pg_class c, pg_type t \n")
-			_T("	where c.oid = a.attrelid \n")
-			_T("	and t.oid = a.atttypid \n")
-			_T("	and c.relname = '%s' \n")
-			_T("	and c.relnamespace = (select oid from pg_namespace n where n.nspname = '%s') \n")
-			_T("	and a.attnum > 0) att \n")
-			_T("		left outer join pg_description d using(objoid, objsubid) \n")
-			_T("order by att.objsubid \n"),
-			relname, schema);
-	} else if(my_get_remote_version(ss) >= 70200) {
-		if(my_has_objsubid(ss)) {
-			_stprintf(sql_buf,
-				_T("select att.attname, att.typname, att.attlen, \n")
-				_T("	att.attnotnull, d.description, att.objsubid \n")
-				_T("from (select a.attname, t.typname,  \n")
-				_T("	(case when a.atttypmod > 4 then a.atttypmod - 4 else a.attlen::int4 end) as attlen, \n")
-				_T("	a.attnotnull, a.attrelid as objoid, a.attnum as objsubid \n")
-				_T("	from pg_attribute a, pg_class c, pg_type t \n")
-				_T("	where c.oid = a.attrelid \n")
-				_T("	and t.oid = a.atttypid \n")
-				_T("	and c.relname = '%s' \n")
-				_T("	and a.attnum > 0) att  \n")
-				_T("		left outer join pg_description d using(objoid, objsubid) \n")
-				_T("order by att.objsubid \n"),
-				relname);
-		} else {
-			_stprintf(sql_buf,
-				_T("select att.attname, att.typname, att.attlen, \n")
-				_T("	att.attnotnull, ''::\"text\" as description, att.objsubid \n")
-				_T("from (select a.attname, t.typname,  \n")
-				_T("	(case when a.atttypmod > 4 then a.atttypmod - 4 else a.attlen::int4 end) as attlen, \n")
-				_T("	a.attnotnull, a.attrelid as objoid, a.attnum as objsubid \n")
-				_T("	from pg_attribute a, pg_class c, pg_type t \n")
-				_T("	where c.oid = a.attrelid \n")
-				_T("	and t.oid = a.atttypid \n")
-				_T("	and c.relname = '%s' \n")
-				_T("	and a.attnum > 0) att  \n")
-				_T("order by att.objsubid \n"),
-				relname);
-		}
+			_T("SELECT column_name AS attname, data_type AS typname, \n")
+			_T("       COALESCE( \n")
+			_T("           CAST(character_maximum_length AS CHAR), \n")
+			_T("           IF(numeric_scale IS NOT NULL AND numeric_scale > 0, \n")
+			_T("              CONCAT(CAST(numeric_precision AS CHAR), ',', CAST(numeric_scale AS CHAR)), \n")
+			_T("              CAST(numeric_precision AS CHAR)), \n")
+			_T("           '-1') AS attlen, \n")
+			_T("       is_nullable AS attnotnull, \n")
+			_T("       column_comment AS description, \n")
+			_T("       ordinal_position AS objsubid \n")
+			_T("FROM information_schema.columns \n")
+			_T("WHERE table_schema = '%s' \n")
+			_T("AND table_name = '%s' \n")
+			_T("ORDER BY ordinal_position \n"),
+			schema, relname);
 	} else {
 		_stprintf(sql_buf,
-			_T("select att.attname, att.typname, att.attlen, \n")
-			_T("	att.attnotnull, d.description, att.attnum \n")
-			_T("from (select a.attname, t.typname, a.attlen, \n")
-			_T("	a.attnotnull, a.attnum, a.oid as objoid \n")
-			_T("	from pg_attribute a, pg_class c, pg_type t \n")
-			_T("	where c.oid = a.attrelid \n")
-			_T("	and t.oid = a.atttypid \n")
-			_T("	and c.relname = '%s' \n")
-			_T("	and a.attnum > 0) att \n")
-			_T("		left outer join pg_description d using(objoid) \n")
-			_T("order by att.objoid \n"),
+			_T("SELECT column_name AS attname, data_type AS typname, \n")
+			_T("       COALESCE( \n")
+			_T("           CAST(character_maximum_length AS CHAR), \n")
+			_T("           IF(numeric_scale IS NOT NULL AND numeric_scale > 0, \n")
+			_T("              CONCAT(CAST(numeric_precision AS CHAR), ',', CAST(numeric_scale AS CHAR)), \n")
+			_T("              CAST(numeric_precision AS CHAR)), \n")
+			_T("           '-1') AS attlen, \n")
+			_T("       is_nullable AS attnotnull, \n")
+			_T("       column_comment AS description, \n")
+			_T("       ordinal_position AS objsubid \n")
+			_T("FROM information_schema.columns \n")
+			_T("WHERE table_schema = DATABASE() \n")
+			_T("AND table_name = '%s' \n")
+			_T("ORDER BY ordinal_position \n"),
 			relname);
 	}
 
 	return my_create_dataset(ss, sql_buf, msg_buf);
-}
-
-static HMyDataset get_primary_key_column_list(HMySession ss, const TCHAR *relname, 
-	const TCHAR *schema, TCHAR *msg_buf)
-{
-	TCHAR	sql_buf[4096];
-
-	if(my_get_remote_version(ss) >= 70300) {
-		_stprintf(sql_buf,
-			_T("select a.attname as columnname \n")
-			_T("from pg_index x, pg_class c, pg_class i, pg_attribute a \n")
-			_T("where c.relkind = 'r'::\"char\" \n")
-			_T("and i.relkind = 'i'::\"char\" \n")
-			_T("and c.oid = x.indrelid \n")
-			_T("and i.oid = x.indexrelid \n")
-			_T("and c.relname = '%s' \n")
-			_T("and i.oid = a.attrelid \n")
-			_T("and x.indisprimary = 't' \n")
-			_T("and c.relnamespace = (select oid from pg_namespace n where n.nspname = '%s') \n")
-			_T("order by i.relname, a.attnum \n"),
-			relname, schema);
-	} else {
-		_stprintf(sql_buf,
-			_T("select a.attname as columnname \n")
-			_T("from pg_index x, pg_class c, pg_class i, pg_attribute a \n")
-			_T("where c.relkind = 'r'::\"char\" \n")
-			_T("and i.relkind = 'i'::\"char\" \n")
-			_T("and c.oid = x.indrelid \n")
-			_T("and i.oid = x.indexrelid \n")
-			_T("and c.relname = '%s' \n")
-			_T("and i.oid = a.attrelid \n")
-			_T("and x.indisprimary = 't' \n")
-			_T("order by i.relname, a.attnum \n"),
-			relname);
-	}
-
-	return my_create_dataset(ss, sql_buf, msg_buf);
-}
-
-static HMyDataset get_oid_column_list(HMySession ss, TCHAR *msg_buf)
-{
-	return my_create_dataset(ss,
-		_T("select 'oid'::\"name\""),
-		msg_buf);
 }
 
 static HMyDataset get_key_column_list(HMySession ss, const TCHAR *relname, 
 	const TCHAR *schema, TCHAR *msg_buf)
 {
-	HMyDataset	table_property;
 	TCHAR	sql_buf[4096];
-
 	HMyDataset	column_list;
-	int ver = my_get_remote_version(ss);
 
-	if(ver >= 120000) {
+	if(schema != NULL && _tcslen(schema) > 0) {
 		_stprintf(sql_buf,
-			_T("select 'f'::bool as RELHASOIDS, (select i.indisprimary from pg_index i where i.indrelid = c.oid and i.indisprimary = true) as relhaspkey \n")
-			_T("from pg_class c \n")
-			_T("where c.relname = '%s' \n")
-			_T("and c.relnamespace = (select oid from pg_namespace n where n.nspname = '%s') \n"),
-			relname, schema);
-	} else if(ver >= 110000) {
-		_stprintf(sql_buf,
-			_T("select c.relhasoids, (select i.indisprimary from pg_index i where i.indrelid = c.oid and i.indisprimary = true) as relhaspkey \n")
-			_T("from pg_class c \n")
-			_T("where c.relname = '%s' \n")
-			_T("and c.relnamespace = (select oid from pg_namespace n where n.nspname = '%s') \n"),
-			relname, schema);
-	} else if(ver >= 70300) {
-		_stprintf(sql_buf,
-			_T("select c.relhasoids, c.relhaspkey \n")
-			_T("from pg_class c \n")
-			_T("where c.relname = '%s' \n")
-			_T("and c.relnamespace = (select oid from pg_namespace n where n.nspname = '%s') \n"),
-			relname, schema);
-	} else if(ver >= 70200) {
-		_stprintf(sql_buf,
-			_T("select c.relhasoids, c.relhaspkey \n")
-			_T("from pg_class c \n")
-			_T("where c.relname = '%s' \n"),
-			relname);
+			_T("SHOW INDEX FROM `%s`.`%s` WHERE Key_name = 'PRIMARY'"),
+			schema, relname);
 	} else {
 		_stprintf(sql_buf,
-			_T("select 't'::bool as RELHASOIDS, c.relhaspkey \n")
-			_T("from pg_class c \n")
-			_T("where c.relname = '%s' \n"),
+			_T("SHOW INDEX FROM `%s` WHERE Key_name = 'PRIMARY'"),
 			relname);
 	}
 
-	table_property = my_create_dataset(ss, sql_buf, msg_buf);
-	if(table_property == NULL) return NULL;
+	column_list = my_create_dataset(ss, sql_buf, msg_buf);
+	if(column_list == NULL) return NULL;
 
-	if(my_dataset_row_cnt(table_property) == 0) {
-		my_free_dataset(table_property);
-		_stprintf(msg_buf, 
-			_T("テーブルプロパティが取得できませんでした(%s,%s)"),
-			relname, schema);
+	if(my_dataset_row_cnt(column_list) == 0) {
+		my_free_dataset(column_list);
+		_stprintf(msg_buf,
+			_T("Primary Keyの存在しないテーブルでは利用できません(%s)"),
+			relname);
 		return NULL;
 	}
-
-	if(_tcscmp(my_dataset_data2(table_property, 0, _T("RELHASPKEY")), _T("t")) == 0) {
-		column_list = get_primary_key_column_list(ss, relname, schema, msg_buf);
-	} else if(_tcscmp(my_dataset_data2(table_property, 0, _T("RELHASOIDS")), _T("t")) == 0) {
-		column_list = get_oid_column_list(ss, msg_buf);
-	} else {
-		my_free_dataset(table_property);
-		_stprintf(msg_buf, 
-			_T("OIDまたはPrimary Keyの存在しないテーブルでは利用できません"));
-		return NULL;
-	}
-
-	my_free_dataset(table_property);
 
 	return column_list;
 }
@@ -442,7 +312,7 @@ int CTableListDlg::CreateOciDataset()
 		if(pos != m_column_name_list.GetHeadPosition()) {
 			col_list += _T(", ");
 		}
-		col.Format(_T("%s.\"%s\""), m_alias_name, m_column_name_list.GetAt(pos));
+		col.Format(_T("%s.`%s`"), m_alias_name, m_column_name_list.GetAt(pos));
 		col_list += col;
 	}
 
@@ -453,7 +323,7 @@ int CTableListDlg::CreateOciDataset()
 	}
 
 	for(i = 0; i < my_dataset_row_cnt(m_pkey_dataset); i++) {
-		col.Format(_T(", %s.\"%s\""), m_alias_name, my_dataset_data(m_pkey_dataset, i, 0));
+		col.Format(_T(", %s.`%s`"), m_alias_name, my_dataset_data2(m_pkey_dataset, i, _T("COLUMN_NAME")));
 		col_list += col;
 	}
 
@@ -824,25 +694,7 @@ int CTableListDlg::SetColumnList_Table(HMyDataset dataset, BOOL b_all_select)
 		if(item.iItem == -1) goto ERR1;
 
 		p_list->SetItemText(r, DATA_TYPE, my_dataset_data2(dataset, r, _T("TYPNAME")));
-
-		if(_tcscmp(my_dataset_data2(dataset, r, _T("TYPNAME")), _T("numeric")) == 0) {
-			int len = _ttoi(my_dataset_data2(dataset, r, _T("ATTLEN")));
-			int prec = (len >> 16) & 0xffff;
-			int scale = len & 0xffff;
-
-			CString num_len = _T("-1");
-			if(prec != 0xffff && scale != 0xffff) {
-				if(scale == 0) {
-					num_len.Format(_T("%d"), prec);
-				} else {
-					num_len.Format(_T("%d,%d"), prec, scale);
-				}
-			}
-			p_list->SetItemText(item.iItem, DATA_LENGTH, num_len);
-		} else {
-			p_list->SetItemText(r, DATA_LENGTH, my_dataset_data2(dataset, r, _T("ATTLEN")));
-		}
-
+		p_list->SetItemText(r, DATA_LENGTH, my_dataset_data2(dataset, r, _T("ATTLEN")));
 		p_list->SetItemText(r, NULLABLE, my_dataset_data2(dataset, r, _T("ATTNOTNULL")));
 		p_list->SetItemText(r, COLUMN_COMMENTS, my_dataset_data2(dataset, r, _T("DESCRIPTION")));
 		p_list->SetItemText(r, COLUMN_ID, my_dataset_data2(dataset, r, _T("OBJSUBID")));
@@ -898,9 +750,10 @@ CString CTableListDlg::GetAllTableName()
 	CString table_name;
 
 	if(m_table_list.GetItemText(selected_row, SCHEMA_NAME).IsEmpty()) {
-		table_name = m_table_list.GetItemText(selected_row, TABLE_NAME);
+		table_name.Format(_T("`%s`"),
+			m_table_list.GetItemText(selected_row, TABLE_NAME));
 	} else {
-		table_name.Format(_T("\"%s\".\"%s\""),
+		table_name.Format(_T("`%s`.`%s`"),
 			m_table_list.GetItemText(selected_row, SCHEMA_NAME),
 			m_table_list.GetItemText(selected_row, TABLE_NAME));
 	}
@@ -1186,19 +1039,16 @@ CString CTableListDlg::GetTableOwner(const TCHAR *name)
 
 	SplitSchemaAndTable(name, schema_name, table_name);
 
-	if(schema_name.IsEmpty()) schema_name = _T("public");
-
 	_stprintf(sql_buf,
-		_T("select schemaname, tablename, tableowner \n")
-		_T("from pg_tables t \n")
-		_T("where t.schemaname = '%s' \n")
-		_T("and t.tablename = '%s' \n"),
-		schema_name.GetBuffer(0), table_name.GetBuffer(0));
+		_T("SELECT table_schema \n")
+		_T("FROM information_schema.tables \n")
+		_T("WHERE table_name = '%s' \n"),
+		table_name.GetBuffer(0));
 
 	dataset = my_create_dataset(m_ss, sql_buf, m_msg_buf);
 
-	if(my_dataset_row_cnt(dataset) == 1) {
-		owner = my_dataset_data2(dataset, 0, _T("TABLEOWNER"));
+	if(dataset != NULL && my_dataset_row_cnt(dataset) >= 1) {
+		owner = my_dataset_data(dataset, 0, 0);
 	}
 
 	my_free_dataset(dataset);

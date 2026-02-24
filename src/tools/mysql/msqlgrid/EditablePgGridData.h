@@ -6,22 +6,22 @@
  * See the LICENSE_BSD file for details.
  */
 
-#ifndef __EDITABLE_PG_EDIT_DATA_H_INCLUDED__
-#define __EDITABLE_PG_EDIT_DATA_H_INCLUDED__
+#ifndef __EDITABLE_MY_EDIT_DATA_H_INCLUDED__
+#define __EDITABLE_MY_EDIT_DATA_H_INCLUDED__
 
 #include "EditableGridData.h"
 #include "mylib.h"
 
-#include "pgtype.h"
+#include "mytype.h"
 
 
-class CEditablePgGridData : public CEditableGridData
+class CEditableMyGridData : public CEditableGridData
 {
 public:
 	static TCHAR *blank_str;
 
-	CEditablePgGridData();
-	virtual ~CEditablePgGridData();
+	CEditableMyGridData();
+	virtual ~CEditableMyGridData();
 
 	// FIXME: null objectを使う
 	virtual int Get_ColCnt() { 
@@ -41,10 +41,11 @@ public:
 	}
 
 	virtual int Get_ColDataType(int row, int col) {
-		pg_oid oid = my_dataset_get_coltype(m_dataset, col);
-		if(oid == INT8OID || oid == INT4OID || oid == INT2OID ||
-			oid == FLOAT4OID || oid == FLOAT8OID) return GRID_DATA_NUMBER_TYPE;
-
+		unsigned int t = my_dataset_get_coltype(m_dataset, col);
+		if(t == MYSQL_TYPE_TINY || t == MYSQL_TYPE_SHORT || t == MYSQL_TYPE_LONG ||
+			t == MYSQL_TYPE_LONGLONG || t == MYSQL_TYPE_INT24 ||
+			t == MYSQL_TYPE_FLOAT || t == MYSQL_TYPE_DOUBLE ||
+			t == MYSQL_TYPE_DECIMAL || t == MYSQL_TYPE_NEWDECIMAL) return GRID_DATA_NUMBER_TYPE;
 		return GRID_DATA_CHAR_TYPE;
 	}
 
@@ -101,7 +102,7 @@ private:
 unsigned int _stdcall save_grid_data_thr(void *lpvThreadParam);
 
 struct _thr_save_grid_data_st {
-	CEditablePgGridData *grid_data;
+	CEditableMyGridData *grid_data;
 	HMySession	ss;
 	POINT		*err_pt;
 	TCHAR		*msg_buf;
@@ -110,4 +111,4 @@ struct _thr_save_grid_data_st {
 	int			ret_v;
 };
 
-#endif __EDITABLE_PG_EDIT_DATA_H_INCLUDED__
+#endif /* __EDITABLE_MY_EDIT_DATA_H_INCLUDED__ */

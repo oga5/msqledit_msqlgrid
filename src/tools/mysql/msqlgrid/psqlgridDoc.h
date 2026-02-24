@@ -58,7 +58,7 @@ public:
 protected:
 	HMyDataset				m_dataset;
 	HMyDataset				m_pkey_dataset;
-	CEditablePgGridData		m_grid_data;
+	CEditableMyGridData		m_grid_data;
 	CGridData_SwapRowCol	m_grid_data_swap_row_col;
 	CString					m_owner;
 	CString					m_table_name;
@@ -84,7 +84,7 @@ protected:
 
 public:
 	CGridData *GetGridData();
-	CEditablePgGridData *GetPgGridData() { return &m_grid_data; }
+	CEditableMyGridData *GetPgGridData() { return &m_grid_data; }
 	CGridData_Filter* GetFilterGridData() { return m_grid_data.GetFilterGridData(); }
 	BOOL GetGridFilterMode() { return m_grid_data.GetGridFilterMode(); }
 	void PostGridFilterOnOff();

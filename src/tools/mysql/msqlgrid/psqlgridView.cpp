@@ -1223,7 +1223,7 @@ void CPsqlgridView::OnDataSetBlank()
 	pt = *(GetDocument()->GetGridData()->get_cur_cell());
 	if(!GetDocument()->GetGridData()->IsEditableCell(pt.y, pt.x)) return;
 
-	m_grid_ctrl.UpdateCell(pt.y, pt.x, CEditablePgGridData::blank_str, -1);
+	m_grid_ctrl.UpdateCell(pt.y, pt.x, CEditableMyGridData::blank_str, -1);
 }
 
 void CPsqlgridView::HideSearchDlgs()

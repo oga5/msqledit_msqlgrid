@@ -28,24 +28,12 @@ static HMyDataset get_object_name_list(HMySession ss, const TCHAR *owner,
 	TCHAR	sql_buf[4096];
 
 	_stprintf(sql_buf,
-		_T("select distinct c.relname, c.relname as org_relname, \n")
-		_T("	case c.relkind \n")
-		_T("		when 'r' then 'table' \n")
-		_T("		when 'i' then 'index' \n")
-		_T("		when 'S' then 'sequence' \n")
-		_T("		when 'v' then 'view' \n")
-		_T("		when 's' then 'special' \n")
-		_T("		when 't' then 'toast table' \n")
-		_T("		else 'other' end as relkind \n")
-		_T("from pg_class c \n")
-		_T("where pg_get_userbyid(c.relowner) = '%s' \n"),
+		_T("SELECT table_name, table_name AS org_table_name, \n")
+		_T("       LOWER(table_type) AS relkind \n")
+		_T("FROM information_schema.tables \n")
+		_T("WHERE table_schema = '%s' \n")
+		_T("ORDER BY table_name \n"),
 		owner);
-
-	if(object_type_list != _T("")) {
-		_tcscat(sql_buf, _T("and c.relkind in ("));
-		_tcscat(sql_buf, object_type_list.GetBuffer(0));
-		_tcscat(sql_buf, _T(") \n"));
-	}
 
 	return my_create_dataset(ss, sql_buf, msg_buf);
 }
@@ -58,13 +46,13 @@ static HMyDataset get_all_column_list(HMySession ss, const TCHAR *owner, TCHAR *
 	TCHAR	sql_buf[4096];
 
 	_stprintf(sql_buf,
-		_T("select distinct a.attname, a.attname as org_attname, \n")
-		_T("	t.typname || '(' || a.attlen || ')' as typename \n")
-		_T("from pg_attribute a, pg_class c, pg_type t \n")
-		_T("where c.oid = a.attrelid \n")
-		_T("and t.oid = a.atttypid \n")
-		_T("and a.attnum > 0 \n")
-		_T("and pg_get_userbyid(c.relowner) = '%s' \n"),
+		_T("SELECT DISTINCT column_name, column_name AS org_column_name, \n")
+		_T("       CONCAT(data_type, '(', \n")
+		_T("              COALESCE(CAST(character_maximum_length AS CHAR), \n")
+		_T("                       CAST(numeric_precision AS CHAR), '-1'), ')') AS typename \n")
+		_T("FROM information_schema.columns \n")
+		_T("WHERE table_schema = '%s' \n")
+		_T("ORDER BY column_name \n"),
 		owner);
 
 	return my_create_dataset(ss, sql_buf, msg_buf);
