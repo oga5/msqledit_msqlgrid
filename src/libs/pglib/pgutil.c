@@ -136,7 +136,7 @@ HPgSession pg_login(const TCHAR *connect_info, TCHAR *msg_buf)
 	ocichar connect_info_buf[1000] = "";
 	HPgSession	ss = NULL;
 
-	win_str_to_oci_str(connect_info, connect_info_buf, sizeof(connect_info_buf)/2);
+	win_str_to_oci_str(connect_info, connect_info_buf, sizeof(connect_info_buf));
 
 	ss = (HPgSession)malloc(sizeof(PgSession));
 	if(ss == NULL) {

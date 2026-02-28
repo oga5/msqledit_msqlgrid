@@ -74,8 +74,8 @@ static void pg_after_select(HPgDataset dataset, TCHAR *msg_buf)
 	}
 
 	dataset->buf = (TCHAR *)malloc(memsize * sizeof(TCHAR));
-	dataset->col_data = (TCHAR **)malloc(r * c * sizeof(TCHAR *));
-	dataset->cname = (TCHAR **)malloc(c * sizeof(TCHAR *));
+	dataset->col_data = (TCHAR **)malloc(dataset->row_cnt * dataset->col_cnt * sizeof(TCHAR *));
+	dataset->cname = (TCHAR **)malloc(dataset->col_cnt * sizeof(TCHAR *));
 	p = dataset->buf;
 
 	for(c = 0; c < dataset->col_cnt; c++) {
@@ -110,7 +110,7 @@ static int pg_get_result(HPgSession ss, PGresult **res,
 			fp_pqsetErrIgnoreFlg(ss->conn, 0);
 
 			if(*res == NULL) {
-				pg_err_msg_result(*res, msg_buf);
+				pg_err_msg(ss, msg_buf);
 				pg_clean_result(ss);
 				return 1;
 			}

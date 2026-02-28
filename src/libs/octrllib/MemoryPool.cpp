@@ -44,7 +44,10 @@ int CMemoryPool::alloc_block()
 	size_t alloc_size = m_alloc_cnt * offset_size;
 	new_block->pool = static_cast<struct memory_pool_free_list_st *>
 		(::operator new(alloc_size));
-	if(new_block->pool == NULL) return 1;
+	if(new_block->pool == NULL) {
+		::operator delete(new_block);
+		return 1;
+	}
 
 	if(m_block_list == NULL) {
 		m_block_list = new_block;

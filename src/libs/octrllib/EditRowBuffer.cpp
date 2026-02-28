@@ -68,8 +68,9 @@ int CEditRowBuffer::realloc_data_buf(int cnt)
 
 	if(m_row_cnt != 0) make_gap(m_row_cnt);
 
-	m_row_data = (CEditRowData **)realloc(m_row_data, sizeof(CEditRowData *) * cnt);
-	if(m_row_data == 0) return 1;
+	CEditRowData **new_row_data = (CEditRowData **)realloc(m_row_data, sizeof(CEditRowData *) * cnt);
+	if(new_row_data == NULL) return 1;
+	m_row_data = new_row_data;
 
 	if(cnt > m_allocated_buf_cnt) {
 		int cnt_diff = cnt - m_allocated_buf_cnt;
@@ -182,7 +183,7 @@ int CEditRowBuffer::delete_line(int row)
 		m_row_cnt--;
 	}
 
-	if(m_row_cnt + GAP_RESERVE_CNT > (m_allocated_buf_cnt * 4)) {
+	if(m_row_cnt + GAP_RESERVE_CNT < (m_allocated_buf_cnt / 4)) {
 		int alloc_size = m_allocated_buf_cnt / 2;
 		if(realloc_data_buf(alloc_size) != 0) return 1;
 	}

@@ -156,8 +156,9 @@ int GappedBufferTmpl<T>::realloc_buffer(int cnt)
 
 	if(m_row_cnt != 0) make_gap(m_row_cnt);
 
-	m_buffer = (T *)realloc(m_buffer, sizeof(T) * cnt);
-	if(m_buffer == 0) return 1;
+	T *new_buffer = (T *)realloc(m_buffer, sizeof(T) * cnt);
+	if(new_buffer == NULL) return 1;
+	m_buffer = new_buffer;
 
 	m_allocated_buf_cnt = cnt;
 	m_gap_end = m_allocated_buf_cnt;
@@ -192,7 +193,7 @@ int GappedBufferTmpl<T>::delete_row(int row)
 		m_row_cnt--;
 	}
 
-	if(m_row_cnt + m_max_gap_size > (m_allocated_buf_cnt * 4)) {
+	if(m_row_cnt + m_max_gap_size < (m_allocated_buf_cnt / 4)) {
 		int alloc_size = m_allocated_buf_cnt / 2;
 		if(realloc_buffer(alloc_size) != 0) return 1;
 	}

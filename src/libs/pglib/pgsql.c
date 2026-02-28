@@ -72,6 +72,10 @@ int pg_send_query(HPgSession ss, const TCHAR *sql, TCHAR *msg_buf)
 
 	buf_size = win_str_to_oci_str(sql, NULL, 0);
 	sql_buf = (char *)malloc(buf_size);
+	if(sql_buf == NULL) {
+		if(msg_buf != NULL) _stprintf(msg_buf, PGERR_MEM_ALLOC_MSG);
+		return 1;
+	}
 	win_str_to_oci_str(sql, sql_buf, buf_size);
 
 	// SQLを送信
