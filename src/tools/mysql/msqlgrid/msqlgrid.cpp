@@ -545,7 +545,6 @@ int CPsqlgridApp::PostLogin()
 	// ステータスバーに，ログイン情報を表示
 	CString session_info;
 	session_info.Format(_T("%s@%s:%s.%s"), my_user(g_ss), my_host(g_ss), my_port(g_ss), my_db(g_ss));
-	if(my_is_ssl_mode(g_ss)) session_info += "(SSL)";
 	SetSessionInfo(session_info.GetBuffer(0));
 
 	return 0;

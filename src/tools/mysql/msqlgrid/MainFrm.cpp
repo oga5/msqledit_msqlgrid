@@ -14,7 +14,7 @@
 
 #include "MainFrm.h"
 
-#include "PsqlgridDoc.h"
+#include "msqlgridDoc.h"
 
 #include "AcceleratorDlg.h"
 
