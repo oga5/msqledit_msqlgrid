@@ -49,12 +49,21 @@ unsigned int g_oci_code_page = CP_UTF8;
 
 static int oci_str_to_win_str_normal(const ocichar *src, TCHAR *dst, int sz)
 {
+    if (src == NULL) {
+        if (dst != NULL && sz > 0) dst[0] = _T('\0');
+        return 0;
+    }
     return MultiByteToWideChar(g_oci_code_page, 0, (LPCCH)src, -1, dst, sz);
 }
 
 static int oci_str_to_win_str_replace_wave_dash(const ocichar *src,
     TCHAR *dst, int sz)
 {
+    if (src == NULL) {
+        if (dst != NULL && sz > 0) dst[0] = _T('\0');
+        return 0;
+    }
+
     int r = MultiByteToWideChar(g_oci_code_page, 0, (LPCCH)src, -1, dst, sz);
 
     /* Convert Unicode wave-dash (U+301C) ↁEfullwidth tilde (U+FF5E) */

@@ -19,12 +19,15 @@ typedef char **         MYSQL_ROW;
 typedef unsigned long long my_ulonglong;
 
 typedef struct {
-    char          *catalog;
-    char          *db;
-    char          *table;
-    char          *org_table;
     char          *name;
     char          *org_name;
+    char          *table;
+    char          *org_table;
+    char          *db;
+    char          *catalog;
+    char          *def;
+    unsigned long  length;
+    unsigned long  max_length;
     unsigned int   name_length;
     unsigned int   org_name_length;
     unsigned int   table_length;
@@ -36,9 +39,7 @@ typedef struct {
     unsigned int   decimals;
     unsigned int   charsetnr;
     unsigned int   type;       /* enum_field_types / MYSQL_TYPE_* */
-    char          *def;
-    unsigned long  length;
-    unsigned long  max_length;
+    void          *extension;
 } MYSQL_FIELD;
 
 #ifndef TRUE

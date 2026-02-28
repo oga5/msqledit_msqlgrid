@@ -75,6 +75,11 @@ HMyDataset my_build_dataset_from_res(MYSQL_RES *res, TCHAR *msg_buf)
 
     /* Fetch field descriptors (valid for the lifetime of res) */
     fields = fp_mysql_fetch_fields(res);
+    if (dataset->col_cnt > 0 && fields == NULL) {
+        my_free_dataset(dataset);
+        if (msg_buf != NULL) _stprintf(msg_buf, MYERR_MEM_ALLOC_MSG);
+        return NULL;
+    }
 
     /* Allocate per-column metadata arrays */
     dataset->col_type = (unsigned int  *)malloc((size_t)dataset->col_cnt * sizeof(unsigned int));
@@ -149,7 +154,8 @@ HMyDataset my_build_dataset_from_res(MYSQL_RES *res, TCHAR *msg_buf)
        ---------------------------------------------------------------- */
     memsize = 0;
     for (c = 0; c < dataset->col_cnt; c++) {
-        int n = oci_str_to_win_str((const ocichar *)fields[c].name, NULL, 0);
+        const char *field_name = (fields[c].name != NULL) ? fields[c].name : "";
+        int n = oci_str_to_win_str((const ocichar *)field_name, NULL, 0);
         memsize += (n > 0) ? (size_t)n : 1;
     }
     for (r = 0; r < dataset->row_cnt; r++) {
@@ -180,8 +186,9 @@ HMyDataset my_build_dataset_from_res(MYSQL_RES *res, TCHAR *msg_buf)
     p = dataset->buf;
 
     for (c = 0; c < dataset->col_cnt; c++) {
+        const char *field_name = (fields[c].name != NULL) ? fields[c].name : "";
         dataset->cname[c] = p;
-        cnt = oci_str_to_win_str((const ocichar *)fields[c].name, p, (int)memsize);
+        cnt = oci_str_to_win_str((const ocichar *)field_name, p, (int)memsize);
         if (cnt > 0) p += cnt;
         else         { *p = _T('\0'); p++; }
     }

@@ -35,6 +35,48 @@ static HINSTANCE my_dll = NULL;
 #define LIBMARIADB_DLL_NAME _T("libmariadb.dll")
 #endif
 
+static HINSTANCE my_load_mysql_dll(DWORD *last_err)
+{
+    HINSTANCE h;
+    TCHAR exe_path[MAX_PATH];
+    TCHAR dll_path[MAX_PATH];
+    TCHAR *tail;
+
+    h = LoadLibrary(LIBMYSQL_DLL_NAME);
+    if (h != NULL) return h;
+    if (last_err != NULL) *last_err = GetLastError();
+
+    h = LoadLibrary(LIBMARIADB_DLL_NAME);
+    if (h != NULL) return h;
+    if (last_err != NULL) *last_err = GetLastError();
+
+    if (GetModuleFileName(NULL, exe_path, MAX_PATH) == 0) {
+        return NULL;
+    }
+
+    tail = _tcsrchr(exe_path, _T('\\'));
+    if (tail == NULL) return NULL;
+    *(tail + 1) = _T('\0');
+
+    if ((_tcslen(exe_path) + _tcslen(LIBMYSQL_DLL_NAME)) < MAX_PATH) {
+        _tcscpy(dll_path, exe_path);
+        _tcscat(dll_path, LIBMYSQL_DLL_NAME);
+        h = LoadLibrary(dll_path);
+        if (h != NULL) return h;
+        if (last_err != NULL) *last_err = GetLastError();
+    }
+
+    if ((_tcslen(exe_path) + _tcslen(LIBMARIADB_DLL_NAME)) < MAX_PATH) {
+        _tcscpy(dll_path, exe_path);
+        _tcscat(dll_path, LIBMARIADB_DLL_NAME);
+        h = LoadLibrary(dll_path);
+        if (h != NULL) return h;
+        if (last_err != NULL) *last_err = GetLastError();
+    }
+
+    return NULL;
+}
+
 /* Convenience macro: resolve one symbol; jump to ERR1 on failure. */
 #define LOAD_SYM(fp, type, name)                                    \
     do {                                                            \
@@ -50,12 +92,14 @@ static HINSTANCE my_dll = NULL;
 
 int my_init_library(TCHAR *msg_buf)
 {
-    my_dll = LoadLibrary(LIBMYSQL_DLL_NAME);
+    DWORD last_err = 0;
+
+    my_dll = my_load_mysql_dll(&last_err);
     if (my_dll == NULL) {
-        my_dll = LoadLibrary(LIBMARIADB_DLL_NAME);
-    }
-    if (my_dll == NULL) {
-        if (msg_buf != NULL) _stprintf(msg_buf, MYERR_LOAD_LIBMYSQL_MSG);
+        if (msg_buf != NULL) {
+            _stprintf(msg_buf, _T("%s (Win32Error=%lu)"),
+                MYERR_LOAD_LIBMYSQL_MSG, (unsigned long)last_err);
+        }
         return MYERR_LOAD_LIBMYSQL;
     }
 
@@ -96,11 +140,15 @@ int my_init_library(TCHAR *msg_buf)
     return 0; /* OK */
 
 ERR1:
+    last_err = GetLastError();
     if (my_dll != NULL) {
         FreeLibrary(my_dll);
         my_dll = NULL;
     }
-    if (msg_buf != NULL) _stprintf(msg_buf, MYERR_INIT_LIBMYSQL_MSG);
+    if (msg_buf != NULL) {
+        _stprintf(msg_buf, _T("%s (Win32Error=%lu)"),
+            MYERR_INIT_LIBMYSQL_MSG, (unsigned long)last_err);
+    }
     return MYERR_INIT_LIBMYSQL;
 }
 
