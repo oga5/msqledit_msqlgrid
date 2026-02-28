@@ -1463,6 +1463,18 @@ int CTableListDlg::SetUserList(const TCHAR *user_name)
 			p_combo->SetCurSel(item);
 		}
 	}
+
+	if(p_combo->GetCurSel() == CB_ERR) {
+		const TCHAR *cur_db = my_db(g_ss);
+		for(i = 0; i < p_combo->GetCount(); i++) {
+			CString str;
+			p_combo->GetLBText(i, str);
+			if(_tcscmp(cur_db, str) == 0) {
+				p_combo->SetCurSel(i);
+				break;
+			}
+		}
+	}
 /*
 	item = p_combo->AddString(ALL_USERS);
 	if(item == CB_ERR) {
