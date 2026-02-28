@@ -1,20 +1,24 @@
-# psqledit / psqlgrid
+# msqledit / msqlgrid
 
 ## 概要
 
 このリポジトリには、2つのプロジェクトが含まれています：
 
-1. **psqledit** - PostgreSQL用SQLエディタ  
+1. **msqledit** - MySQL用SQLエディタ  
    - SQLの編集や実行に特化したエディタです。
 
-2. **psqlgrid** - PostgreSQL用グリッドビューア  
+2. **msqlgrid** - MySQL用グリッドビューア  
    - データベースのテーブルデータをグリッド形式で表示・編集できるツールです。
+
+これらはPostgreSQL用ツール（psqledit / psqlgrid）をベースにMySQL対応したものです。
 
 ## ライセンス
 
-このプロジェクトはBSD 2-Clause Licenseの下でライセンスされています。詳細は `LICENSE_BSD.txt` をご覧ください。
+このプロジェクトはGNU General Public License v2.0 or later の下でライセンスされています。詳細は `LICENSE` をご覧ください。
 
-注意: 一部のファイルはBSD以外のライセンスが適用されている場合があります。それらのファイルについては、各ファイルの先頭にライセンス情報が記載されています。
+元になったPostgreSQL用ツール（psqledit / psqlgrid）のコードはBSD 2-Clause Licenseの下でライセンスされています。詳細は `LICENSE_BSD.txt` をご覧ください。
+
+MySQL対応部分（`src/libs/mylib/`、`src/tools/mysql/`）の各ソースファイルには、GPL v2.0 or later と元のBSD License の両方のライセンス表記が記載されています。
 
 ## ダウンロード
 
@@ -25,18 +29,18 @@
 
 ### 必要環境
 
-- Visual Studio 2022
+- Visual Studio 2026
 
 ### ビルド手順
 
-#### psqleditのビルド
+#### msqleditのビルド
 
-1. Visual Studioで `src\tools\common_editor\psqledit\psqledit.sln` を開きます
+1. Visual Studioで `src\tools\mysql\msqledit\msqledit.sln` を開きます
 2. ビルドを実行します
 
-#### psqlgridのビルド
+#### msqlgridのビルド
 
-1. Visual Studioで `src\tools\common_editor\psqlgrid\psqlgrid.sln` を開きます
+1. Visual Studioで `src\tools\mysql\msqlgrid\msqlgrid.sln` を開きます
 2. ビルドを実行します
 
 ビルドが成功すると、リポジトリのルートに以下のフォルダが作成されます：
@@ -48,8 +52,8 @@
 
 ### 実行方法
 
-実行するにはlibpd.dllが必要です
-exeファイルと同じ場所においてください
+実行するにはlibmysql.dllが必要です。
+exeファイルと同じ場所においてください。
 
 ## ロードマップ
 
