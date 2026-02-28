@@ -1019,6 +1019,8 @@ void CTableListDlg::SplitSchemaAndTable(const TCHAR *name, CString &schema_name,
 	if(table_name1.Find(_T(".")) == -1) {
 		schema_name = _T("");
 		table_name = table_name1;
+		table_name.Replace(_T("\""), _T(""));
+		table_name.Replace(_T("`"), _T(""));
 		return;
 	}
 
@@ -1027,6 +1029,8 @@ void CTableListDlg::SplitSchemaAndTable(const TCHAR *name, CString &schema_name,
 
 	schema_name.Replace(_T("\""), _T(""));
 	table_name.Replace(_T("\""), _T(""));
+	schema_name.Replace(_T("`"), _T(""));
+	table_name.Replace(_T("`"), _T(""));
 }
 
 CString CTableListDlg::GetTableOwner(const TCHAR *name)
