@@ -513,7 +513,6 @@ copy doc\*.txt $(OutDir)doc
     <Text Include="doc\LICENSE_MINISCHEME.txt" />
     <Text Include="doc\LICENSE_PostgreSQL.txt" />
     <Text Include="doc\LICENSE_TINYSCHEME.txt" />
-    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\libs\mylib\mylib.vcxproj">
