@@ -410,7 +410,6 @@ copy doc\*.txt $(OutDir)doc
     <Text Include="doc\LICENSE_MINISCHEME.txt" />
     <Text Include="doc\LICENSE_PostgreSQL.txt" />
     <Text Include="doc\LICENSE_TINYSCHEME.txt" />
-    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

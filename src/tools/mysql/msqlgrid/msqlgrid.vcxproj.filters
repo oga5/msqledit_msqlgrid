@@ -236,7 +236,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
     <Text Include="doc\credits.txt">
       <Filter>Source Files\doc</Filter>
     </Text>
