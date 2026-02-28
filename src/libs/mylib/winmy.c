@@ -31,6 +31,10 @@ static HINSTANCE my_dll = NULL;
 #define LIBMYSQL_DLL_NAME   _T("libmysql.dll")
 #endif
 
+#ifndef LIBMARIADB_DLL_NAME
+#define LIBMARIADB_DLL_NAME _T("libmariadb.dll")
+#endif
+
 /* Convenience macro: resolve one symbol; jump to ERR1 on failure. */
 #define LOAD_SYM(fp, type, name)                                    \
     do {                                                            \
@@ -47,6 +51,9 @@ static HINSTANCE my_dll = NULL;
 int my_init_library(TCHAR *msg_buf)
 {
     my_dll = LoadLibrary(LIBMYSQL_DLL_NAME);
+    if (my_dll == NULL) {
+        my_dll = LoadLibrary(LIBMARIADB_DLL_NAME);
+    }
     if (my_dll == NULL) {
         if (msg_buf != NULL) _stprintf(msg_buf, MYERR_LOAD_LIBMYSQL_MSG);
         return MYERR_LOAD_LIBMYSQL;
