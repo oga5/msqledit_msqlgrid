@@ -552,7 +552,7 @@ int CMsqleditApp::PostLogin()
 	int ret_v;
 
 	// オブジェクトバーを初期化
-	ret_v = g_object_bar.InitializeList(my_user(g_ss));
+	ret_v = g_object_bar.InitializeList(my_db(g_ss));
 	if(ret_v != 0) return 1;
 
 	m_h_thread = _beginthreadex(NULL, 0, post_login_thr, NULL, 0, &thread_addr);

@@ -144,7 +144,7 @@ int CObjectBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	CRect rect(0, 0, 100, 100);
 
-	m_static_owner.Create(_T("owner"), WS_CHILD | WS_VISIBLE, rect, this);
+	m_static_owner.Create(_T("DB"), WS_CHILD | WS_VISIBLE, rect, this);
 
 	m_combo_owner.Create(CBS_DROPDOWNLIST | WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_TABSTOP,
 		rect, this, OWNER_COMBO_CTRL_ID);
