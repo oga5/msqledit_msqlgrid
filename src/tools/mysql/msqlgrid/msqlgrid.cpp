@@ -117,16 +117,16 @@ ERR1:
 	return ret_v;
 }
 
-static void get_psqledit_profname(CString &prof_name, CString &registry_key)
+static void get_msqledit_profname(CString &prof_name, CString &registry_key)
 {
 	CWinApp *pApp = AfxGetApp();
 
 	registry_key = _T("OGAWA\\POSTGRESQL");
-	prof_name = _T("psqledit");
+	prof_name = _T("msqledit");
 
 	// psqleditの設定が，INIファイルを使うか調べる
 	CString file_name;
-	file_name.Format(_T("%spsqledit.ini"), GetAppPath());
+	file_name.Format(_T("%smsqledit.ini"), GetAppPath());
 
 	if(is_file_exist(file_name) == FALSE) return;
 
@@ -512,7 +512,7 @@ int CPsqlgridApp::Login()
 		CString prof_name;
 		CString registry_key;
 
-		get_psqledit_profname(prof_name, registry_key);
+		get_msqledit_profname(prof_name, registry_key);
 		dlg.SetOptProfName(prof_name, registry_key);
 	}
 
