@@ -138,6 +138,14 @@ struct my_dataset_st {
 };
 
 /* -----------------------------------------------------------------------
+   mysql_option constants (subset used by this library).
+   Values match <mysql.h> enum mysql_option and are stable across versions.
+   ----------------------------------------------------------------------- */
+#define MYSQL_OPT_CONNECT_TIMEOUT    0
+#define MYSQL_OPT_READ_TIMEOUT      11
+#define MYSQL_OPT_WRITE_TIMEOUT     12
+
+/* -----------------------------------------------------------------------
    Function-pointer typedefs for libmysql.dll
    ----------------------------------------------------------------------- */
 typedef MYSQL *(*FP_mysql_init)(MYSQL *mysql);

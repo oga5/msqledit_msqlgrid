@@ -223,6 +223,15 @@ HMySession my_login(const TCHAR *host, const TCHAR *user, const TCHAR *passwd,
         return NULL;
     }
 
+    /* Limit blocking time so a wrong password or unreachable host does not
+     * stall the UI indefinitely. */
+    {
+        unsigned int timeout = 5; /* seconds */
+        fp_mysql_options(ss->conn, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
+        fp_mysql_options(ss->conn, MYSQL_OPT_READ_TIMEOUT,    &timeout);
+        fp_mysql_options(ss->conn, MYSQL_OPT_WRITE_TIMEOUT,   &timeout);
+    }
+
     if (fp_mysql_real_connect(ss->conn,
             host_buf, user_buf, passwd_buf, db_buf,
             port_num, NULL, 0) == NULL)
