@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ で生成されたインクルード ファイル。
-// msqledit.rc で使用
+// Microsoft Visual C++ generated include file.
+// Used by msqledit.rc
 //
 #define IDC_BTN_BOTTOM                  3
 #define IDALLYES                        4
