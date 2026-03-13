@@ -476,6 +476,8 @@ BOOL CTableListDlg::OnInitDialog()
 		return TRUE;
 	}
 
+	m_owner = GetOwner();
+
 	if(SetTableList(m_owner) != 0) {
 		EndDialog(IDCANCEL);
 		return TRUE;

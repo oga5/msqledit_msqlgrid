@@ -46,8 +46,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define MIN_DLG_SIZE_X	350
-#define MIN_DLG_SIZE_Y	350
+#define MIN_DLG_SIZE_X	600
+#define MIN_DLG_SIZE_Y	450
 #define KEYWORD_EDIT_CTRL_ID	203
 
 static CString GetFilterFileName()

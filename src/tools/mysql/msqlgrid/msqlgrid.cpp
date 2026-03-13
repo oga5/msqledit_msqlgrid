@@ -121,7 +121,7 @@ static void get_msqledit_profname(CString &prof_name, CString &registry_key)
 {
 	CWinApp *pApp = AfxGetApp();
 
-	registry_key = _T("OGAWA\\POSTGRESQL");
+	registry_key = _T("OGAWA\\MYSQL");
 	prof_name = _T("msqledit");
 
 	// psqleditの設定が，INIファイルを使うか調べる
@@ -191,7 +191,7 @@ BOOL CPsqlgridApp::InitInstance()
 	// 設定が保存される下のレジストリ キーを変更します。
 	// 会社名または所属など、適切な文字列に
 	// 変更してください。
-	SetRegistryKey(_T("OGAWA\\POSTGRESQL"));
+	SetRegistryKey(_T("OGAWA\\MYSQL"));
 
 	LoadStdProfileSettings(0);  // 標準の INI ファイルのオプションをロードします (MRU を含む)
 	LoadOption();

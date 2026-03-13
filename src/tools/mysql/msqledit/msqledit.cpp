@@ -305,7 +305,7 @@ void CMsqleditApp::OnAppAbout()
 
 void CMsqleditApp::SetRegistry()
 {
-	SetRegistryKey(_T("OGAWA\\POSTGRESQL"));
+	SetRegistryKey(_T("OGAWA\\MYSQL"));
 }
 
 void CMsqleditApp::LoadFontOption()
