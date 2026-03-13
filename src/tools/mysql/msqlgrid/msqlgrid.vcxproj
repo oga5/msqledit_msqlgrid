@@ -403,7 +403,7 @@ copy doc\*.txt $(OutDir)doc
     <CustomBuild Include="res\msqlgrid.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="changelog.txt" />
+    <Text Include="changelog_g.txt" />
     <Text Include="doc\credits.txt" />
     <Text Include="doc\LICENSE_BSD.txt" />
     <Text Include="doc\LICENSE_CSizingControlBar.txt.txt" />
