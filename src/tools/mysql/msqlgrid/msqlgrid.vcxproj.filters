@@ -254,7 +254,7 @@
     <Text Include="doc\LICENSE_BSD.txt">
       <Filter>Source Files\doc</Filter>
     </Text>
-    <Text Include="Changelog.txt" />
+    <Text Include="changelog.txt" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="res\msqlgrid.rc2">
