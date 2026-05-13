@@ -73,6 +73,8 @@ static void snake(int_v *fp, int_v *lst, path_v *path, int k,
 #define MAX_COORDINATES_SIZE	2000
 /* 再開境界の揺らぎを吸収するため、直近の操作をこの件数だけ再計算対象に戻す */
 #define RESUME_ROLLBACK_OPS	128
+/* 再開時に最低1ステップは前進を残し、同一点再開によるループを防ぐ */
+#define MIN_RESUME_PROGRESS	1
 
 static void rollback_result_tail(diff_result_v *result,
 	int *x0, int *y0, int *diff_cnt,
@@ -80,13 +82,15 @@ static void rollback_result_tail(diff_result_v *result,
 	int a_start, int b_start)
 {
 	int rollback_cnt = 0;
+	/* x/y のどちらか一方のみ進んだ区間（insert/delete連続）も巻き戻せるよう OR 条件にする */
 	while (!result->empty() && rollback_cnt < RESUME_ROLLBACK_OPS
 		&& (*x0 > a_start || *y0 > b_start)
-		&& ((*x0 - a_start) + (*y0 - b_start) > 1))
+		&& ((*x0 - a_start) + (*y0 - b_start) > MIN_RESUME_PROGRESS))
 	{
 		struct _diff_result_st tail = result->back();
 		result->pop_back();
 
+		/* 各座標は個別の境界チェック付きで減算し、a_start/b_start 未満にしない */
 		if (tail.cmd == DIFF_COMMON) {
 			if (*x0 > a_start) (*x0)--;
 			if (*y0 > b_start) (*y0)--;
