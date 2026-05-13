@@ -70,6 +70,35 @@ static void snake(int_v *fp, int_v *lst, path_v *path, int k,
 
 
 #define MAX_CORDINATES_SIZE	2000
+#define RESUME_ROLLBACK_OPS	128
+
+static void rollback_result_tail(diff_result_v *result,
+	int *x0, int *y0, int *diff_cnt,
+	enum diff_result_status del_cmd, enum diff_result_status ins_cmd,
+	int a_start, int b_start)
+{
+	int rollback_cnt = 0;
+	while(!result->empty() && rollback_cnt < RESUME_ROLLBACK_OPS
+		&& (*x0 > a_start || *y0 > b_start)
+		&& ((*x0 - a_start) + (*y0 - b_start) > 1))
+	{
+		struct _diff_result_st tail = result->back();
+		result->pop_back();
+
+		if(tail.cmd == DIFF_COMMON) {
+			if(*x0 > a_start) (*x0)--;
+			if(*y0 > b_start) (*y0)--;
+		} else if(tail.cmd == del_cmd) {
+			if(*x0 > a_start) (*x0)--;
+			if(*diff_cnt > 0) (*diff_cnt)--;
+		} else if(tail.cmd == ins_cmd) {
+			if(*y0 > b_start) (*y0)--;
+			if(*diff_cnt > 0) (*diff_cnt)--;
+		}
+
+		rollback_cnt++;
+	}
+}
 
 static diff_result_v *diff_onp(CGridData *a, CGridData *b, 
 	enum diff_result_status del_cmd, enum diff_result_status ins_cmd,
@@ -161,6 +190,9 @@ ONP:
                 }
             }
             if(end_flg) return result;
+
+			rollback_result_tail(result, &x0, &y0, diff_cnt, del_cmd, ins_cmd,
+				a_start, b_start);
 
 			a_start = x0;
 			b_start = y0;
