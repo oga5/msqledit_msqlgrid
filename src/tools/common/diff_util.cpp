@@ -69,7 +69,9 @@ static void snake(int_v *fp, int_v *lst, path_v *path, int k,
 }
 
 
-#define MAX_CORDINATES_SIZE	2000
+/* path座標をこの件数まで保持し、超えた場合は途中結果を確定して再開する */
+#define MAX_COORDINATES_SIZE	2000
+/* 再開境界の揺らぎを吸収するため、直近の操作をこの件数だけ再計算対象に戻す */
 #define RESUME_ROLLBACK_OPS	128
 
 static void rollback_result_tail(diff_result_v *result,
@@ -78,22 +80,22 @@ static void rollback_result_tail(diff_result_v *result,
 	int a_start, int b_start)
 {
 	int rollback_cnt = 0;
-	while(!result->empty() && rollback_cnt < RESUME_ROLLBACK_OPS
+	while (!result->empty() && rollback_cnt < RESUME_ROLLBACK_OPS
 		&& (*x0 > a_start || *y0 > b_start)
 		&& ((*x0 - a_start) + (*y0 - b_start) > 1))
 	{
 		struct _diff_result_st tail = result->back();
 		result->pop_back();
 
-		if(tail.cmd == DIFF_COMMON) {
-			if(*x0 > a_start) (*x0)--;
-			if(*y0 > b_start) (*y0)--;
-		} else if(tail.cmd == del_cmd) {
-			if(*x0 > a_start) (*x0)--;
-			if(*diff_cnt > 0) (*diff_cnt)--;
-		} else if(tail.cmd == ins_cmd) {
-			if(*y0 > b_start) (*y0)--;
-			if(*diff_cnt > 0) (*diff_cnt)--;
+		if (tail.cmd == DIFF_COMMON) {
+			if (*x0 > a_start) (*x0)--;
+			if (*y0 > b_start) (*y0)--;
+		} else if (tail.cmd == del_cmd) {
+			if (*x0 > a_start) (*x0)--;
+			if (*diff_cnt > 0) (*diff_cnt)--;
+		} else if (tail.cmd == ins_cmd) {
+			if (*y0 > b_start) (*y0)--;
+			if (*diff_cnt > 0) (*diff_cnt)--;
 		}
 
 		rollback_cnt++;
@@ -141,7 +143,7 @@ ONP:
 
 		bool end_flg = ((*fp)[(size_t)delta + m + 1] >= n);
 
-        if(end_flg || path->size() > MAX_CORDINATES_SIZE) {
+        if(end_flg || path->size() > MAX_COORDINATES_SIZE) {
             int pt = (*lst)[(size_t)delta + m + 1];
 			list_v	list;
 
