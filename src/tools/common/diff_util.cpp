@@ -76,6 +76,15 @@ static void snake(int_v *fp, int_v *lst, path_v *path, int k,
 /* 再開時に最低1ステップは前進を残し、同一点再開によるループを防ぐ */
 #define MIN_RESUME_PROGRESS	1
 
+static int calc_resume_progress(int x0, int y0, int a_start, int b_start)
+{
+	int dx = x0 - a_start;
+	int dy = y0 - b_start;
+	if(dx < 0) dx = 0;
+	if(dy < 0) dy = 0;
+	return dx + dy;
+}
+
 static void rollback_result_tail(diff_result_v *result,
 	int *x0, int *y0, int *diff_cnt,
 	enum diff_result_status del_cmd, enum diff_result_status ins_cmd,
@@ -85,7 +94,7 @@ static void rollback_result_tail(diff_result_v *result,
 	/* x/y のどちらか一方のみ進んだ区間（insert/delete連続）も巻き戻せるよう OR 条件にする */
 	while (!result->empty() && rollback_cnt < RESUME_ROLLBACK_OPS
 		&& (*x0 > a_start || *y0 > b_start)
-		&& ((*x0 - a_start) + (*y0 - b_start) > MIN_RESUME_PROGRESS))
+		&& (calc_resume_progress(*x0, *y0, a_start, b_start) > MIN_RESUME_PROGRESS))
 	{
 		struct _diff_result_st tail = result->back();
 		result->pop_back();
